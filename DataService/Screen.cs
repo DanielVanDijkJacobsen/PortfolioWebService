@@ -4,9 +4,10 @@ using System.Text;
 
 namespace DataServiceLibrary
 {
-    public class Actor
+    public class Screen
     {
         public string Id { get; set; }
-        public string PrimaryName { get; set; }
+        public string PrimaryTitle { get; set; }
+        public List<string> CastList;
     }
 }

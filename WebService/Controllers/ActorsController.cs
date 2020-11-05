@@ -20,10 +20,14 @@ namespace WebService.Controllers
         }
 
         [HttpGet("actors/{id}")]
-        public JsonResult GetActorById(int id)
+        public JsonResult GetActorById(string id)
         {
             var dataService = new DataService();
             var actor = dataService.GetActorById(id);
+            if (actor == null)
+            {
+                return new JsonResult(NotFound());
+            }
 
             return new JsonResult(actor);
         }
