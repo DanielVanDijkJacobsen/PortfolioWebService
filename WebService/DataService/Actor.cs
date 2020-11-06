@@ -6,7 +6,7 @@ namespace DataServiceLibrary
 {
     public class Actor
     {
-        public string Id { get; set; }
-        public string PrimaryName { get; set; }
+        public int Id { get; set; }
+        public string Primaryname { get; set; }
     }
 }
