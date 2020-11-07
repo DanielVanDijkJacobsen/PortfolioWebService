@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataServiceLibrary
 {
-    public class DataService
+    public class DataService : IDataService
     {
         private List<Cast> _casts = new List<Cast>
         {

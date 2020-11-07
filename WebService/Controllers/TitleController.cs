@@ -4,13 +4,41 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DataServiceLibrary;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WebService.Controllers
 {
     [ApiController]
-    public class TitleController
+    [Route("api/titles")]
+    public class TitleController : ControllerBase
     {
-        [HttpGet("titles")]
+        private readonly IDataService _dataService;
+        //private mapper
+        private const int MaxPageSize = 50;
+
+        public TitleController(IDataService dataService /*, Mapper mapper*/)
+        {
+            _dataService = dataService;
+            //private mapper
+        }
+        [HttpGet()]
+
+
+        [HttpGet("{id}", Name = nameof(GetTitle))]
+        public IActionResult GetTitle(string id)
+        {
+            var title = _dataService.GetTitle(id);
+            if (title == null)
+            {
+                return NotFound();
+            }
+
+            //Find mapper 
+
+            return Ok(title); //Needs more code...
+        }
+
+        /*[HttpGet("titles")]
         public JsonResult GetTitles()
         {
             var dataService = new DataService();
@@ -26,6 +54,6 @@ namespace WebService.Controllers
             var title = dataService.GetTitle(id);
 
             return new JsonResult(title);
-        }
+        }*/
     }
 }
