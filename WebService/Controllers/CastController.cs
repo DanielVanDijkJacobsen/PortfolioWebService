@@ -2,30 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DataServiceLibrary;
 using Microsoft.AspNetCore.Mvc;
+using WebService.DataTransferModels;
 
 namespace WebService.Controllers
 {
     [ApiController]
+    [Route("api/cast")]
     public class CastController : ControllerBase
     {
-        [HttpGet("cast")]
-        public JsonResult GetCast()
-        {
-            var dataService = new DataService();
-            var casts = dataService.GetCasts();
+        private readonly IDataService _dataService;
+        private readonly IMapper _mapper;
+        private const int MaxPageSize = 50;
 
-            return new JsonResult(casts);
+        public CastController(IDataService dataService, IMapper mapper)
+        {
+            _dataService = dataService;
+            _mapper = mapper;
+        }
+        [HttpGet]
+        public IActionResult GetCasts()
+        {
+            var casts = _dataService.GetCasts();
+
+            return Ok(_mapper.Map<IEnumerable<CastDto>>(casts));
         }
 
-        [HttpGet("cast/{id}")]
-        public JsonResult GetCast(string id)
-        {
-            var dataService = new DataService();
-            var cast = dataService.GetCast(id);
 
-            return new JsonResult(cast);
+        [HttpGet("{id}", Name = nameof(GetCast))]
+        public IActionResult GetCast(string id)
+        {
+            var cast = _dataService.GetCast(id);
+
+            if (cast == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<CastDto>(cast));
         }
     }
 }

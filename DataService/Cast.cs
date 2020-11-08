@@ -8,6 +8,5 @@ namespace DataServiceLibrary
     {
         public string Id { get; set; }
         public string PrimaryName { get; set; }
-        public List<string> CastTitlesIds;
     }
 }
