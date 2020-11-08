@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebService.Controllers
+namespace WebService.DataTransferModels
 {
-    public class ScreensController
+    public class TitleForCreationOrUpdateDto
     {
     }
 }

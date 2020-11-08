@@ -5,22 +5,36 @@ using System.Text;
 
 namespace DataServiceLibrary
 {
-    public class DataService
+    public class DataService : IDataService
     {
-        //contains mockup dummy actors.
-        private List<Actor> _actors = new List<Actor>
+        private List<Cast> _casts = new List<Cast>
         {
-            new Actor{Id = "0", PrimaryName = "John Doe"}
+            new Cast{Id = "0", PrimaryName = "John Doe"}
         };
 
-        public IList<Actor> GetActors() //Should return list of actors from DB.
+        private List<Title> _titles = new List<Title>
         {
-            return _actors;
+            new Title {Id = "0", PrimaryTitle = "Monty Python and the Holy Grail"}
+        };
+
+        public IList<Cast> GetCasts()
+        {
+            return _casts;
         }
 
-        public Actor GetActorById(string id) //
+        public Cast GetCast(string id)
         {
-            return _actors.FirstOrDefault(x => x.Id == id);
+            return _casts.FirstOrDefault(x => x.Id == id);
+        }
+
+        public IList<Title> GetTitles()
+        {
+            return _titles;
+        }
+
+        public Title GetTitle(string id)
+        {
+            return _titles.FirstOrDefault(x => x.Id == id);
         }
     }
 }
