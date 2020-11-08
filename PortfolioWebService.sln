@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebService", "WebService\WebService.csproj", "{86C504E5-CC84-4FD3-AF3E-26178D0962BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebService", "WebService\WebService.csproj", "{86C504E5-CC84-4FD3-AF3E-26178D0962BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataServiceLibrary", "DataService\DataServiceLibrary.csproj", "{A45B9CC8-5677-46F1-A139-841F2D691958}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDBDataService", "..\ImdbDataLayer\IMDBDataService.csproj", "{2A0D5860-FEF0-48EA-8454-5388DD13B5BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{86C504E5-CC84-4FD3-AF3E-26178D0962BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86C504E5-CC84-4FD3-AF3E-26178D0962BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86C504E5-CC84-4FD3-AF3E-26178D0962BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A45B9CC8-5677-46F1-A139-841F2D691958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A45B9CC8-5677-46F1-A139-841F2D691958}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A45B9CC8-5677-46F1-A139-841F2D691958}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A45B9CC8-5677-46F1-A139-841F2D691958}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A0D5860-FEF0-48EA-8454-5388DD13B5BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A0D5860-FEF0-48EA-8454-5388DD13B5BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A0D5860-FEF0-48EA-8454-5388DD13B5BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A0D5860-FEF0-48EA-8454-5388DD13B5BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using IMDBDataService;
+using IMDBDataService.BusinessLogic;
 using IMDBDataService.Objects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -16,10 +17,10 @@ namespace WebService.Controllers
     [ApiController]
     public class RatingsController : ControllerBase
     {
-        private readonly IDataService _dataService;
+        private readonly ITitlesDataService _dataService;
         private readonly IMapper _mapper;
 
-        public RatingsController(IDataService dataService, IMapper mapper)
+        public RatingsController(ITitlesDataService dataService, IMapper mapper)
         {
             _dataService = dataService;
             _mapper = mapper;

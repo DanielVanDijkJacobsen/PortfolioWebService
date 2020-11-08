@@ -19,10 +19,10 @@ namespace WebService.Profiles
                     opt => opt.MapFrom<UserNameResolver>());
             CreateMap<UserForCreateOrUpdateDto, Users>()
                 .ForMember(
-                dest => dest.user_name,
+                dest => dest.Name,
                 opt => opt.MapFrom(src => src.Name)
             ).ForMember(
-                dest => dest.user_pass,
+                dest => dest.Password,
                 opt => opt.MapFrom(src => src.Password)
             );
         }

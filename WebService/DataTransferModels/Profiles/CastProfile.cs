@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using DataServiceLibrary;
+using IMDBDataService.Objects;
 
 namespace WebService.DataTransferModels.Profiles
 {
@@ -11,7 +11,7 @@ namespace WebService.DataTransferModels.Profiles
     {
         public CastProfile()
         {
-            CreateMap<Cast, CastDto>();
+            CreateMap<Casts, CastDto>();
         }
     }
 }

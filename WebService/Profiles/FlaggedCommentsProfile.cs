@@ -12,8 +12,8 @@ namespace WebService.Profiles
     {
         public FlaggedCommentsProfile()
         {
-            CreateMap<FlaggedComments, FlaggedCommentDto>();
-            CreateMap<FlaggedCommentForCreateDto, FlaggedComments>();
+            CreateMap<FlaggedComment, FlaggedCommentDto>();
+            CreateMap<FlaggedCommentForCreateDto, FlaggedComment>();
         }
     }
 }

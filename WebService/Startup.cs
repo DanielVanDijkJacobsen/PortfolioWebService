@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using IMDBDataService;
+using IMDBDataService.BusinessLogic;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,7 +46,7 @@ namespace WebService
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
-            services.AddSingleton<IDataService, DataService>();
+            services.AddSingleton<IFrameworkDataService, IFrameworkDataService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 

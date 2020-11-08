@@ -19,8 +19,8 @@ namespace WebService.Utils
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[] {
-                new Claim("email", userInfo.email),
-                new Claim("email", userInfo.email),
+                new Claim("email", userInfo.Email),
+                new Claim("email", userInfo.Email),
             };
 
             var token = new JwtSecurityToken(config["Jwt:Issuer"],
@@ -31,6 +31,5 @@ namespace WebService.Utils
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
     }
 }

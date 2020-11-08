@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AutoMapper;
-using DataServiceLibrary;
+using IMDBDataService.BusinessLogic;
 using Microsoft.AspNetCore.Mvc;
 using WebService.DataTransferModels;
 
@@ -13,11 +10,11 @@ namespace WebService.Controllers
     [Route("api/cast")]
     public class CastController : ControllerBase
     {
-        private readonly IDataService _dataService;
+        private readonly ITitlesDataService _dataService;
         private readonly IMapper _mapper;
         private const int MaxPageSize = 50;
 
-        public CastController(IDataService dataService, IMapper mapper)
+        public CastController(ITitlesDataService dataService, IMapper mapper)
         {
             _dataService = dataService;
             _mapper = mapper;
@@ -25,7 +22,7 @@ namespace WebService.Controllers
         [HttpGet]
         public IActionResult GetCasts()
         {
-            var casts = _dataService.GetCasts();
+            var casts = _dataService.GetAllCasts().Result;
 
             return Ok(_mapper.Map<IEnumerable<CastDto>>(casts));
         }
@@ -34,7 +31,7 @@ namespace WebService.Controllers
         [HttpGet("{id}", Name = nameof(GetCast))]
         public IActionResult GetCast(string id)
         {
-            var cast = _dataService.GetCast(id);
+            var cast = _dataService.GetCastById(id).Result;
 
             if (cast == null)
             {

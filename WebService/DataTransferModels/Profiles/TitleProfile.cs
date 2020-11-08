@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using DataServiceLibrary;
+using IMDBDataService.Objects;
 
 namespace WebService.DataTransferModels.Profiles
 {
@@ -12,7 +12,7 @@ namespace WebService.DataTransferModels.Profiles
     {
         public TitleProfile()
         {
-            CreateMap<Title, TitleDto>();
+            CreateMap<Titles, TitleDto>();
             //CreateMap<TitleForCreationOrUpdateDto, Title>();
         }
     }

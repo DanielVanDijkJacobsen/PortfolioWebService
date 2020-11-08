@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using IMDBDataService;
+﻿using AutoMapper;
+using IMDBDataService.BusinessLogic;
 using IMDBDataService.CustomTypes;
 using IMDBDataService.Objects;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebService.DTOs;
+
 
 namespace WebService.Controllers
 {
@@ -17,10 +13,10 @@ namespace WebService.Controllers
     [ApiController]
     public class BookmarksController : ControllerBase
     {
-        private readonly IDataService _dataService;
+        private readonly IFrameworkDataService _dataService;
         private readonly IMapper _mapper;
 
-        public BookmarksController(IDataService dataService, IMapper mapper)
+        public BookmarksController(IFrameworkDataService dataService, IMapper mapper)
         {
             _dataService = dataService;
             _mapper = mapper;
@@ -61,13 +57,13 @@ namespace WebService.Controllers
             switch (type)
             {
                 case "title":
-                    bookmark.bookmark_type = BookmarkType.title;
+                    bookmark.BookmarkType= BookmarkType.title;
                     break;
                 case "actor":
-                    bookmark.bookmark_type = BookmarkType.person;
+                    bookmark.BookmarkType = BookmarkType.person;
                     break;
                 case "user":
-                    bookmark.bookmark_type = BookmarkType.user;
+                    bookmark.BookmarkType = BookmarkType.user;
                     break;
             }
 

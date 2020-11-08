@@ -17,13 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataService\DataServiceLibrary.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="IMDBDataService">
-      <HintPath>..\..\ImdbDataLayer\bin\Debug\netcoreapp3.1\IMDBDataService.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\ImdbDataLayer\IMDBDataService.csproj" />
   </ItemGroup>
 
 </Project>

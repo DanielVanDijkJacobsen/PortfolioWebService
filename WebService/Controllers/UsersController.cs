@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using AutoMapper;
 using IMDBDataService;
+using IMDBDataService.BusinessLogic;
 using IMDBDataService.Objects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
@@ -21,11 +22,11 @@ namespace WebService.Controllers
     [Route("api/users")]
     public class UsersController : ControllerBase
     {
-        private readonly IDataService _dataService;
+        private readonly IFrameworkDataService _dataService;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
 
-        public UsersController(IDataService dataService, IMapper mapper, IConfiguration config)
+        public UsersController(IFrameworkDataService dataService, IMapper mapper, IConfiguration config)
         {
             _dataService = dataService;
             _mapper = mapper;
@@ -76,7 +77,7 @@ namespace WebService.Controllers
             userForCreateOrUpdateDto.Salt = salt;
 
             var user = _mapper.Map<Users>(userForCreateOrUpdateDto);
-            user.derived_age = 25;
+            user.Age = 25;
 
             _dataService.CreateUser(user);
             var jwtToken = GenerateWebToken.Generate(user, _config);
@@ -98,12 +99,12 @@ namespace WebService.Controllers
 
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: userForCreateOrUpdateDto.Password,
-                salt: user.salt,
+                salt: user.Salt,
                 prf: KeyDerivationPrf.HMACSHA1,
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8));
 
-            var validatedUser = _dataService.ValidatePassword(user.email, hashed).Result;
+            var validatedUser = _dataService.ValidateUserByPassword(user.Email, hashed).Result;
 
             if (validatedUser == null)
             {
