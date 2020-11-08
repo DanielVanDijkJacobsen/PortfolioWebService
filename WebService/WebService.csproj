@@ -20,4 +20,14 @@
     <ProjectReference Include="..\..\ImdbDataLayer\IMDBDataService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DataService\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="IMDBDataService">
+      <HintPath>DataService\IMDBDataService.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
