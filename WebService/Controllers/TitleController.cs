@@ -21,7 +21,14 @@ namespace WebService.Controllers
             _dataService = dataService;
             //private mapper
         }
-        [HttpGet()]
+
+        [HttpGet]
+        public IActionResult GetTitles()
+        {
+            var titles = _dataService.GetTitles();
+
+            return Ok(titles);
+        }
 
 
         [HttpGet("{id}", Name = nameof(GetTitle))]
