@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AutoMapper;
-using IMDBDataService.BusinessLogic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using WebService.DataTransferModels;
+using WebService.DataService.BusinessLogic;
+using WebService.DTOs;
 
 namespace WebService.Controllers
 {
@@ -28,7 +24,6 @@ namespace WebService.Controllers
         public IActionResult GetTitles()
         {
             var titles = _dataService.GetAllTitles().Result;
-
             return Ok(_mapper.Map<IEnumerable<TitleDto>>(titles));
         }
 
@@ -41,9 +36,7 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-
             return Ok(_mapper.Map<TitleDto>(title));
         }
-
     }
 }

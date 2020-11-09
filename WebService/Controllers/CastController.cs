@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using IMDBDataService.BusinessLogic;
 using Microsoft.AspNetCore.Mvc;
-using WebService.DataTransferModels;
+using WebService.DataService.BusinessLogic;
+using WebService.DTOs;
 
 namespace WebService.Controllers
 {
@@ -23,7 +23,6 @@ namespace WebService.Controllers
         public IActionResult GetCasts()
         {
             var casts = _dataService.GetAllCasts().Result;
-
             return Ok(_mapper.Map<IEnumerable<CastDto>>(casts));
         }
 
@@ -37,7 +36,6 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-
             return Ok(_mapper.Map<CastDto>(cast));
         }
     }

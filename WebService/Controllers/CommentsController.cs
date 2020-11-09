@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using IMDBDataService.BusinessLogic;
-using IMDBDataService.Objects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebService.DataService.BusinessLogic;
+using WebService.DataService.DTO;
 using WebService.DTOs;
 
 namespace WebService.Controllers

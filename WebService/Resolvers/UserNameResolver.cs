@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using IMDBDataService.Objects;
+using WebService.DataService.DTO;
 using WebService.DTOs;
 namespace WebService.Resolvers
 {

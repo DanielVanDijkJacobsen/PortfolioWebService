@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 using AutoMapper;
-using IMDBDataService;
-using IMDBDataService.BusinessLogic;
-using IMDBDataService.Objects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using WebService.DataService.BusinessLogic;
+using WebService.DataService.DTO;
 using WebService.DTOs;
 using WebService.Utils;
-using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 
 namespace WebService.Controllers
 {
@@ -38,7 +33,6 @@ namespace WebService.Controllers
         public IActionResult GetUsers()
         {
             var users = _mapper.Map<IEnumerable<UserDto>>(_dataService.GetAllUsers().Result); ;
-
             return Ok(users);
         }
 
@@ -52,7 +46,6 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-
             return Ok(user);
         }
 
@@ -127,7 +120,6 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-
             return NoContent();
         }
 
@@ -139,7 +131,6 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-
             return NoContent();
         }
     }

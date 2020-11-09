@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using IMDBDataService;
-using IMDBDataService.BusinessLogic;
-using IMDBDataService.Objects;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebService.DataService.BusinessLogic;
+using WebService.DataService.DTO;
 using WebService.DTOs;
 
 namespace WebService.Controllers

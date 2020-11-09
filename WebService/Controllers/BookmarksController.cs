@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using IMDBDataService.BusinessLogic;
-using IMDBDataService.CustomTypes;
-using IMDBDataService.Objects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebService.DataService.BusinessLogic;
+using WebService.DataService.CustomTypes;
+using WebService.DataService.DTO;
 using WebService.DTOs;
 
 
@@ -46,7 +46,6 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-
             return NoContent();
         }
 
@@ -66,7 +65,6 @@ namespace WebService.Controllers
                     bookmark.BookmarkType = BookmarkType.user;
                     break;
             }
-
             _dataService.CreateBookmark(bookmark);
             return bookmark;
         }
