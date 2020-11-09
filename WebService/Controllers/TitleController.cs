@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using DataServiceLibrary;
-using Microsoft.Extensions.DependencyInjection;
-using WebService.DataTransferModels;
+using WebService.DataService.BusinessLogic;
+using WebService.DTOs;
 
 namespace WebService.Controllers
 {
@@ -14,11 +10,11 @@ namespace WebService.Controllers
     [Route("api/titles")]
     public class TitleController : ControllerBase
     {
-        private readonly IDataService _dataService;
+        private readonly ITitlesDataService _dataService;
         private readonly IMapper _mapper;
         private const int MaxPageSize = 50;
 
-        public TitleController(IDataService dataService, IMapper mapper)
+        public TitleController(ITitlesDataService dataService, IMapper mapper)
         {
             _dataService = dataService;
             _mapper = mapper;
@@ -27,24 +23,20 @@ namespace WebService.Controllers
         [HttpGet]
         public IActionResult GetTitles()
         {
-            var titles = _dataService.GetTitles();
-
+            var titles = _dataService.GetAllTitles().Result;
             return Ok(_mapper.Map<IEnumerable<TitleDto>>(titles));
         }
-
 
         [HttpGet("{id}", Name = nameof(GetTitle))]
         public IActionResult GetTitle(string id)
         {
-            var title = _dataService.GetTitle(id);
+            var title = _dataService.GetTitleById(id).Result;
             
             if (title == null)
             {
                 return NotFound();
             }
-
             return Ok(_mapper.Map<TitleDto>(title));
         }
-
     }
 }

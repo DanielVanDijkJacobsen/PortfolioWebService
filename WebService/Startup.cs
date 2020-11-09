@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using IMDBDataService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using WebService.DataService.BusinessLogic;
 
 namespace WebService
 {
@@ -45,7 +45,7 @@ namespace WebService
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
-            services.AddSingleton<IDataService, DataService>();
+            services.AddSingleton<IFrameworkDataService, IFrameworkDataService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 

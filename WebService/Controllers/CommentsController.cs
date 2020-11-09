@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using IMDBDataService;
-using IMDBDataService.Objects;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebService.DataService.BusinessLogic;
+using WebService.DataService.DTO;
 using WebService.DTOs;
 
 namespace WebService.Controllers
@@ -16,10 +11,10 @@ namespace WebService.Controllers
     [ApiController]
     public class CommentsController : ControllerBase
     {
-        private readonly IDataService _dataService;
+        private readonly IFrameworkDataService _dataService;
         private readonly IMapper _mapper;
 
-        public CommentsController(IDataService dataService, IMapper mapper)
+        public CommentsController(IFrameworkDataService dataService, IMapper mapper)
         {
             _dataService = dataService;
             _mapper = mapper;
@@ -38,9 +33,9 @@ namespace WebService.Controllers
         [HttpPost("flag")]
         public IActionResult FlagComment(FlaggedCommentForCreateDto flaggedCommentForCreateDto)
         {
-            var comment = _mapper.Map<FlaggedComments>(flaggedCommentForCreateDto);
+            var comment = _mapper.Map<FlaggedComment>(flaggedCommentForCreateDto);
             _dataService.FlagComment(comment);
-            return Created("", comment);
+            return Created("", comment.ToString());
         }
 
         [Authorize]

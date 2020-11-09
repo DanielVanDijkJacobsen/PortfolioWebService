@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IMDBDataService.Objects;
+﻿using System.Collections.Generic;
+using WebService.DataService.DTO;
 
 namespace WebService.DTOs
 {

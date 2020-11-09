@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using IMDBDataService.Objects;
+﻿using AutoMapper;
+using WebService.DataService.DTO;
 using WebService.DTOs;
 using WebService.Resolvers;
 
@@ -19,10 +15,10 @@ namespace WebService.Profiles
                     opt => opt.MapFrom<UserNameResolver>());
             CreateMap<UserForCreateOrUpdateDto, Users>()
                 .ForMember(
-                dest => dest.user_name,
+                dest => dest.Name,
                 opt => opt.MapFrom(src => src.Name)
             ).ForMember(
-                dest => dest.user_pass,
+                dest => dest.Password,
                 opt => opt.MapFrom(src => src.Password)
             );
         }

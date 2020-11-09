@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <StartupObject>WebService.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,21 +10,27 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataService\DataServiceLibrary.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="IMDBDataService">
-      <HintPath>..\..\ImdbDataLayer\bin\Debug\netcoreapp3.1\IMDBDataService.dll</HintPath>
-    </Reference>
+    <Folder Include="DataService\DTO\" />
+    <Folder Include="DataService\CustomTypes\" />
+    <Folder Include="DataService\BusinessLogic\" />
+    <Folder Include="DataService\RepositoryTests\" />
+    <Folder Include="DataService\Repositories\" />
+    <Folder Include="WebServiceTests\" />
   </ItemGroup>
 
 </Project>

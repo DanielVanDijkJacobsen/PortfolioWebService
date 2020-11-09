@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using IMDBDataService;
-using IMDBDataService.Objects;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebService.DataService.BusinessLogic;
+using WebService.DataService.DTO;
 using WebService.DTOs;
 
 namespace WebService.Controllers
@@ -16,10 +11,10 @@ namespace WebService.Controllers
     [ApiController]
     public class RatingsController : ControllerBase
     {
-        private readonly IDataService _dataService;
+        private readonly ITitlesDataService _dataService;
         private readonly IMapper _mapper;
 
-        public RatingsController(IDataService dataService, IMapper mapper)
+        public RatingsController(ITitlesDataService dataService, IMapper mapper)
         {
             _dataService = dataService;
             _mapper = mapper;
