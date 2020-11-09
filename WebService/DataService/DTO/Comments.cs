@@ -12,7 +12,11 @@ namespace WebService.DataService.DTO
         public string Comment { get; set; }
         public virtual Users User { get; set; }
         public virtual Titles Title { get; set; }
+        public virtual bool IsEdited { get; set; }
+        public virtual int ParentCommentId { get; set; }
+        public virtual Comments ParentComment { get; set; }
 
         public virtual ICollection<FlaggedComment> FlaggedComments { get; set; }
+        public virtual ICollection<Comments> ChildComments { get; set; }
     }
 }

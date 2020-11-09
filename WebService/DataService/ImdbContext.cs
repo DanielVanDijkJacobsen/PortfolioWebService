@@ -373,10 +373,14 @@ namespace WebService.DataService
                 entity.Property(x => x.UserId).HasColumnName("user_id");
                 entity.Property(x => x.TitleId).HasColumnName("title_id");
                 entity.Property(x => x.Comment).HasColumnName("comment_string");
+                entity.Property(x => x.IsEdited).HasColumnName("edited");
+                entity.Property(x => x.ParentCommentId).HasColumnName("parent_comment_id");
 
                 //Sets Foreign Keys
                 entity.HasOne(x => x.User).WithMany(d => d.Comments).HasForeignKey(x => x.UserId);
                 entity.HasOne(x => x.Title).WithMany(d => d.Comments).HasForeignKey(x => x.TitleId);
+                entity.HasOne(x => x.ParentComment).WithMany(d => d.ChildComments)
+                    .HasForeignKey(x => x.ParentCommentId);
             });
 
             //FlaggedComments
