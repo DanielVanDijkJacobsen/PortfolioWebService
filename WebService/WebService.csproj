@@ -28,7 +28,6 @@
     <Folder Include="DataService\DTO\" />
     <Folder Include="DataService\CustomTypes\" />
     <Folder Include="DataService\BusinessLogic\" />
-    <Folder Include="DataService\BusinessLogicTests\" />
     <Folder Include="DataService\RepositoryTests\" />
     <Folder Include="DataService\Repositories\" />
     <Folder Include="WebServiceTests\" />
