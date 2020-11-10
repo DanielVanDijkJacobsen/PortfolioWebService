@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using WebService.DataService.BusinessLogic;
+using WebService.Middleware;
 
 namespace WebService
 {
@@ -61,6 +62,8 @@ namespace WebService
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseRequestLogging();
 
             app.UseEndpoints(endpoints =>
             {
