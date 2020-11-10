@@ -9,6 +9,6 @@ namespace WebService.DataService.DTO
     public class SearchDto
     {
         public IEnumerable<TitleDto> Titles { get; set; }
-        public IEnumerable<CastDto> Casts { get; set; }
+        public IEnumerable<CastInfoDto> Casts { get; set; }
     }
 }

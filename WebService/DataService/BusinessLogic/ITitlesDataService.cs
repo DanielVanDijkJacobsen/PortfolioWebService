@@ -19,7 +19,7 @@ namespace WebService.DataService.BusinessLogic
         //Casts
         public Task<Casts> GetCastById(object id);
         public Task<List<Casts>> GetAllCasts();
-        public Task<List<Casts>> SearchByName(string name);
+        public Task<List<CastInfo>> SearchByName(string name);
         public Task<Casts> UpdateCast(Casts entity);
         public Task<Casts> DeleteCast(Casts entity);
         public Task<Casts> CreateCast(Casts entity);

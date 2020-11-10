@@ -29,17 +29,17 @@ namespace WebService.Controllers
         {
             var userId = User.FindFirst("user_id")?.Value;
             IEnumerable<TitleDto> titles;
-            IEnumerable<CastDto> casts;
+            IEnumerable<CastInfoDto> casts;
 
             if (query != null)
             {
                 titles = _mapper.Map<IEnumerable<TitleDto>>(userId != null ? _dataService.SearchForTitle(int.Parse(userId), query).Result : _dataService.SearchForTitle(null, query).Result);
-                casts = new List<CastDto>() {new CastDto() {Id = "1", PrimaryName = "dasdasds"}};
+                casts = _mapper.Map<IEnumerable<CastInfoDto>>(_dataService.SearchByName(query).Result);
             }
             else
             {
                 titles = _mapper.Map<IEnumerable<TitleDto>>(_dataService.GetAllTitles().Result);
-                casts = new List<CastDto>() { new CastDto() { Id = "1", PrimaryName = "dasdasds" } };
+                casts = _mapper.Map<IEnumerable<CastInfoDto>>(_dataService.GetAllCasts().Result);
             }
 
             //var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(titles);

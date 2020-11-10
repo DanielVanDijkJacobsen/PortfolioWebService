@@ -8,8 +8,8 @@ namespace WebService.DataService.BusinessLogic
     public class TitleDataService : ITitlesDataService
     {
         private readonly TitleRepository _titles;
-        private readonly CastsRepository _casts;
-        private readonly IGenericRepository<CastInfo> _castInfo;
+        private readonly IGenericRepository<Casts> _casts;
+        private readonly CastInfoRepository _castInfo;
         private readonly IGenericRepository<CastProfession> _castProfession;
         private readonly IGenericRepository<CastKnownFor> _castKnownFor;
         private readonly IGenericRepository<UserRating> _userRating;
@@ -23,8 +23,8 @@ namespace WebService.DataService.BusinessLogic
         {
             var context = new ImdbContext();
             _titles = new TitleRepository(context);
-            _casts = new CastsRepository(context);
-            _castInfo = new GenericRepository<CastInfo>(context);
+            _casts = new GenericRepository<Casts>(context);
+            _castInfo = new CastInfoRepository(context);
             _castProfession = new GenericRepository<CastProfession>(context);
             _castKnownFor = new GenericRepository<CastKnownFor>(context);
             _userRating = new GenericRepository<UserRating>(context);
@@ -207,9 +207,9 @@ namespace WebService.DataService.BusinessLogic
             return await _casts.ReadAll();
         }
 
-        public async Task<List<Casts>> SearchByName(string name)
+        public async Task<List<CastInfo>> SearchByName(string name)
         {
-            return await _casts.SearchByName(name);
+            return await _castInfo.SearchByName(name);
         }
 
         public async Task<Casts> UpdateCast(Casts entity)

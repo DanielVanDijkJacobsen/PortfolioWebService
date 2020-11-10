@@ -1,4 +1,8 @@
-﻿using WebService.DataService.DTO;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using WebService.DataService.DTO;
 
 namespace WebService.DataService.Repositories
 {
@@ -7,6 +11,11 @@ namespace WebService.DataService.Repositories
         public CastInfoRepository(ImdbContext context) : base(context)
         {
 
+        }
+
+        public async Task<List<CastInfo>> SearchByName(string name)
+        {
+            return await Context.Set<CastInfo>().Where(casts => casts.Name.ToLower().Contains(name.ToLower())).ToListAsync();
         }
     }
 }
