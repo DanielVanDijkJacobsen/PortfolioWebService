@@ -14,7 +14,7 @@ namespace WebService.DataService.DTO
         public string? Poster { get; set; }
         public string? StartYear { get; set; }
         public string? EndYear { get; set; }
-        public virtual ICollection<TitleInfo> TitleInfo { get; set;}
+        public virtual TitleInfo TitleInfo { get; set;}
         public virtual ICollection<TitleAlias> TitleAlias { get; set;}
         public virtual ICollection<TitleGenres> TitleGenre { get; set; }
         public virtual ICollection<Casts> Casts { get; set; }

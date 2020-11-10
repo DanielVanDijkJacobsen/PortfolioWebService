@@ -12,13 +12,14 @@ namespace WebService.DataService.BusinessLogic
         public Task<Titles> UpdateTitle(Titles entity);
         public Task<Titles> DeleteTitle(Titles entity);
         public Task<Titles> CreateTitle(Titles entity);
-        public Task<List<Titles>> SearchForTitle(int num, string searchString);
+        public Task<List<Titles>> SearchForTitle(int? num, string searchString);
         public void RateTitle(UserRating rating); 
 
 
         //Casts
         public Task<Casts> GetCastById(object id);
         public Task<List<Casts>> GetAllCasts();
+        public Task<List<Casts>> SearchByName(string name);
         public Task<Casts> UpdateCast(Casts entity);
         public Task<Casts> DeleteCast(Casts entity);
         public Task<Casts> CreateCast(Casts entity);

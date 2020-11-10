@@ -8,7 +8,7 @@ namespace WebService.DataService.BusinessLogic
     public class TitleDataService : ITitlesDataService
     {
         private readonly TitleRepository _titles;
-        private readonly IGenericRepository<Casts> _casts;
+        private readonly CastsRepository _casts;
         private readonly IGenericRepository<CastInfo> _castInfo;
         private readonly IGenericRepository<CastProfession> _castProfession;
         private readonly IGenericRepository<CastKnownFor> _castKnownFor;
@@ -23,7 +23,7 @@ namespace WebService.DataService.BusinessLogic
         {
             var context = new ImdbContext();
             _titles = new TitleRepository(context);
-            _casts = new GenericRepository<Casts>(context);
+            _casts = new CastsRepository(context);
             _castInfo = new GenericRepository<CastInfo>(context);
             _castProfession = new GenericRepository<CastProfession>(context);
             _castKnownFor = new GenericRepository<CastKnownFor>(context);
@@ -47,7 +47,7 @@ namespace WebService.DataService.BusinessLogic
             return;
         }
 
-        public async Task<List<Titles>> SearchForTitle(int num, string searchString)
+        public async Task<List<Titles>> SearchForTitle(int? num, string searchString)
         {
             return await _titles.SearchForTitle(num, searchString);
         }
@@ -205,6 +205,11 @@ namespace WebService.DataService.BusinessLogic
         public async Task<List<Casts>> GetAllCasts()
         {
             return await _casts.ReadAll();
+        }
+
+        public async Task<List<Casts>> SearchByName(string name)
+        {
+            return await _casts.SearchByName(name);
         }
 
         public async Task<Casts> UpdateCast(Casts entity)

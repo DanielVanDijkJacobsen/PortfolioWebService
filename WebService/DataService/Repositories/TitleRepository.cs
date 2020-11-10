@@ -12,9 +12,9 @@ namespace WebService.DataService.Repositories
 
         }
 
-        public async Task<List<Titles>> SearchForTitle(int num, string searchString)
+        public async Task<List<Titles>> SearchForTitle(int? num, string searchString)
         {
-            return await Context.Titles.FromSqlRaw("SELECT * FROM string_search({0}, {1})", num, searchString).ToListAsync();
+            return await Context.Titles.FromSqlRaw("SELECT * FROM best_match_search({0}, {1})", num, searchString).ToListAsync();
         }
     }
 }

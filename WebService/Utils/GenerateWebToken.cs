@@ -17,7 +17,7 @@ namespace WebService.Utils
 
             var claims = new[] {
                 new Claim("email", userInfo.Email),
-                new Claim("email", userInfo.Email),
+                new Claim("user_id", userInfo.UserId.ToString()),
             };
 
             var token = new JwtSecurityToken(config["Jwt:Issuer"],

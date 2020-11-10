@@ -9,18 +9,8 @@ namespace WebService.Profiles
     {
         public UsersProfile()
         {
-            CreateMap<Users, UserDto>()
-                .ForMember(
-                    dest => dest.Name, 
-                    opt => opt.MapFrom<UserNameResolver>());
-            CreateMap<UserForCreateOrUpdateDto, Users>()
-                .ForMember(
-                dest => dest.Name,
-                opt => opt.MapFrom(src => src.Name)
-            ).ForMember(
-                dest => dest.Password,
-                opt => opt.MapFrom(src => src.Password)
-            );
+            CreateMap<Users, UserDto>();
+            CreateMap<UserForCreateOrUpdateDto, Users>();
         }
     }
 }

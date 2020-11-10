@@ -73,8 +73,8 @@ namespace WebService.DataService
                 entity.Property(x => x.Plot).HasColumnName("plot");
 
                 //Sets Foreign Keys
-                entity.HasOne(x => x.Titles).WithMany(d => d.TitleInfo)
-                    .HasForeignKey(x => x.TitleId);
+                entity.HasOne(x => x.Titles).WithOne(d => d.TitleInfo)
+                    .HasForeignKey<TitleInfo>(x => x.TitleId);
             });
 
 
@@ -164,8 +164,8 @@ namespace WebService.DataService
                 entity.Property(x => x.FormatId).HasColumnName("format_id");
 
                 //Sets Foreign Keys
-                entity.HasOne(x => x.TitleAlias).WithMany(d => d.TitleFormat)
-                    .HasForeignKey(x => new { title_id = x.TitleId, ordering = x.Ordering });
+                //entity.HasOne(x => x.TitleAlias).WithMany(d => d.TitleFormat)
+                //    .HasForeignKey(x => new { title_id = x.TitleId, ordering = x.Ordering });
                 entity.HasOne(x => x.Format).WithMany(d => d.TitleFormats)
                     .HasForeignKey(x => x.FormatId);
             });
@@ -182,8 +182,8 @@ namespace WebService.DataService
                 //Sets properties
                 entity.Property(x => x.CastId).HasColumnName("cast_id");
                 entity.Property(x => x.Name).HasColumnName("name");
-                entity.Property(x => x.BirthYear).HasColumnName("birth_year").HasColumnType("date");
-                entity.Property(x => x.DeathYear).HasColumnName("death_year").HasColumnType("date");
+                entity.Property(x => x.BirthYear).HasColumnName("birth_year");
+                entity.Property(x => x.DeathYear).HasColumnName("death_year");
             });
 
             //CastProfession
@@ -210,11 +210,11 @@ namespace WebService.DataService
                 entity.ToTable("castknownfor");
 
                 //Sets Primary Key
-                entity.HasKey(x => x.CastId).HasName("cast_id");
+                entity.HasKey(x => new {title_id = x.CastId, ordering = x.KnownFor});
 
                 //Sets properties
                 entity.Property(x => x.CastId).HasColumnName("cast_id");
-                entity.Property(x => x.KnownFor).HasColumnName("known_for");
+                entity.Property(x => x.KnownFor).HasColumnName("known_for_title_id");
 
                 //Sets Foreign Keys
                 entity.HasOne(x => x.CastInfo).WithMany(d => d.CastKnownFor).HasForeignKey(x => x.CastId);

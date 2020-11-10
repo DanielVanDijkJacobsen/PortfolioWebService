@@ -72,9 +72,9 @@ namespace WebService.Controllers
             var user = _mapper.Map<Users>(userForCreateOrUpdateDto);
             user.Age = 25;
 
-            _dataService.CreateUser(user);
-            var jwtToken = GenerateWebToken.Generate(user, _config);
-            var userToReturn = _mapper.Map<UserDto>(user);
+            var createdUser = _dataService.CreateUser(user).Result;
+            var jwtToken = GenerateWebToken.Generate(createdUser, _config);
+            var userToReturn = _mapper.Map<UserDto>(createdUser);
             userToReturn.JwtToken = jwtToken;
             return Created("", userToReturn);
         }
@@ -104,7 +104,7 @@ namespace WebService.Controllers
                 return Unauthorized();
             }
 
-            var jwtToken = GenerateWebToken.Generate(user, _config);
+            var jwtToken = GenerateWebToken.Generate(validatedUser, _config);
             var userToReturn = _mapper.Map<UserDto>(validatedUser);
             userToReturn.JwtToken = jwtToken;
             return Ok(userToReturn);
