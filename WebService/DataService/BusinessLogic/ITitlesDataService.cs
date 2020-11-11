@@ -13,8 +13,14 @@ namespace WebService.DataService.BusinessLogic
         public Task<Titles> DeleteTitle(Titles entity);
         public Task<Titles> CreateTitle(Titles entity);
         public Task<List<Titles>> SearchForTitle(int? num, string searchString);
-        public void RateTitle(UserRating rating); 
+        public void RateTitle(UserRating rating);
 
+        public Task<List<Titles>> GetPopularTitles(int num, string type);
+
+
+
+        //Comments
+        public Task<List<Comments>> GetCommentsByTitleId(string id);
 
         //Casts
         public Task<Casts> GetCastById(object id);
@@ -23,6 +29,7 @@ namespace WebService.DataService.BusinessLogic
         public Task<Casts> UpdateCast(Casts entity);
         public Task<Casts> DeleteCast(Casts entity);
         public Task<Casts> CreateCast(Casts entity);
+        public Task<List<Casts>> GetCastsByTitleId(string id);
 
         //TitleInfo
         public Task<TitleInfo> GetTitleInfoById(object id);

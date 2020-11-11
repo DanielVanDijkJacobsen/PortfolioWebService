@@ -8,7 +8,7 @@ namespace WebService.DataService.BusinessLogic
     public class TitleDataService : ITitlesDataService
     {
         private readonly TitleRepository _titles;
-        private readonly IGenericRepository<Casts> _casts;
+        private readonly CastsRepository _casts;
         private readonly CastInfoRepository _castInfo;
         private readonly IGenericRepository<CastProfession> _castProfession;
         private readonly IGenericRepository<CastKnownFor> _castKnownFor;
@@ -18,12 +18,13 @@ namespace WebService.DataService.BusinessLogic
         private readonly IGenericRepository<TitleAlias> _titleAlias;
         private readonly IGenericRepository<TitleInfo> _titleInfo;
         private readonly IGenericRepository<Episodes> _episodes;
+        private readonly CommentsRepository _comments;
 
         public TitleDataService()
         {
             var context = new ImdbContext();
             _titles = new TitleRepository(context);
-            _casts = new GenericRepository<Casts>(context);
+            _casts = new CastsRepository(context);
             _castInfo = new CastInfoRepository(context);
             _castProfession = new GenericRepository<CastProfession>(context);
             _castKnownFor = new GenericRepository<CastKnownFor>(context);
@@ -33,6 +34,7 @@ namespace WebService.DataService.BusinessLogic
             _titleAlias = new GenericRepository<TitleAlias>(context);
             _titleInfo = new GenericRepository<TitleInfo>(context);
             _episodes = new GenericRepository<Episodes>(context);
+            _comments = new CommentsRepository(context);
         }
 
 
@@ -41,10 +43,25 @@ namespace WebService.DataService.BusinessLogic
             return await _titles.ReadById(id);
         }
 
+        public async Task<List<Titles>> GetPopularTitles(int num, string type)
+        {
+            return await _titles.GetPopularTitles(num, type);
+        }
+
         public async void RateTitle(UserRating rating)
         {
             await _userRating.Create(rating);
             return;
+        }
+
+        public async Task<List<Comments>> GetCommentsByTitleId(string id)
+        {
+            return await _comments.WhereByTitleId(id);
+        }
+
+        public async Task<List<Casts>> GetCastsByTitleId(string id)
+        {
+            return await _casts.WhereByTitleId(id);
         }
 
         public async Task<List<Titles>> SearchForTitle(int? num, string searchString)

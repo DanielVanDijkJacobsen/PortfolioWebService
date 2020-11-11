@@ -16,5 +16,10 @@ namespace WebService.DataService.Repositories
         {
             return await Context.Titles.FromSqlRaw("SELECT * FROM best_match_search({0}, {1})", num, searchString).ToListAsync();
         }
+
+        public async Task<List<Titles>> GetPopularTitles(int? num, string type)
+        {
+            return await Context.Titles.FromSqlRaw("SELECT * FROM popular_titles({0}, {1})", num, type).ToListAsync();
+        }
     }
 }

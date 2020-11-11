@@ -12,7 +12,7 @@ namespace WebService.DTOs
         public string Category { get; set; }
         public string? Job { get; set; }
         public string? CharName { get; set; }
-        public virtual TitleDto Title { get; set; }
+        //public virtual TitleDto Title { get; set; }
         //public virtual CastInfo CastInfo { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace WebService.DTOs
         public BookmarkType BookmarkType { get; set; }
         public string TypeId { get; set; }
 
-        public UserDto User { get; set; }
-        public TitleDto Title { get; set; }
+        //public UserDto User { get; set; }
+        //public TitleDto Title { get; set; }
     }
 }

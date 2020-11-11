@@ -9,6 +9,7 @@ namespace WebService.Profiles
         public TitleProfile()
         {
             CreateMap<Titles, TitleDto>();
+            CreateMap<Titles, TitlesForFrontPageDto>();
         }
     }
 }

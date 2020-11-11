@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -22,6 +23,38 @@ namespace WebService.Controllers
         {
             _dataService = dataService;
             _mapper = mapper;
+        }
+
+        [HttpGet("popular/movies")]
+        public IActionResult GetPopularMovies()
+        {
+            var titles = _dataService.GetPopularTitles(6, "movie").Result;
+            if (titles == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
+        }
+
+        [HttpGet("{id}/comments")]
+        public IActionResult GetTitleComments(string id)
+        {
+            var comments = _dataService.GetCommentsByTitleId(id).Result;
+            return Ok(_mapper.Map<ICollection<CommentDto>>(comments));
+        }
+
+        [HttpGet("{id}/casts")]
+        public IActionResult GetTitleCasts(string id)
+        {
+            var casts = _dataService.GetCastsByTitleId(id).Result;
+            return Ok(_mapper.Map<ICollection<CastDto>>(casts));
+        }
+
+        [HttpGet("popular/shows")]
+        public IActionResult GetPopularShows()
+        {
+            var titles =_dataService.GetPopularTitles(6, "tvSeries").Result;
+            if (titles == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
         }
 
         [HttpGet]

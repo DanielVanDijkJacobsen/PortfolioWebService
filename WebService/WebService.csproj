@@ -6,6 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DataService\RepositoryTests\**" />
+    <Compile Remove="WebServiceTests\**" />
+    <Content Remove="DataService\RepositoryTests\**" />
+    <Content Remove="WebServiceTests\**" />
+    <EmbeddedResource Remove="DataService\RepositoryTests\**" />
+    <EmbeddedResource Remove="WebServiceTests\**" />
+    <None Remove="DataService\RepositoryTests\**" />
+    <None Remove="WebServiceTests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
@@ -27,9 +38,7 @@
   <ItemGroup>
     <Folder Include="DataService\CustomTypes\" />
     <Folder Include="DataService\BusinessLogic\" />
-    <Folder Include="DataService\RepositoryTests\" />
     <Folder Include="DataService\Repositories\" />
-    <Folder Include="WebServiceTests\" />
   </ItemGroup>
 
 </Project>

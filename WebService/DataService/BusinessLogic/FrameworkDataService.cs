@@ -41,12 +41,19 @@ namespace WebService.DataService.BusinessLogic
         public async Task<Users> UpdateUser(object id, Users entity)
         {
             var user = _users.ReadById(id).Result;
-            user.Name = entity.Name;
-            user.Password = entity.Password;
-            user.Salt = entity.Salt;
-            user.DateOfBirth = entity.DateOfBirth;
-            user.Email = entity.Email;
-            user.Nickname = entity.Nickname;
+            if (entity.Name != null)
+                user.Name = entity.Name;
+            if (entity.Password != null)
+                user.Password = entity.Password;
+            if (entity.Salt != null)
+                user.Salt = entity.Salt;
+            if (entity.DateOfBirth != null)
+                user.DateOfBirth = entity.DateOfBirth;
+            if (entity.Email != null)
+                user.Email = entity.Email;
+            if (entity.Nickname != null)
+                user.Nickname = entity.Nickname;
+
             return await _users.Update(user);
         }
 
