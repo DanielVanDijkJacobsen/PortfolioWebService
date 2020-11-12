@@ -24,21 +24,13 @@ namespace WebService.Controllers
         }
 
         //TODO (Completed) Get Popular movies
-        [HttpGet("popular/movies")]
-        public IActionResult GetPopularMovies()
+        [HttpGet("popular{type}")]
+        public IActionResult GetPopular(string type)
         {
-            var titles = _dataService.GetPopularTitles(6, "movie").Result;
+            var titles = _dataService.GetPopularTitles(6, type).Result;
             if (titles == null)
                 return NotFound();
             return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
-        }
-
-        //TODO (Completed) Get Title Comments
-        [HttpGet("{id}/comments")]
-        public IActionResult GetTitleComments(string id)
-        {
-            var comments = _dataService.GetCommentsByTitleId(id).Result;
-            return Ok(_mapper.Map<ICollection<CommentDto>>(comments));
         }
 
         //TODO (Completed) Get Title Cast
@@ -79,16 +71,6 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<IEnumerable<TitleFormatDto>>(titleFormat));
         }
 
-        //TODO (Completed) Get Popular Shows
-        [HttpGet("popular/shows")]
-        public IActionResult GetPopularShows()
-        {
-            var titles =_dataService.GetPopularTitles(6, "tvSeries").Result;
-            if (titles == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
-        }
-
         //TODO (Completed) Get Titles
         [HttpGet]
         public IActionResult GetTitles(string query)
@@ -123,7 +105,53 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<TitleDto>(title));
         }
 
-        //TODO (Completed) Create comment
+
+        /*
+        [HttpGet("popular/shows")]
+        public IActionResult GetPopularShows()
+        {
+            var titles =_dataService.GetPopularTitles(6, "tvSeries").Result;
+            if (titles == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
+        }
+    
+
+        [HttpGet("popular/movies")]
+        public IActionResult GetPopularMovies()
+        {
+            var titles = _dataService.GetPopularTitles(6, "movie").Result;
+            if (titles == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
+        }
+
+        
+        [Authorize]
+        [HttpPost("{tid}/ratings{uid}&{score}")]
+        public IActionResult CreateRating(string tid, int uid, float score)
+        {
+            var rating = _dataService.GetUserRatingByUserIdAndTitleId(uid, tid).Result;
+            if (rating.Count > 0)
+                return NotFound();
+            var newRating = new UserRatingDto()
+            {
+                UserId = uid, 
+                TitleId = tid,
+                Score = score
+            };
+            var response = _dataService.CreateUserRating(_mapper.Map<UserRating>(newRating)).Result;
+            return Created("", response.ToString());
+        }
+
+        [HttpGet("{id}/comments")]
+        public IActionResult GetTitleComments(string id)
+        {
+            var comments = _dataService.GetCommentsByTitleId(id).Result;
+            return Ok(_mapper.Map<ICollection<CommentDto>>(comments));
+        }
+
+
         [Authorize]
         [HttpPost("{tid}/comments{uid}&{comment}")]
         public IActionResult CreateComment(string tid, int uid, string comment)
@@ -138,7 +166,6 @@ namespace WebService.Controllers
             return Created("", _dataService.CreateComment(_mapper.Map<Comments>(newComment)));
         }
 
-        //TODO (Completed) Update Comment
         [Authorize]
         [HttpPut("{tid}/comments{uid}&{cid}&{updatedComment}")]
         public IActionResult UpdateComment(string tid, int uid, int cid, string updatedComment)
@@ -159,7 +186,7 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-        //TODO (Completed) Create FlaggedComment
+
         [Authorize]
         [HttpPost("{tid}/comments/{cid}&{uid}")]
         public IActionResult FlagComment(int uid, int cid)
@@ -177,7 +204,7 @@ namespace WebService.Controllers
             return Created("", flaggedComment.ToString());
         }
 
-        //TODO (Completed) DeleteFlaggedComment
+
         [Authorize]
         [HttpDelete("{tid}/comments/{cid}&{uid}")]
         public IActionResult DeleteFlagComment(int uid, int cid)
@@ -189,7 +216,7 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-        //TODO (Completed) Create Bookmark
+
         [Authorize]
         [HttpPost("{tid}/bookmarks{uid}")]
         public IActionResult CreateBookmark(string tid, int uid)
@@ -205,23 +232,7 @@ namespace WebService.Controllers
             };
             return Created("", _dataService.CreateBookmark(_mapper.Map<Bookmarks>(bookmark)));
         }
-
-        //TODO Create Rating
-        [Authorize]
-        [HttpPost("{tid}/ratings{uid}&{score}")]
-        public IActionResult CreateRating(string tid, int uid, float score)
-        {
-            var rating = _dataService.GetUserRatingByUserIdAndTitleId(uid, tid).Result;
-            if (rating.Count > 0)
-                return NotFound();
-            var newRating = new UserRatingDto()
-            {
-                UserId = uid, 
-                TitleId = tid,
-                Score = score
-            };
-            var response = _dataService.CreateUserRating(_mapper.Map<UserRating>(newRating)).Result;
-            return Created("", response.ToString());
-        }
+        */
+         */
     }
 }

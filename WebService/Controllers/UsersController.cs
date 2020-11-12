@@ -30,7 +30,7 @@ namespace WebService.Controllers
             _config= config;
         }
 
-        //TODO (COMPLETE) Get Users
+        //COMPLETED Get Users
         [Authorize]
         [HttpGet]
         public IActionResult GetUsers()
@@ -39,7 +39,7 @@ namespace WebService.Controllers
             return Ok(users);
         }
 
-        //TODO (COMPLETE) Get User
+        //COMPLETED Get User
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id)
@@ -53,7 +53,7 @@ namespace WebService.Controllers
             return Ok(user);
         }
 
-        //TODO (COMPLETE) Create user
+        //COMPLETED Create user
         [AllowAnonymous]
         [HttpPost]
         public IActionResult CreateUser(UserForCreateOrUpdateDto userForCreateOrUpdateDto)
@@ -84,7 +84,7 @@ namespace WebService.Controllers
             return Created("", userToReturn);
         }
 
-        //TODO (COMPLETE) Login user
+        //COMPLETED Login user
         [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult LoginUser(UserForCreateOrUpdateDto userForCreateOrUpdateDto)
@@ -116,7 +116,7 @@ namespace WebService.Controllers
             return Ok(userToReturn);
         }
 
-        //TODO (COMPLETE) Update User
+        //COMPLETED Update User
         [Authorize]
         [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, UserForCreateOrUpdateDto userForCreateOrUpdateDto)
@@ -130,7 +130,7 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-        //TODO (COMPLETE) Delete User
+        //COMPLETED Delete User
         [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
@@ -142,7 +142,7 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-        //TODO (COMPLETE) Show user's comments
+        //COMPLETED Show user's comments
         [Authorize]
         [HttpGet("{id}/comments")]
         public IActionResult GetUserComments(int id)
@@ -153,7 +153,7 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<IEnumerable<CommentDto>>(comments));
         }
 
-        //Todo (COMPLETE) Show user's comment
+        //COMPLETED Show user's comment
         [Authorize]
         [HttpGet("{id}/comments/{cid}")]
         public IActionResult GetUserComment(int id, int cid)
@@ -165,7 +165,7 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<CommentDto>(comment));
         }
 
-        //Todo (COMPLETE) Show user's bookmarks
+        //COMPLETED Show user's bookmarks
         [Authorize]
         [HttpGet("{id}/bookmarks")]
         public IActionResult GetUserBookmarks(int id)
@@ -176,39 +176,7 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<IEnumerable<BookmarkDto>>(bookmarks));
         }
 
-        //Todo (COMPLETE) Delete User's Comment
-        [Authorize]
-        [HttpDelete("{uid}/comments{cid}")]
-        public IActionResult DeleteComment(int uid, int cid)
-        {
-            var comments = _dataService.GetCommentsByUserId(uid).Result;
-            var owns = false;
-            foreach (var userid in comments.Where(userid => userid.CommentId == cid))
-            {
-                owns = true;
-            }
-            if (owns == false)
-                return NotFound();
-            if (_dataService.DeleteComment(cid).Result == null)
-            {
-                return NotFound();
-            }
-            return NoContent();
-        }
-
-        //Todo (COMPLETE) Delete User's bookmark
-        [Authorize]
-        [HttpDelete("{uid}/bookmarks/titles{tid}")]
-        public IActionResult DeleteBookmark(int uid, string tid)
-        {
-            if (_dataService.DeleteBookmark(uid, tid).Result == null)
-            {
-                return NotFound();
-            }
-            return NoContent();
-        }
-
-        //Todo (COMPLETE) Show User's Roles
+        //COMPLETED Show User's Roles
         [Authorize]
         [HttpGet("{id}/roles")]
         public IActionResult GetUserRoles(int id)
@@ -219,7 +187,7 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<IEnumerable<SpecialRoleDto>>(roles));
         }
 
-        //Todo (COMPLETE) Show User's searchhistory
+        //COMPLETED Show User's searchhistory
         [Authorize]
         [HttpGet("{id}/searchhistory")]
         public IActionResult GetUserSearchHistory(int id)
@@ -240,5 +208,40 @@ namespace WebService.Controllers
                 return NotFound();
             return Ok(_mapper.Map<IEnumerable<UserRatingDto>>(userRatings));
         }
+
+        /*
+                //COMPLETED Delete User's bookmark
+        [Authorize]
+        [HttpDelete("{uid}/bookmarks/titles{tid}")]
+        public IActionResult DeleteBookmark(int uid, string tid)
+        {
+            if (_dataService.DeleteBookmark(uid, tid).Result == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+                //COMPLETED Delete User's Comment
+        [Authorize]
+        [HttpDelete("{uid}/comments{cid}")]
+        public IActionResult DeleteComment(int uid, int cid)
+        {
+            var comments = _dataService.GetCommentsByUserId(uid).Result;
+            var owns = false;
+            foreach (var userid in comments.Where(userid => userid.CommentId == cid))
+            {
+                owns = true;
+            }
+            if (owns == false)
+                return NotFound();
+            if (_dataService.DeleteComment(cid).Result == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+         */
     }
 }

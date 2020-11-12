@@ -25,6 +25,7 @@ namespace WebService.DataService
         public DbSet<Comments> Comments { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<FlaggedComment> FlaggedComments { get; set; }
+        public DbSet<NameRating> NameRatings { get; set; }
 
         //Don't change this
         public string connectionString = "host=imdb-do-user-673066-0.b.db.ondigitalocean.com;port = 25060;database = defaultdb;username = doadmin;password = jvciw0phpg56ch5q;sslmode = Prefer;Trust Server Certificate=true;";
@@ -400,6 +401,24 @@ namespace WebService.DataService
                 //Sets foreign Keys
                 entity.HasOne(x => x.User).WithMany(d => d.FlaggedComments).HasForeignKey(x => x.FlaggingUser);
                 entity.HasOne(x => x.Comment).WithMany(d => d.FlaggedComments).HasForeignKey(x => x.CommentId);
+            });
+
+            //NameRatings
+            modelBuilder.Entity<NameRating>(entity =>
+            {
+                //Points to Database Table
+                entity.ToTable("nameratings");
+
+                //Sets Primary key
+                entity.HasKey(x => x.CastId).HasName("cast_id");
+
+                //Sets Properties
+                entity.Property(x => x.CastId).HasColumnName("cast_id");
+                entity.Property(x => x.Score).HasColumnName("score");
+
+                //Sets Foreign Keys
+                entity.HasOne(x => x.CastInfo).WithMany(d => d.NameRating).HasForeignKey(x => x.CastId);
+
             });
         }
     }

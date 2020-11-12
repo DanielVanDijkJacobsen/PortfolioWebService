@@ -19,6 +19,7 @@ namespace WebService.Controllers
             _dataService = dataService;
             _mapper = mapper;
         }
+
         [HttpGet]
         public IActionResult GetCasts()
         {
@@ -51,6 +52,15 @@ namespace WebService.Controllers
             if (castKnownFor == null)
                 return NotFound();
             return Ok(_mapper.Map<IEnumerable<CastKnownForDto>>(castKnownFor));
+        }
+
+        [HttpGet("{id}/rating")]
+        public IActionResult GetNameRating(string id)
+        {
+            var nameRating = _dataService.GetNameRatingByCastId(id).Result;
+            if (nameRating == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<NameRatingDto>>(nameRating));
         }
 
         [HttpGet("{id}", Name = nameof(GetCast))]

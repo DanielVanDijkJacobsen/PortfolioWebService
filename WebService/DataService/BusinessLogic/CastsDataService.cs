@@ -11,11 +11,13 @@ namespace WebService.DataService.BusinessLogic
         private readonly CastInfoRepository _castInfo;
         private readonly CastProfessionRepository _castProfession;
         private readonly CastKnownForRepository _castKnownFor;
+        private readonly NameRatingRepository _nameRating;
 
         public CastsDataService()
         {
             var context = new ImdbContext();
             _casts = new CastsRepository(context);
+            _nameRating = new NameRatingRepository(context);
             _castInfo = new CastInfoRepository(context);
             _castProfession = new CastProfessionRepository(context);
             _castKnownFor = new CastKnownForRepository(context);
@@ -38,6 +40,16 @@ namespace WebService.DataService.BusinessLogic
         public async Task<List<CastInfo>> GetCastInfoByCastId(string id)
         {
             return await _castInfo.WhereByCastId(id);
+        }
+
+        public async Task<List<NameRating>> GetNameRatingByCastId(string id)
+        {
+            return await _nameRating.WhereByCastId(id);
+        }
+
+        public async Task<List<NameRating>> UpdateNameRating(string id)
+        {
+            return await _nameRating.UpdateNameRating(id);
         }
 
         public async Task<Casts> GetCastById(object id)
