@@ -1,4 +1,8 @@
-﻿using WebService.DataService.DTO;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using WebService.DataService.DTO;
 
 namespace WebService.DataService.Repositories
 {
@@ -9,9 +13,17 @@ namespace WebService.DataService.Repositories
 
         }
 
-        public async void FlagComment(FlaggedComment entity)
+        public async Task<FlaggedComment> FlagComment(FlaggedComment entity)
         {
             await Context.FlaggedComments.AddAsync(entity);
+            await Context.SaveChangesAsync();
+            return entity;
+        }
+
+        public async Task<List<FlaggedComment>> WhereByUserIdAndCommentId(int userId, int commentId)
+        {
+            return await Context.FlaggedComments.Where(flaggedComments =>
+                flaggedComments.CommentId == commentId && flaggedComments.FlaggingUser == userId).ToListAsync();
         }
     }
 }

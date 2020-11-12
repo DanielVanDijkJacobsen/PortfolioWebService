@@ -15,6 +15,7 @@ namespace WebService.DataService.BusinessLogic
         private readonly CommentsRepository _comments;
         private readonly BookmarkRepository _bookmarks;
         private readonly FlaggedCommentsRepository _flaggedComments;
+        private readonly UserRatingRepository _userRatings;
 
         public UserDataService()
         {
@@ -24,6 +25,8 @@ namespace WebService.DataService.BusinessLogic
             _comments = new CommentsRepository(context);
             _searchHistory = new SearchHistoryRepository(context);
             _specialRoles = new SpecialRolesRepository(context);
+            _userRatings = new UserRatingRepository(context);
+            _flaggedComments = new FlaggedCommentsRepository(context);
         }
 
         public async Task<Users> GetUserById(object id)
@@ -112,13 +115,18 @@ namespace WebService.DataService.BusinessLogic
 
         public async void FlagComment(FlaggedComment entity)
         {
-            _flaggedComments.FlagComment(new FlaggedComment { CommentId = entity.CommentId, UserId = entity.UserId });
+            _flaggedComments.FlagComment(new FlaggedComment { CommentId = entity.CommentId, FlaggingUser = entity.FlaggingUser });
         }
 
         public async Task<Bookmarks> DeleteBookmark(object id)
         {
             var bookmark = await _bookmarks.ReadById(id);
             return await _bookmarks.Delete(bookmark);
+        }
+
+        public async Task<List<UserRating>> GetUserRatingsByUserId(int id)
+        {
+            return await _userRatings.WhereByUserId(id);
         }
 
         public async Task<Bookmarks> DeleteBookmark(int uid, string tid)

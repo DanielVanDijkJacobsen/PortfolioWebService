@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using WebService.DataService.DTO;
 using WebService.DataService.Repositories;
@@ -10,7 +12,7 @@ namespace WebService.DataService.BusinessLogic
     {
         private readonly TitleRepository _titles;
         private readonly CastInfoRepository _castInfo;
-        private readonly IGenericRepository<UserRating> _userRating;
+        private readonly UserRatingRepository _userRating;
         private readonly TitleFormatRepository _titleFormat;
         private readonly IGenericRepository<TitleGenres> _titleGenre;
         private readonly TitleAliasRepository _titleAlias;
@@ -19,6 +21,7 @@ namespace WebService.DataService.BusinessLogic
         private readonly CommentsRepository _comments;
         private readonly CastsRepository _casts;
         private readonly BookmarkRepository _bookmarks;
+        private readonly FlaggedCommentsRepository _flaggedComments;
 
         public TitleDataService()
         {
@@ -26,7 +29,7 @@ namespace WebService.DataService.BusinessLogic
             _castInfo = new CastInfoRepository(context);
             _titles = new TitleRepository(context);
             _casts = new CastsRepository(context);
-            _userRating = new GenericRepository<UserRating>(context);
+            _userRating = new UserRatingRepository(context);
             _titleFormat = new TitleFormatRepository(context);
             _titleGenre = new GenericRepository<TitleGenres>(context);
             _titleAlias = new TitleAliasRepository(context);
@@ -34,6 +37,7 @@ namespace WebService.DataService.BusinessLogic
             _episodes = new GenericRepository<Episodes>(context);
             _comments = new CommentsRepository(context);
             _bookmarks = new BookmarkRepository(context);
+            _flaggedComments = new FlaggedCommentsRepository(context);
         }
 
         public async Task<Titles> GetTitleById(object id)
@@ -117,36 +121,6 @@ namespace WebService.DataService.BusinessLogic
             return await _userRating.Create(entity);
         }
 
-        public async Task<TitleInfo> GetTitleInfoById(object id)
-        {
-            return await _titleInfo.ReadById(id);
-        }
-
-        public async Task<TitleAlias> GetTitleAliasById(object id)
-        {
-            return await _titleAlias.ReadById(id);
-        }
-
-        public async Task<TitleFormats> GetTitleFormatById(object id)
-        {
-            return await _titleFormat.ReadById(id);
-        }
-
-        public async Task<TitleGenres> GetTitleGenreById(object id)
-        {
-            return await _titleGenre.ReadById(id);
-        }
-
-        public async Task<Episodes> GetEpisodeById(object id)
-        {
-            return await _episodes.ReadById(id);
-        }
-
-        public async Task<UserRating> GetUserRatingById(object id)
-        {
-            return await _userRating.ReadById(id);
-        }
-
         public async Task<Comments> CreateComment(Comments entity)
         {
             entity.CommentTime = DateTime.Now;
@@ -160,6 +134,28 @@ namespace WebService.DataService.BusinessLogic
             entity.CommentTime = comment.CommentTime;
             entity.IsEdited = true;
             return await _comments.Update(entity);
+        }
+
+        public async Task<FlaggedComment> FlagComment(int id, FlaggedComment comment)
+        {
+
+            return await _flaggedComments.FlagComment(comment);
+        }
+
+        public async Task<List<FlaggedComment>> GetFlaggedComment(int userId, int commentId)
+        {
+            return await _flaggedComments.WhereByUserIdAndCommentId(userId, commentId);
+        }
+
+        public async Task<FlaggedComment> DeleteFlaggedComment(int userId, int commentId)
+        {
+            var flaggedComment = await GetFlaggedComment(userId, commentId);
+            return await _flaggedComments.Delete(flaggedComment.First());
+        }
+
+        public async Task<List<UserRating>> GetUserRatingByUserIdAndTitleId(int userId, string titleId)
+        {
+            return await _userRating.WhereByUserIdAndTitleId(userId, titleId);
         }
 
         public async Task<Bookmarks> CreateBookmark(Bookmarks entity)

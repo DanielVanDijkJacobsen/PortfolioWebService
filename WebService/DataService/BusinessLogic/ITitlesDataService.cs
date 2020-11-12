@@ -20,6 +20,11 @@ namespace WebService.DataService.BusinessLogic
         public Task<List<TitleFormats>> GetTitleFormatByTitleId(string id);
         public Task<Comments> CreateComment(Comments entity);
         public Task<Comments> UpdateComment(int id, Comments comment);
+        public Task<FlaggedComment> FlagComment(int id, FlaggedComment comment);
+        public Task<List<FlaggedComment>> GetFlaggedComment(int userId, int commentId);
+        public Task<FlaggedComment> DeleteFlaggedComment(int userId, int commentId);
+        public Task<List<UserRating>> GetUserRatingByUserIdAndTitleId(int userId, string titleId);
+        public Task<UserRating> CreateUserRating(UserRating entity);
         public Task<Bookmarks> CreateBookmark(Bookmarks entity);
         public Task<List<Bookmarks>> GetBookmark(string tid, int uid);
     }

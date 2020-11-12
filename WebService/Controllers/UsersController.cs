@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using AutoMapper;
@@ -29,6 +30,7 @@ namespace WebService.Controllers
             _config= config;
         }
 
+        //TODO (COMPLETE) Get Users
         [Authorize]
         [HttpGet]
         public IActionResult GetUsers()
@@ -37,6 +39,7 @@ namespace WebService.Controllers
             return Ok(users);
         }
 
+        //TODO (COMPLETE) Get User
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id)
@@ -50,6 +53,7 @@ namespace WebService.Controllers
             return Ok(user);
         }
 
+        //TODO (COMPLETE) Create user
         [AllowAnonymous]
         [HttpPost]
         public IActionResult CreateUser(UserForCreateOrUpdateDto userForCreateOrUpdateDto)
@@ -80,6 +84,7 @@ namespace WebService.Controllers
             return Created("", userToReturn);
         }
 
+        //TODO (COMPLETE) Login user
         [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult LoginUser(UserForCreateOrUpdateDto userForCreateOrUpdateDto)
@@ -111,6 +116,7 @@ namespace WebService.Controllers
             return Ok(userToReturn);
         }
 
+        //TODO (COMPLETE) Update User
         [Authorize]
         [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, UserForCreateOrUpdateDto userForCreateOrUpdateDto)
@@ -124,6 +130,7 @@ namespace WebService.Controllers
             return NoContent();
         }
 
+        //TODO (COMPLETE) Delete User
         [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
@@ -135,7 +142,8 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-        //[Authorize]
+        //TODO (COMPLETE) Show user's comments
+        [Authorize]
         [HttpGet("{id}/comments")]
         public IActionResult GetUserComments(int id)
         {
@@ -145,18 +153,20 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<IEnumerable<CommentDto>>(comments));
         }
 
+        //Todo (COMPLETE) Show user's comment
         [Authorize]
         [HttpGet("{id}/comments/{cid}")]
         public IActionResult GetUserComment(int id, int cid)
         {
-            //If comments change to UserId + Ordering, then change this to use both id and cid
+            //If comments change to FlaggingUser + Ordering, then change this to use both id and cid
             var comment = _dataService.GetCommentById(cid).Result;
             if (comment == null)
                 return NotFound();
             return Ok(_mapper.Map<CommentDto>(comment));
         }
 
-        //[Authorize]
+        //Todo (COMPLETE) Show user's bookmarks
+        [Authorize]
         [HttpGet("{id}/bookmarks")]
         public IActionResult GetUserBookmarks(int id)
         {
@@ -166,7 +176,8 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<IEnumerable<BookmarkDto>>(bookmarks));
         }
 
-        //[Authorize]
+        //Todo (COMPLETE) Delete User's Comment
+        [Authorize]
         [HttpDelete("{uid}/comments{cid}")]
         public IActionResult DeleteComment(int uid, int cid)
         {
@@ -185,8 +196,8 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-
-        //[Authorize]
+        //Todo (COMPLETE) Delete User's bookmark
+        [Authorize]
         [HttpDelete("{uid}/bookmarks/titles{tid}")]
         public IActionResult DeleteBookmark(int uid, string tid)
         {
@@ -197,6 +208,7 @@ namespace WebService.Controllers
             return NoContent();
         }
 
+        //Todo (COMPLETE) Show User's Roles
         [Authorize]
         [HttpGet("{id}/roles")]
         public IActionResult GetUserRoles(int id)
@@ -207,8 +219,7 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<IEnumerable<SpecialRoleDto>>(roles));
         }
 
-
-
+        //Todo (COMPLETE) Show User's searchhistory
         [Authorize]
         [HttpGet("{id}/searchhistory")]
         public IActionResult GetUserSearchHistory(int id)
@@ -219,5 +230,15 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<IEnumerable<SearchHistoryDto>>(searchHistory));
         }
 
+        //TODO Show User's Ratings
+        [Authorize]
+        [HttpGet("{id}/ratings")]
+        public IActionResult GetUserRatings(int id)
+        {
+            var userRatings = _dataService.GetUserRatingsByUserId(id).Result;
+            if (userRatings == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<UserRatingDto>>(userRatings));
+        }
     }
 }

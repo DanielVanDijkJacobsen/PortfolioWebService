@@ -391,14 +391,14 @@ namespace WebService.DataService
                 entity.ToTable("flaggedcomments");
 
                 //Sets Primary Key
-                entity.HasKey(x => new { x.CommentId, x.UserId });
+                entity.HasKey(x => new { x.CommentId, UserId = x.FlaggingUser });
 
                 //Sets properties
                 entity.Property(x => x.CommentId).HasColumnName("comment_id");
-                entity.Property(x => x.UserId).HasColumnName("flagging_user");
+                entity.Property(x => x.FlaggingUser).HasColumnName("flagging_user");
 
                 //Sets foreign Keys
-                entity.HasOne(x => x.User).WithMany(d => d.FlaggedComments).HasForeignKey(x => x.UserId);
+                entity.HasOne(x => x.User).WithMany(d => d.FlaggedComments).HasForeignKey(x => x.FlaggingUser);
                 entity.HasOne(x => x.Comment).WithMany(d => d.FlaggedComments).HasForeignKey(x => x.CommentId);
             });
         }

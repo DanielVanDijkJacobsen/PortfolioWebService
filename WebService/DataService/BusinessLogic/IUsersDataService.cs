@@ -19,6 +19,7 @@ namespace WebService.DataService.BusinessLogic
         public Task<Comments> DeleteComment(object id);
         public void FlagComment(FlaggedComment entity);
         public Task<Bookmarks> DeleteBookmark(object id);
+        public Task<List<UserRating>> GetUserRatingsByUserId(int id);
         public Task<Bookmarks> DeleteBookmark(int uid, string tid);
         public Task<List<Bookmarks>> GetBookmarksByUserId(int id);
         public Task<List<SpecialRoles>> GetSpecialRolesByUserId(int id);

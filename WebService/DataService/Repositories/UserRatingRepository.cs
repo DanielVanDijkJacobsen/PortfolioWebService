@@ -22,5 +22,11 @@ namespace WebService.DataService.Repositories
         {
             return await Context.Set<UserRating>().Where(userRating => userRating.TitleId == id).ToListAsync();
         }
+
+        public async Task<List<UserRating>> WhereByUserIdAndTitleId(int uid, string tid)
+        {
+            return await Context.Set<UserRating>()
+                .Where(userRating => userRating.TitleId == tid && userRating.UserId == uid).ToListAsync();
+        }
     }
 }
