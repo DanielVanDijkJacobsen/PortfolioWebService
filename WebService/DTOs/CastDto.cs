@@ -14,7 +14,7 @@ namespace WebService.DTOs
         public string? CharName { get; set; }
         public string Url { get; set; }
 
-        public Dictionary<string, string> AppearingInTitleIds; //Needs support somehow.
+        public Dictionary<string, string> TitleIdUrlDictionary; //Needs support somehow.
         //public virtual TitleDto Title { get; set; }
         //public virtual CastInfo CastInfo { get; set; }
     }

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebService.DataService.BusinessLogic;
+using WebService.DataService.DTO;
 using WebService.DTOs;
 
 namespace WebService.Controllers
@@ -23,7 +25,10 @@ namespace WebService.Controllers
         public IActionResult GetCasts()
         {
             var casts = _dataService.GetAllCasts().Result;
-            return Ok(_mapper.Map<IEnumerable<CastDto>>(casts));
+            
+            var castsDto = _mapper.Map<IEnumerable<CastDto>>(casts);
+
+            return Ok(castsDto);
         }
 
 
@@ -42,5 +47,6 @@ namespace WebService.Controllers
 
             return Ok(dto);
         }
+
     }
 }

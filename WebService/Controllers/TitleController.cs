@@ -78,6 +78,8 @@ namespace WebService.Controllers
             //var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(titles);
             var list = new SearchDto() {Casts = casts, Titles = titles};
 
+            _mapper.Map<IEnumerable<TitleDto>>(titles);
+
             return Ok(list);
         }
 
