@@ -6,7 +6,5 @@
         public virtual Comments Comment { get; set; }
         public int UserId { get; set; }
         public virtual Users User { get; set; }
-
-
-        }
+    }
 }

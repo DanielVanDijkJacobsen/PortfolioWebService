@@ -28,6 +28,5 @@ namespace WebService.DataService.Repositories
             return await Context.Set<Bookmarks>()
                 .Where(bookmarks => bookmarks.UserId == uid && bookmarks.TypeId == tid).ToListAsync();
         }
-
     }
 }

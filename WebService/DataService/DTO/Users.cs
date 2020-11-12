@@ -5,11 +5,6 @@ namespace WebService.DataService.DTO
 {
     public class Users
     {
-        public Users()
-        {
-            Comments = new HashSet<Comments>();
-        }
-
         public int UserId { get; set; }
         public string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -20,14 +15,11 @@ namespace WebService.DataService.DTO
         public string Email { get; set; }
         public string Password { get; set; }
         public byte[] Salt { get; set; }
-
         public virtual ICollection<UserRating> UserRating { get; set; }
         public virtual ICollection<Bookmarks> Bookmarks { get; set; }
         public virtual ICollection<Comments> Comments { get; set; }
         public virtual ICollection<SearchHistory> SearchHistories{ get; set; }
         public virtual ICollection<SpecialRoles> SpecialRoles { get; set; }
-
         public virtual ICollection<FlaggedComment> FlaggedComments { get; set; }
-
     }
 }

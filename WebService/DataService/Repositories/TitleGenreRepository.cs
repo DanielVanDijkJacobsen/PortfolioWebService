@@ -13,7 +13,7 @@ namespace WebService.DataService.Repositories
 
         }
 
-        public async Task<List<TitleGenres>> WhereByTitleId(object? id)
+        public async Task<List<TitleGenres>> WhereByTitleId(string id)
         {
             return await Context.Set<TitleGenres>().Where(titleGenre => titleGenre.TitleId == id).ToListAsync();
         }

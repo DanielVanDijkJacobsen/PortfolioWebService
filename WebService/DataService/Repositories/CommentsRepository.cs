@@ -15,12 +15,12 @@ namespace WebService.DataService.Repositories
 
         public async Task<List<Comments>> WhereByUserId(int? id)
         {
-            return await Context.Set<Comments>().Where(comment => comment.UserId == id).ToListAsync();
+            return await Context.Set<Comments>().Where(comments => comments.UserId == id).ToListAsync();
         }
 
         public async Task<List<Comments>> WhereByTitleId(string id)
         {
-            return await Context.Set<Comments>().Where(Comments => Comments.TitleId == id).ToListAsync();
+            return await Context.Set<Comments>().Where(comments => comments.TitleId == id).ToListAsync();
         }
     }
 }
