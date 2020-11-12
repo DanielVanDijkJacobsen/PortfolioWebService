@@ -50,7 +50,7 @@ namespace WebService.Controllers
             var castKnownFor = _dataService.GetCastKnownForByCastId(id).Result;
             if (castKnownFor == null)
                 return NotFound();
-            return Ok(_mapper.Map<IEnumerable<CastProfessionDto>>(castKnownFor));
+            return Ok(_mapper.Map<IEnumerable<CastKnownForDto>>(castKnownFor));
         }
 
         [HttpGet("{id}", Name = nameof(GetCast))]

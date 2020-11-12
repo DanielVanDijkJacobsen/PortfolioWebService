@@ -115,21 +115,21 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<TitleDto>(title));
         }
 
-        [Authorize]
-        [HttpPost("{tid}/comments{uid}{comment}")]
+        //[Authorize]
+        [HttpPost("{tid}/comments{uid}&{comment}")]
         public IActionResult CreateComment(string tid, int uid, string comment)
         {
-            var newComment = new CommentDto()
+            var newComment = new CommentForCreateOrUpdateDto()
             {
                 TitleId = tid, 
                 UserId = uid, 
                 Comment = comment,
-                CommentTime = new DateTime()
+                ParentCommentId = null
             };
             return Created("", _dataService.CreateComment(_mapper.Map<Comments>(newComment)));
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("{tid}/bookmarks{uid}")]
         public IActionResult CreateBookmark(string tid, int uid)
         {

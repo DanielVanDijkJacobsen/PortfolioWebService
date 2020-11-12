@@ -137,7 +137,7 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("{id}/comments")]
         public IActionResult GetUserComments(int id)
         {
@@ -158,7 +158,7 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<CommentDto>(comment));
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("{id}/bookmarks")]
         public IActionResult GetUserBookmarks(int id)
         {
