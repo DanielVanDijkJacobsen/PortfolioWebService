@@ -36,7 +36,11 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<CastDto>(cast));
+
+            var dto = _mapper.Map<CastDto>(cast);
+            dto.Url = Url.Link(nameof(GetCast), new {id});
+
+            return Ok(dto);
         }
     }
 }

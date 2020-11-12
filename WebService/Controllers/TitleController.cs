@@ -90,7 +90,11 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<TitleDto>(title));
+
+            var dto = _mapper.Map<TitleDto>(title);
+            dto.Url = Url.Link(nameof(GetTitle), new {id}); //Add URL
+
+            return Ok(dto);
         }
     }
 }
