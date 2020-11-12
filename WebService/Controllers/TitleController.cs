@@ -130,6 +130,28 @@ namespace WebService.Controllers
         }
 
         //[Authorize]
+        [HttpPut("{tid}/comments{uid}&{cid}&{updatedComment}")]
+        public IActionResult UpdateComment(string tid, int uid, int cid, string updatedComment)
+        {
+            var newComment = new CommentForCreateOrUpdateDto()
+            {
+                TitleId = tid,
+                UserId = uid,
+                Comment = updatedComment,
+                ParentCommentId = null
+            };
+
+            var comment = _mapper.Map<Comments>(newComment);
+
+            if (_dataService.UpdateComment(cid, comment).Result == null)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
+        //[Authorize]
         [HttpPost("{tid}/bookmarks{uid}")]
         public IActionResult CreateBookmark(string tid, int uid)
         {
@@ -144,5 +166,7 @@ namespace WebService.Controllers
             };
             return Created("", _dataService.CreateBookmark(_mapper.Map<Bookmarks>(bookmark)));
         }
+
+
     }
 }

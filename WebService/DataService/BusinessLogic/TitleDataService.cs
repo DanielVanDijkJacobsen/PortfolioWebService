@@ -154,6 +154,15 @@ namespace WebService.DataService.BusinessLogic
             return await _comments.Create(entity);
         }
 
+        public async Task<Comments> UpdateComment(int id, Comments comment)
+        {
+            var entity = _comments.ReadById(id).Result;
+            entity.Comment = comment.Comment;
+            entity.CommentTime = comment.CommentTime;
+            entity.IsEdited = true;
+            return await _comments.Update(entity);
+        }
+
         public async Task<Bookmarks> CreateBookmark(Bookmarks entity)
         {
             return await _bookmarks.Create(entity);

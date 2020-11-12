@@ -19,6 +19,7 @@ namespace WebService.DataService.BusinessLogic
         public Task<List<TitleAlias>> GetTitleAliasByTitleId(string id);
         public Task<List<TitleFormats>> GetTitleFormatByTitleId(string id);
         public Task<Comments> CreateComment(Comments entity);
+        public Task<Comments> UpdateComment(int id, Comments comment);
         public Task<Bookmarks> CreateBookmark(Bookmarks entity);
         public Task<List<Bookmarks>> GetBookmark(string tid, int uid);
     }
