@@ -168,7 +168,7 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<IEnumerable<BookmarkDto>>(bookmarks));
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete("{uid}/comments{cid}")]
         public IActionResult DeleteComment(int uid, int cid)
         {
@@ -187,7 +187,8 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-        [Authorize]
+
+        //[Authorize]
         [HttpDelete("{uid}/bookmarks/titles{tid}")]
         public IActionResult DeleteBookmark(int uid, string tid)
         {
@@ -207,6 +208,8 @@ namespace WebService.Controllers
                 return NotFound();
             return Ok(_mapper.Map<IEnumerable<SpecialRoleDto>>(roles));
         }
+
+
 
         [Authorize]
         [HttpGet("{id}/searchhistory")]
