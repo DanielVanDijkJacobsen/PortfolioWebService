@@ -18,9 +18,16 @@ namespace WebService.DataService.Repositories
             return await Context.Set<Bookmarks>().Where(bookmark => bookmark.UserId == id).ToListAsync();
         }
 
-        public async Task<List<Bookmarks>> WhereByTitleId(object? id)
+        public async Task<List<Bookmarks>> WhereByTitleId(string id)
         {
             return await Context.Set<Bookmarks>().Where(bookmark => bookmark.TypeId == id).ToListAsync();
         }
+
+        public async Task<List<Bookmarks>> WhereByTitleAndUserId(int uid, string tid)
+        {
+            return await Context.Set<Bookmarks>()
+                .Where(bookmarks => bookmarks.UserId == uid && bookmarks.TypeId == tid).ToListAsync();
+        }
+
     }
 }

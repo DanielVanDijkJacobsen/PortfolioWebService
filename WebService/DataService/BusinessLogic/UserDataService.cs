@@ -1,24 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebService.DataService.DTO;
 using WebService.DataService.Repositories;
 
 namespace WebService.DataService.BusinessLogic
 {
-    public class FrameworkDataService : IFrameworkDataService
+    public class UserDataService : IUsersDataService
     {
         private readonly UserRepository _users;
-        private readonly GenericRepository<SpecialRoles> _specialRoles;
-        private readonly GenericRepository<SearchHistory> _searchHistory;
-        private readonly GenericRepository<Comments> _comments;
-        private readonly GenericRepository<Bookmarks> _bookmarks;
+        private readonly SpecialRolesRepository _specialRoles;
+        private readonly SearchHistoryRepository _searchHistory;
+        private readonly CommentsRepository _comments;
+        private readonly BookmarkRepository _bookmarks;
         private readonly FlaggedCommentsRepository _flaggedComments;
 
-        public FrameworkDataService()
+        public UserDataService()
         {
             ImdbContext context = new ImdbContext();
             _users = new UserRepository(context);
+            _bookmarks = new BookmarkRepository(context);
+            _comments = new CommentsRepository(context);
+            _searchHistory = new SearchHistoryRepository(context);
+            _specialRoles = new SpecialRolesRepository(context);
         }
 
         public async Task<Users> GetUserById(object id)
@@ -47,13 +52,11 @@ namespace WebService.DataService.BusinessLogic
                 user.Password = entity.Password;
             if (entity.Salt != null)
                 user.Salt = entity.Salt;
-            if (entity.DateOfBirth != null)
-                user.DateOfBirth = entity.DateOfBirth;
+            user.DateOfBirth = entity.DateOfBirth;
             if (entity.Email != null)
                 user.Email = entity.Email;
             if (entity.Nickname != null)
                 user.Nickname = entity.Nickname;
-
             return await _users.Update(user);
         }
 
@@ -78,6 +81,16 @@ namespace WebService.DataService.BusinessLogic
             return await _comments.ReadById(id);
         }
 
+        public async Task<List<Comments>> GetCommentsByUserId(int id)
+        {
+            return await _comments.WhereByUserId(id);
+        }
+
+        public async Task<List<Bookmarks>> GetBookmarksByUserId(int id)
+        {
+            return await _bookmarks.WhereByUserId(id);
+        }
+
         public async Task<List<Comments>> GetAllComments()
         {
             return await _comments.ReadAll();
@@ -93,23 +106,13 @@ namespace WebService.DataService.BusinessLogic
 
         public async Task<Comments> DeleteComment(object id)
         {
-            var _entity = _comments.ReadById(id).Result;
-            return await _comments.Delete(_entity);
-        }
-
-        public async Task<Comments> CreateComment(Comments entity)
-        {
-            entity.CommentTime = DateTime.Now;
-            return await _comments.Create(entity);
+            var entity = _comments.ReadById(id).Result;
+            return await _comments.Delete(entity);
         }
 
         public async void FlagComment(FlaggedComment entity)
         {
-            var _comment = new FlaggedComment();
-            _comment.CommentId = entity.CommentId;
-            _comment.UserId = entity.UserId;
-            _flaggedComments.FlagComment(_comment);
-            return;
+            _flaggedComments.FlagComment(new FlaggedComment { CommentId = entity.CommentId, UserId = entity.UserId });
         }
 
         public async Task<Bookmarks> DeleteBookmark(object id)
@@ -118,9 +121,20 @@ namespace WebService.DataService.BusinessLogic
             return await _bookmarks.Delete(bookmark);
         }
 
-        public async Task<Bookmarks> CreateBookmark(Bookmarks entity)
+        public async Task<Bookmarks> DeleteBookmark(int uid, string tid)
         {
-            return await _bookmarks.Create(entity);
+            var bookmark = await _bookmarks.WhereByTitleAndUserId(uid, tid);
+            return await _bookmarks.Delete(bookmark.First());
+        }
+
+        public async Task<List<SpecialRoles>> GetSpecialRolesByUserId(int id)
+        {
+            return await _specialRoles.WhereByUserId(id);
+        }
+
+        public async Task<List<SearchHistory>> GetSearchHistoryByUserId(int id)
+        {
+            return await _searchHistory.WhereByUserId(id);
         }
     }
 }

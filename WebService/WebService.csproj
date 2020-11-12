@@ -37,7 +37,6 @@
 
   <ItemGroup>
     <Folder Include="DataService\CustomTypes\" />
-    <Folder Include="DataService\BusinessLogic\" />
     <Folder Include="DataService\Repositories\" />
   </ItemGroup>
 

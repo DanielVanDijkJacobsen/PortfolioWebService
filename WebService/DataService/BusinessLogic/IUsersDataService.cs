@@ -4,9 +4,8 @@ using WebService.DataService.DTO;
 
 namespace WebService.DataService.BusinessLogic
 {
-    public interface IFrameworkDataService
+    public interface IUsersDataService
     {
-        //Users
         public Task<Users> GetUserById(object id);
         public Task<List<Users>> GetAllUsers();
         public Task<Users> CreateUser(Users entity);
@@ -14,19 +13,15 @@ namespace WebService.DataService.BusinessLogic
         public Task<Users> DeleteUser(object id);
         public Task<Users> GetUserByEmail(string email);
         public Task<Users> ValidateUserByPassword(string email, string password);
-
-        //Comments
+        public Task<List<Comments>> GetCommentsByUserId(int id);
         public Task<Comments> GetCommentById(object id);
-        public Task<List<Comments>> GetAllComments();
         public Task<Comments> UpdateComment(object id, Comments entity);
         public Task<Comments> DeleteComment(object id);
-        public Task<Comments> CreateComment(Comments entity);
-
         public void FlagComment(FlaggedComment entity);
-
-        //Bookmarks
         public Task<Bookmarks> DeleteBookmark(object id);
-        public Task<Bookmarks> CreateBookmark(Bookmarks entity);
-
+        public Task<Bookmarks> DeleteBookmark(int uid, string tid);
+        public Task<List<Bookmarks>> GetBookmarksByUserId(int id);
+        public Task<List<SpecialRoles>> GetSpecialRolesByUserId(int id);
+        public Task<List<SearchHistory>> GetSearchHistoryByUserId(int id);
     }
 }

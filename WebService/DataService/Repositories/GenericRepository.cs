@@ -17,12 +17,6 @@ namespace WebService.DataService.Repositories
         {
             return await Context.Set<T>().FindAsync(id);
         }
-        /*
-        public async Task<T> Read(string id)
-        {
-            return await context.Set<T>().FindAsync(id);
-        }
-        */
         public async Task<List<T>> ReadAll()
         {
             return await Context.Set<T>().ToListAsync();
@@ -39,7 +33,6 @@ namespace WebService.DataService.Repositories
         {
             var updatedEntity = Context.Set<T>().Update(entity).Entity;
             await Context.SaveChangesAsync();
-            //return entity;
             return updatedEntity;
         }
 
@@ -47,15 +40,11 @@ namespace WebService.DataService.Repositories
         {
             var newEntity = Context.Set<T>().AddAsync(entity).Result.Entity;
             await Context.SaveChangesAsync();
-            //return entity;
             return newEntity;
         }
-
-
         public async void Save()
         {
             await Context.SaveChangesAsync();
         }
-
     }
 }

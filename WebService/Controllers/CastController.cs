@@ -10,11 +10,11 @@ namespace WebService.Controllers
     [Route("api/cast")]
     public class CastController : ControllerBase
     {
-        private readonly ITitlesDataService _dataService;
+        private readonly ICastsDataService _dataService;
         private readonly IMapper _mapper;
         private const int MaxPageSize = 50;
 
-        public CastController(ITitlesDataService dataService, IMapper mapper)
+        public CastController(ICastsDataService dataService, IMapper mapper)
         {
             _dataService = dataService;
             _mapper = mapper;
@@ -26,6 +26,32 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<IEnumerable<CastDto>>(casts));
         }
 
+        [HttpGet("{id}/info")]
+        public IActionResult GetCastInfoByCast(string id)
+        {
+            var castInfo = _dataService.GetCastInfoByCastId(id).Result;
+            if (castInfo == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<CastInfoDto>>(castInfo));
+        }
+
+        [HttpGet("{id}/profession")]
+        public IActionResult GetCastProfessionByCast(string id)
+        {
+            var castProfession = _dataService.GetCastProfessionByCastId(id).Result;
+            if (castProfession == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<CastProfessionDto>>(castProfession));
+        }
+
+        [HttpGet("{id}/knownfor")]
+        public IActionResult GetCastKnownForByCast(string id)
+        {
+            var castKnownFor = _dataService.GetCastKnownForByCastId(id).Result;
+            if (castKnownFor == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<CastProfessionDto>>(castKnownFor));
+        }
 
         [HttpGet("{id}", Name = nameof(GetCast))]
         public IActionResult GetCast(string id)

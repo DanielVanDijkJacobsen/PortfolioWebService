@@ -17,7 +17,7 @@ namespace WebService.DataService.BusinessLogicTests
     public class Tests
     {
         private readonly ITestOutputHelper _testOutputHelper;
-        public IFrameworkDataService Framework = new FrameworkDataService();
+        public IUsersDataService Framework = new UserDataService();
         public ITitlesDataService Movie = new TitleDataService();
 
         public Tests(ITestOutputHelper testOutputHelper)

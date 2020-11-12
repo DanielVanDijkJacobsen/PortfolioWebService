@@ -46,7 +46,8 @@ namespace WebService
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
-            services.AddSingleton<IFrameworkDataService, FrameworkDataService>();
+            services.AddSingleton<IUsersDataService, UserDataService>();
+            services.AddSingleton<ICastsDataService, CastsDataService>();
             services.AddSingleton<ITitlesDataService, TitleDataService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }

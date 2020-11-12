@@ -11,22 +11,13 @@ namespace WebService.Controllers
     [ApiController]
     public class CommentsController : ControllerBase
     {
-        private readonly IFrameworkDataService _dataService;
+        private readonly IUsersDataService _dataService;
         private readonly IMapper _mapper;
 
-        public CommentsController(IFrameworkDataService dataService, IMapper mapper)
+        public CommentsController(IUsersDataService dataService, IMapper mapper)
         {
             _dataService = dataService;
             _mapper = mapper;
-        }
-
-        [Authorize]
-        [HttpPost]
-        public IActionResult CreateComment(CommentForCreateOrUpdateDto commentForCreateOrUpdateDto)
-        {
-            var comment = _mapper.Map<Comments>(commentForCreateOrUpdateDto);
-            _dataService.CreateComment(comment);
-            return Created("", comment);
         }
 
         [Authorize]
@@ -51,16 +42,6 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-        [Authorize]
-        [HttpDelete("{id}")]
-        public IActionResult DeleteComment(int id)
-        {
-            if (_dataService.DeleteComment(id).Result == null)
-            {
-                return NotFound();
-            }
 
-            return NoContent();
-        }
     }
 }

@@ -12,8 +12,6 @@ namespace WebService.DataService.Repositories
         public async void FlagComment(FlaggedComment entity)
         {
             await Context.FlaggedComments.AddAsync(entity);
-            return;
         }
-
     }
 }

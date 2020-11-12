@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +9,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using WebService.DataService.BusinessLogic;
+using WebService.DataService.CustomTypes;
 using WebService.DataService.DTO;
 using WebService.DTOs;
 using WebService.Utils;
@@ -17,11 +20,11 @@ namespace WebService.Controllers
     [Route("api/users")]
     public class UsersController : ControllerBase
     {
-        private readonly IFrameworkDataService _dataService;
+        private readonly IUsersDataService _dataService;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
 
-        public UsersController(IFrameworkDataService dataService, IMapper mapper, IConfiguration config)
+        public UsersController(IUsersDataService dataService, IMapper mapper, IConfiguration config)
         {
             _dataService = dataService;
             _mapper = mapper;
@@ -133,5 +136,87 @@ namespace WebService.Controllers
             }
             return NoContent();
         }
+
+        [Authorize]
+        [HttpGet("{id}/comments")]
+        public IActionResult GetUserComments(int id)
+        {
+            var comments = _dataService.GetCommentsByUserId(id).Result;
+            if (comments == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<CommentDto>>(comments));
+        }
+
+        [Authorize]
+        [HttpGet("{id}/comments/{cid}")]
+        public IActionResult GetUserComment(int id, int cid)
+        {
+            //If comments change to UserId + Ordering, then change this to use both id and cid
+            var comment = _dataService.GetCommentById(cid).Result;
+            if (comment == null)
+                return NotFound();
+            return Ok(_mapper.Map<CommentDto>(comment));
+        }
+
+        [Authorize]
+        [HttpGet("{id}/bookmarks")]
+        public IActionResult GetUserBookmarks(int id)
+        {
+            var bookmarks = _dataService.GetBookmarksByUserId(id).Result;
+            if (bookmarks == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<BookmarkDto>>(bookmarks));
+        }
+
+        [Authorize]
+        [HttpDelete("{uid}/comments{cid}")]
+        public IActionResult DeleteComment(int uid, int cid)
+        {
+            var comments = _dataService.GetCommentsByUserId(uid).Result;
+            var owns = false;
+            foreach (var userid in comments.Where(userid => userid.CommentId == cid))
+            {
+                owns = true;
+            }
+            if (owns == false)
+                return NotFound();
+            if (_dataService.DeleteComment(cid).Result == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpDelete("{uid}/bookmarks/titles{tid}")]
+        public IActionResult DeleteBookmark(int uid, string tid)
+        {
+            if (_dataService.DeleteBookmark(uid, tid).Result == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpGet("{id}/roles")]
+        public IActionResult GetUserRoles(int id)
+        {
+            var roles = _dataService.GetSpecialRolesByUserId(id).Result;
+            if (roles == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<SpecialRoleDto>>(roles));
+        }
+
+        [Authorize]
+        [HttpGet("{id}/searchhistory")]
+        public IActionResult GetUserSearchHistory(int id)
+        {
+            var searchHistory = _dataService.GetSearchHistoryByUserId(id).Result;
+            if (searchHistory == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<SearchHistoryDto>>(searchHistory));
+        }
+
     }
 }

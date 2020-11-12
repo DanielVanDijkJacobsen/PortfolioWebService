@@ -17,5 +17,10 @@ namespace WebService.DataService.Repositories
         {
             return await Context.Set<CastInfo>().Where(casts => casts.Name.ToLower().Contains(name.ToLower())).ToListAsync();
         }
+
+        public async Task<List<CastInfo>> WhereByCastId(string id)
+        {
+            return await Context.CastInfo.Where(x => x.CastId == id).ToListAsync();
+        }
     }
 }

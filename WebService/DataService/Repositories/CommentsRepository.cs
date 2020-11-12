@@ -18,10 +18,9 @@ namespace WebService.DataService.Repositories
             return await Context.Set<Comments>().Where(comment => comment.UserId == id).ToListAsync();
         }
 
-        public async Task<List<Comments>> WhereByTitleId(object? id)
+        public async Task<List<Comments>> WhereByTitleId(string id)
         {
             return await Context.Set<Comments>().Where(Comments => Comments.TitleId == id).ToListAsync();
         }
-
     }
 }

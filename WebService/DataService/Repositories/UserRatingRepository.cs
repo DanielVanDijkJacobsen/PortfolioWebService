@@ -18,7 +18,7 @@ namespace WebService.DataService.Repositories
             return await Context.Set<UserRating>().Where(userRating => userRating.UserId == id).ToListAsync();
         }
 
-        public async Task<List<UserRating>> WhereByTitleId(object? id)
+        public async Task<List<UserRating>> WhereByTitleId(string id)
         {
             return await Context.Set<UserRating>().Where(userRating => userRating.TitleId == id).ToListAsync();
         }
