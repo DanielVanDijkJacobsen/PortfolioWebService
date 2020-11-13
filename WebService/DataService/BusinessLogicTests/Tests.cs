@@ -152,6 +152,78 @@ namespace WebService.DataService.BusinessLogicTests
             Equal("Batman Begins", dataSeries.First()["titles"].First()["primaryTitle"]);
         }
 
+        //Bookmarks
+        private const string BookmarksApi = "https://localhost:5001/api/bookmarks";
+
+        [Fact]
+        public void TestingBookmarks()
+        {
+
+            var loginUser = new UserForCreateOrUpdateDto
+            {
+                Email = "Smedenergod2@gmail.com",
+                Name = "Smed2",
+                Password = "Smed2",
+                Nickname = "Smed2"
+            };
+
+            var url = String.Concat(UsersApi, "/login");
+            var (dataCreate, statusCodeCreate) = PostData(UsersApi, loginUser);
+            var (dataLogin, statusLogin) = PostData(url, loginUser);
+            var token = dataLogin["jwtToken"].ToString();
+
+            var (data, statusCode) = GetArray(UsersApi, token);
+            var userid = data.Last()["userId"];
+
+            /*
+            BookmarkForCreateDto titleBookmark = new BookmarkForCreateDto()
+            {
+                UserId = (int)userid,
+                BookmarkType = BookmarkType.title,
+                TypeId = "tt0372784"
+            };
+            */
+
+            BookmarkForCreate titleBookmark = new BookmarkForCreate()
+            {
+                UserId = (int)userid,
+                BookmarkType = "title",
+                TypeId = "tt0372784"
+            };
+
+
+            _testOutputHelper.WriteLine(JsonConvert.SerializeObject(titleBookmark));
+
+            var (dataTitle, statusTitle) = PostData(BookmarksApi, titleBookmark, token);
+            Assert.Equal("Created", statusTitle.ToString());
+
+            BookmarkForCreate getBookmark = new BookmarkForCreate()
+            {
+                UserId = (int)userid,
+                BookmarkType = "title",
+                TypeId = null
+            };
+
+            var urlGet = String.Concat(BookmarksApi, JsonConvert.SerializeObject(getBookmark));
+            _testOutputHelper.WriteLine(urlGet);
+
+            var (dataGet, statusGet) = GetObject(urlGet, token);
+            Assert.Equal("OK", statusGet.ToString());
+
+            var deleteUrl = String.Concat(BookmarksApi, JsonConvert.SerializeObject(titleBookmark));
+
+            DeleteData(deleteUrl, token);
+
+            var (dataGet2, statusGet2) = GetObject(urlGet, token);
+            Assert.Equal("OK", statusGet2.ToString());
+
+
+            var url3 = String.Concat(UsersApi, "?id=");
+            url3 = String.Concat(url3, (int)userid);
+            var statusDelete = DeleteData(url3, token);
+            Assert.Equal("NoContent", statusDelete.ToString());
+        }
+
 
         //Helpers
         (JArray, HttpStatusCode) GetArray(string url, string token = "")
@@ -205,6 +277,19 @@ namespace WebService.DataService.BusinessLogicTests
                     Encoding.UTF8,
                     "application/json")).Result;
             return response.StatusCode;
+        }
+
+        internal class CommentForGetDto
+        {
+            public int UserId;
+            public string TitleId;
+        }
+
+        internal class BookmarkForCreate
+        {
+            public int UserId;
+            public string BookmarkType;
+            public string TypeId;
         }
     }
 }

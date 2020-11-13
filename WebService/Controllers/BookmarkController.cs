@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,17 +25,23 @@ namespace WebService.Controllers
             _titleDataService = titleDataService;
         }
 
-        [Authorize]
-        [HttpPost("title")]
+        //[Authorize]
+        [HttpPost]
         public IActionResult BookmarkTitle(BookmarkForCreateDto bookmarkForCreateDto)
         {
             var newBookmark = _mapper.Map<Bookmarks>(bookmarkForCreateDto);
             var exist = _titleDataService.GetBookmark(newBookmark.TypeId, newBookmark.UserId).Result;
             if (exist.Count > 0)
                 return NotFound();
-            return Created("", CreateBookmark(newBookmark, "title"));
+            return bookmarkForCreateDto.BookmarkType switch
+            {
+                BookmarkType.title => Created("", CreateBookmark(newBookmark, "title")),
+                BookmarkType.person => Created("", CreateBookmark(newBookmark, "person")),
+                _ => NotFound()
+            };
         }
 
+        /*
         [Authorize]
         [HttpPost("actor")]
         public IActionResult BookmarkActor(BookmarkForCreateDto bookmarkForCreateDto)
@@ -45,8 +52,8 @@ namespace WebService.Controllers
                 return NotFound();
             return Created("", CreateBookmark(newBookmark, "actor"));
         }
-
-        [Authorize]
+        */
+        //[Authorize]
         [HttpDelete]
         public IActionResult DeleteBookmark(BookmarkForCreateDto bookmarkForCreateDto)
         {
@@ -69,7 +76,7 @@ namespace WebService.Controllers
                 bookmarks = _userDataService.GetBookmarksByUserId(bookmarkForCreateDto.UserId).Result;
             else if (bookmarkForCreateDto.UserId < 1 && bookmarkForCreateDto.TypeId == null)
                 return NotFound();
-            return Ok(_mapper.Map<BookmarkDto>(bookmarks));
+            return Ok(_mapper.Map<IEnumerable<BookmarkDto>>(bookmarks));
         }
 
         private Bookmarks CreateBookmark(Bookmarks bookmark, string type)

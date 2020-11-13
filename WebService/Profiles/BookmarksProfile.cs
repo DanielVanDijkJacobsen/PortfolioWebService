@@ -10,6 +10,8 @@ namespace WebService.Profiles
         {
             CreateMap<Bookmarks, BookmarkDto>();
             CreateMap<BookmarkForCreateDto, Bookmarks>();
+            CreateMap<BookmarkDto, Bookmarks>();
+            CreateMap<Bookmarks, BookmarkForCreateDto > ();
         }
     }
 }

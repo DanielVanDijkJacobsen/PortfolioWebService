@@ -10,7 +10,7 @@ using WebService.DTOs;
 namespace WebService.Controllers
 {
     [ApiController]
-    [Microsoft.AspNetCore.Components.Route("api/professions")]
+    [Route("api/professions")]
     public class ProfessionController : ControllerBase
     {
         private readonly ICastsDataService _dataService;
