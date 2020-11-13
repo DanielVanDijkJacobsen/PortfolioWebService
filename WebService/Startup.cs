@@ -50,6 +50,7 @@ namespace WebService
             services.AddSingleton<ICastsDataService, CastsDataService>();
             services.AddSingleton<ITitlesDataService, TitleDataService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +65,8 @@ namespace WebService
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseRequestLogging();
+            //app.UseRequestLogging();
+            
 
             app.UseEndpoints(endpoints =>
             {

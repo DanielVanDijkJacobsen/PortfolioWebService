@@ -33,7 +33,7 @@ namespace WebService.DataService
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             NpgsqlConnection.GlobalTypeMapper.MapEnum<BookmarkType>("bookmark_enum");
-            optionsBuilder.UseLazyLoadingProxies().UseNpgsql(connectionString);
+            optionsBuilder.UseNpgsql(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

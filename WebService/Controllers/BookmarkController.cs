@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +17,6 @@ namespace WebService.Controllers
         private readonly ITitlesDataService _titleDataService;
         private readonly IMapper _mapper;
 
-
         public BookmarkController(IUsersDataService userDataService, ITitlesDataService titleDataService, IMapper mapper)
         {
             _userDataService = userDataService;
@@ -31,7 +27,7 @@ namespace WebService.Controllers
         //TODO TEST (Completed) Create Title Bookmark
         [Authorize]
         [HttpPost("title")]
-        public IActionResult CreateBookmark(BookmarkForCreateDto bookmarkForCreateDto)
+        public IActionResult BookmarkTitle(BookmarkForCreateDto bookmarkForCreateDto)
         {
             var newBookmark = _mapper.Map<Bookmarks>(bookmarkForCreateDto);
             var exist = _titleDataService.GetBookmark(newBookmark.TypeId, newBookmark.UserId).Result;
@@ -49,13 +45,12 @@ namespace WebService.Controllers
             var exist = _titleDataService.GetBookmark(newBookmark.TypeId, newBookmark.UserId).Result;
             if (exist.Count > 0)
                 return NotFound();
-
             return Created("", CreateBookmark(newBookmark, "actor"));
         }
 
         //TODO TEST Delete Title Bookmarks
         [Authorize]
-        [HttpDelete()]
+        [HttpDelete]
         public IActionResult DeleteBookmark(BookmarkForCreateDto bookmarkForCreateDto)
         {
             var bookmark = _mapper.Map<Bookmarks>(bookmarkForCreateDto);
@@ -64,6 +59,20 @@ namespace WebService.Controllers
                 return NotFound();
             }
             return NoContent();
+        }
+
+        [HttpGet]
+        public IActionResult GetBookmarks(BookmarkForCreateDto bookmarkForCreateDto)
+        {
+            List<Bookmarks> bookmarks = new List<Bookmarks>();
+            if (bookmarkForCreateDto.UserId > 0 && bookmarkForCreateDto.TypeId != null)
+                bookmarks = _titleDataService.GetBookmark(bookmarkForCreateDto.TypeId, bookmarkForCreateDto.UserId)
+                    .Result;
+            else if (bookmarkForCreateDto.UserId > 0 && bookmarkForCreateDto.TypeId == null)
+                bookmarks = _userDataService.GetBookmarksByUserId(bookmarkForCreateDto.UserId).Result;
+            else if (bookmarkForCreateDto.UserId < 1 && bookmarkForCreateDto.TypeId == null)
+                return NotFound();
+            return Ok(_mapper.Map<BookmarkDto>(bookmarks));
         }
 
         private Bookmarks CreateBookmark(Bookmarks bookmark, string type)

@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebService.DataService.BusinessLogic;
-using WebService.DataService.CustomTypes;
 using WebService.DataService.DTO;
 using WebService.DTOs;
 
@@ -24,51 +22,13 @@ namespace WebService.Controllers
         }
 
         //TODO (Completed) Get Popular movies
-        [HttpGet("popular{type}")]
+        [HttpGet("popular")]
         public IActionResult GetPopular(string type)
         {
             var titles = _dataService.GetPopularTitles(6, type).Result;
             if (titles == null)
                 return NotFound();
             return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
-        }
-
-        //TODO (Completed) Get Title Cast
-        [HttpGet("{id}/casts")]
-        public IActionResult GetTitleCasts(string id)
-        {
-            var casts = _dataService.GetCastsByTitleId(id).Result;
-            return Ok(_mapper.Map<ICollection<CastDto>>(casts));
-        }
-
-        //TODO (Completed) Get Title Info
-        [HttpGet("{id}/info")]
-        public IActionResult GetTitleInfo(string id)
-        {
-            var titleInfo = _dataService.GetTitleInfoByTitleId(id).Result;
-            if (titleInfo == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<TitleInfoDto>>(titleInfo));
-        }
-
-        //TODO (Completed) Get Title Alias
-        [HttpGet("{id}/alias")]
-        public IActionResult GetTitleAlias(string id)
-        {
-            var titleAlias = _dataService.GetTitleAliasByTitleId(id).Result;
-            if (titleAlias == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<TitleAliasDto>>(titleAlias));
-        }
-
-        //TODO (Completed) Get Title Format
-        [HttpGet("{id}/format")]
-        public IActionResult GetTitleFormat(string id)
-        {
-            var titleFormat = _dataService.GetTitleFormatByTitleId(id).Result;
-            if (titleFormat == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<TitleFormatDto>>(titleFormat));
         }
 
         //TODO (Completed) Get Titles
@@ -105,7 +65,6 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<TitleDto>(title));
         }
 
-
         /*
         [HttpGet("popular/shows")]
         public IActionResult GetPopularShows()
@@ -114,6 +73,41 @@ namespace WebService.Controllers
             if (titles == null)
                 return NotFound();
             return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
+        }
+
+        [HttpGet("{id}/info")]
+        public IActionResult GetTitleInfo(string id)
+        {
+            var titleInfo = _dataService.GetTitleInfoByTitleId(id).Result;
+            if (titleInfo == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<TitleInfoDto>>(titleInfo));
+        }
+
+        [HttpGet("{id}/alias")]
+        public IActionResult GetTitleAlias(string id)
+        {
+            var titleAlias = _dataService.GetTitleAliasByTitleId(id).Result;
+            if (titleAlias == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<TitleAliasDto>>(titleAlias));
+        }
+
+
+        [HttpGet("{id}/casts")]
+        public IActionResult GetTitleCasts(string id)
+        {
+            var casts = _dataService.GetCastsByTitleId(id).Result;
+            return Ok(_mapper.Map<ICollection<CastDto>>(casts));
+        }
+
+        [HttpGet("{id}/format")]
+        public IActionResult GetTitleFormat(string id)
+        {
+            var titleFormat = _dataService.GetTitleFormatByTitleId(id).Result;
+            if (titleFormat == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<TitleFormatDto>>(titleFormat));
         }
     
 
@@ -233,6 +227,6 @@ namespace WebService.Controllers
             return Created("", _dataService.CreateBookmark(_mapper.Map<Bookmarks>(bookmark)));
         }
         */
-         */
+
     }
 }

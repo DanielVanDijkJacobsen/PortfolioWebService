@@ -27,6 +27,12 @@ namespace WebService.DataService.BusinessLogic
         {
             return await _casts.ReadAll();
         }
+
+        public async Task<List<CastInfo>> GetAllCastInfos()
+        {
+            return await _castInfo.ReadAll();
+        }
+
         public async Task<List<CastProfession>> GetCastProfessionByCastId(string id)
         {
             return await _castProfession.WhereByCastId(id);
@@ -52,9 +58,19 @@ namespace WebService.DataService.BusinessLogic
             return await _nameRating.UpdateNameRating(id);
         }
 
-        public async Task<Casts> GetCastById(object id)
+        public async Task<Casts> GetCastById(string id)
         {
             return await _casts.ReadById(id);
+        }
+
+        public async Task<CastInfo> GetCastInfoById(string id)
+        {
+            return await _castInfo.ReadById(id);
+        }
+
+        public async Task<List<Casts>> GetCastsByTitleId(string id)
+        {
+            return await _casts.WhereByTitleId(id);
         }
     }
 }

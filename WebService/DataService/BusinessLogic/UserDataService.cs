@@ -79,7 +79,7 @@ namespace WebService.DataService.BusinessLogic
             return await _users.ValidatePassword(email, password);
         }
 
-        public async Task<Comments> GetCommentById(object id)
+        public async Task<Comments> GetCommentById(int id)
         {
             return await _comments.ReadById(id);
         }
@@ -107,7 +107,7 @@ namespace WebService.DataService.BusinessLogic
             return await _comments.Update(_entity);
         }
 
-        public async Task<Comments> DeleteComment(object id)
+        public async Task<Comments> DeleteComment(int id)
         {
             var entity = _comments.ReadById(id).Result;
             return await _comments.Delete(entity);

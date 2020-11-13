@@ -14,9 +14,9 @@ namespace WebService.DataService.BusinessLogic
         public Task<Users> GetUserByEmail(string email);
         public Task<Users> ValidateUserByPassword(string email, string password);
         public Task<List<Comments>> GetCommentsByUserId(int id);
-        public Task<Comments> GetCommentById(object id);
+        public Task<Comments> GetCommentById(int id);
         public Task<Comments> UpdateComment(object id, Comments entity);
-        public Task<Comments> DeleteComment(object id);
+        public Task<Comments> DeleteComment(int id);
         public void FlagComment(FlaggedComment entity);
         public Task<Bookmarks> DeleteBookmark(object id);
         public Task<List<UserRating>> GetUserRatingsByUserId(int id);

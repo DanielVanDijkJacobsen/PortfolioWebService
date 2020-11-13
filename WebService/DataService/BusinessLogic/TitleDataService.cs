@@ -14,7 +14,10 @@ namespace WebService.DataService.BusinessLogic
         private readonly CastInfoRepository _castInfo;
         private readonly UserRatingRepository _userRating;
         private readonly TitleFormatRepository _titleFormat;
-        private readonly IGenericRepository<TitleGenres> _titleGenre;
+        private readonly TitleGenreRepository _titleGenre;
+        private readonly GenreRepository _genre;
+        private readonly FormatRepository _format;
+
         private readonly TitleAliasRepository _titleAlias;
         private readonly TitleInfoRepository _titleInfo;
         private readonly IGenericRepository<Episodes> _episodes;
@@ -29,9 +32,11 @@ namespace WebService.DataService.BusinessLogic
             _castInfo = new CastInfoRepository(context);
             _titles = new TitleRepository(context);
             _casts = new CastsRepository(context);
+            _genre = new GenreRepository(context);
+            _format = new FormatRepository(context);
             _userRating = new UserRatingRepository(context);
             _titleFormat = new TitleFormatRepository(context);
-            _titleGenre = new GenericRepository<TitleGenres>(context);
+            _titleGenre = new TitleGenreRepository(context);
             _titleAlias = new TitleAliasRepository(context);
             _titleInfo = new TitleInfoRepository(context);
             _episodes = new GenericRepository<Episodes>(context);
@@ -61,10 +66,7 @@ namespace WebService.DataService.BusinessLogic
             return await _comments.WhereByTitleId(id);
         }
 
-        public async Task<List<Casts>> GetCastsByTitleId(string id)
-        {
-            return await _casts.WhereByTitleId(id);
-        }
+
 
         public async Task<List<CastInfo>> SearchByName(string name)
         {
@@ -101,11 +103,6 @@ namespace WebService.DataService.BusinessLogic
             return await _titles.ReadAll();
         }
 
-        public async Task<List<UserRating>> GetAllUserRatings()
-        {
-            return await _userRating.ReadAll();
-        }
-
         public async Task<UserRating> UpdateUserRating(UserRating entity)
         {
             return await _userRating.Update(entity);
@@ -116,6 +113,11 @@ namespace WebService.DataService.BusinessLogic
             return await _userRating.Delete(entity);
         }
 
+        public async Task<List<UserRating>> GetUserRatingByTitleId(string titleId)
+        {
+            return await _userRating.WhereByTitleId(titleId);
+        }
+
         public async Task<UserRating> CreateUserRating(UserRating entity)
         {
             return await _userRating.Create(entity);
@@ -124,7 +126,8 @@ namespace WebService.DataService.BusinessLogic
         public async Task<Comments> CreateComment(Comments entity)
         {
             entity.CommentTime = DateTime.Now;
-            return await _comments.Create(entity);
+            await _comments.Create(entity);
+            return _comments.WhereByUserId(entity.UserId).Result.Last();
         }
 
         public async Task<Comments> UpdateComment(int id, Comments comment)
@@ -166,6 +169,18 @@ namespace WebService.DataService.BusinessLogic
         public async Task<List<Bookmarks>> GetBookmark(string tid, int uid)
         {
             return await _bookmarks.WhereByTitleAndUserId(uid, tid);
+        }
+
+        public async Task<Genres> GetGenreByTitleId(string id)
+        {
+            var genreId = await _titleGenre.WhereByTitleId(id);
+            return await _genre.ReadById(genreId.First().GenreId);
+        }
+
+        public async Task<Formats> GetFormatByTitleId(string id)
+        {
+            var formatId = await _titleFormat.WhereByTitleId(id);
+            return await _format.ReadById(formatId.First().FormatId);
         }
     }
 }

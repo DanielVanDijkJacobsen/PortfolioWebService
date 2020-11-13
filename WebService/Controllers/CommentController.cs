@@ -27,42 +27,55 @@ namespace WebService.Controllers
             _titleDataService = titleDataService;
         }
 
-        //TODO TEST (Completed) Create comment
-        [Authorize]
-        [HttpPost()]
+        //COMPLETED Create Comment
+        //[Authorize]
+        [HttpPost]
         public IActionResult CreateComment(CommentForCreateOrUpdateDto commentForCreateOrUpdateDto)
         {
             var newComment = _mapper.Map<Comments>(commentForCreateOrUpdateDto);
-            return Created("", _titleDataService.CreateComment(newComment));
+            return Created("", _titleDataService.CreateComment(newComment).Result);
         }
 
         //TODO TEST Delete User's Comment
-        [Authorize]
-        [HttpDelete()]
-        public IActionResult DeleteComment(CommentForCreateOrUpdateDto commentForCreateOrUpdateDto)
+        //[Authorize]
+        [HttpDelete]
+        public IActionResult DeleteComment(int id)
         {
-            var newComment = _mapper.Map<Comments>(commentForCreateOrUpdateDto);
-
-            var comments = _userDataService.GetCommentsByUserId(newComment.UserId).Result;
-
-            var owns = false;
-            foreach (var userid in comments.Where(userid => userid.CommentId == newComment.CommentId))
-            {
-                owns = true;
-            }
-            if (owns == false)
+            if (_userDataService.DeleteComment(id).Result == null)
                 return NotFound();
-            if (_userDataService.DeleteComment(newComment.CommentId).Result == null)
-            {
-                return NotFound();
-            }
             return NoContent();
         }
 
+
+        [HttpGet]
+        public IActionResult GetComment(int id)
+        {
+            var comment = _userDataService.GetCommentById(id).Result;
+            //if (comment == null)
+              //  return NotFound();
+            return Ok(_mapper.Map<CommentDto>(comment));
+        }
+
+        /*
+        [HttpGet]
+        public IActionResult GetComments(CommentForGetDto commentForGetDto)
+        {
+            List<Comments> comments = new List<Comments>();
+            if(commentForGetDto.TitleId != null)
+                comments = _titleDataService.GetCommentsByTitleId(commentForGetDto.TitleId).Result;
+            if(commentForGetDto.UserId != 0)
+                comments = _userDataService.GetCommentsByUserId(commentForGetDto.UserId).Result;
+            if (comments.Count < 1)
+                return NotFound();
+            return Ok(_mapper.Map<ICollection<CommentDto>>(comments));
+        }
+        */
+
+
         //TODO TEST (Completed) Update Comment
-        [Authorize]
-        [HttpPut()]
-        public IActionResult UpdateComment(CommentForCreateOrUpdateDto commentForCreateOrUpdateDto)
+        //[Authorize]
+        [HttpPut]
+        public IActionResult UpdateComment(CommentDto commentForCreateOrUpdateDto)
         {
             var newComment = _mapper.Map<Comments>(commentForCreateOrUpdateDto);
             newComment.IsEdited = true;
@@ -71,9 +84,7 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-
             return NoContent();
         }
-
     }
 }

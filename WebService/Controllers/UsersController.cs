@@ -35,13 +35,13 @@ namespace WebService.Controllers
         [HttpGet]
         public IActionResult GetUsers()
         {
-            var users = _mapper.Map<IEnumerable<UserDto>>(_dataService.GetAllUsers().Result); ;
+            var users = _mapper.Map<IEnumerable<UserDto>>(_dataService.GetAllUsers().Result);
             return Ok(users);
         }
 
         //COMPLETED Get User
         [Authorize]
-        [HttpGet("{id}")]
+        [HttpGet("/{id}")]
         public IActionResult GetUserById(int id)
         {
             var user = _mapper.Map<UserDto>(_dataService.GetUserById(id).Result); 
@@ -118,7 +118,7 @@ namespace WebService.Controllers
 
         //COMPLETED Update User
         [Authorize]
-        [HttpPut("{id}")]
+        [HttpPut]
         public IActionResult UpdateUser(int id, UserForCreateOrUpdateDto userForCreateOrUpdateDto)
         {
             var user = _mapper.Map<Users>(userForCreateOrUpdateDto);
@@ -132,85 +132,18 @@ namespace WebService.Controllers
 
         //COMPLETED Delete User
         [Authorize]
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public IActionResult DeleteUser(int id)
         {
-            if (_dataService.DeleteUser(id).Result == null)
-            {
+            var user = _dataService.GetUserById(id).Result;
+            if (user == null)
                 return NotFound();
-            }
+            _dataService.DeleteUser(id);
             return NoContent();
         }
 
-        //COMPLETED Show user's comments
-        [Authorize]
-        [HttpGet("{id}/comments")]
-        public IActionResult GetUserComments(int id)
-        {
-            var comments = _dataService.GetCommentsByUserId(id).Result;
-            if (comments == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<CommentDto>>(comments));
-        }
-
-        //COMPLETED Show user's comment
-        [Authorize]
-        [HttpGet("{id}/comments/{cid}")]
-        public IActionResult GetUserComment(int id, int cid)
-        {
-            //If comments change to FlaggingUser + Ordering, then change this to use both id and cid
-            var comment = _dataService.GetCommentById(cid).Result;
-            if (comment == null)
-                return NotFound();
-            return Ok(_mapper.Map<CommentDto>(comment));
-        }
-
-        //COMPLETED Show user's bookmarks
-        [Authorize]
-        [HttpGet("{id}/bookmarks")]
-        public IActionResult GetUserBookmarks(int id)
-        {
-            var bookmarks = _dataService.GetBookmarksByUserId(id).Result;
-            if (bookmarks == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<BookmarkDto>>(bookmarks));
-        }
-
-        //COMPLETED Show User's Roles
-        [Authorize]
-        [HttpGet("{id}/roles")]
-        public IActionResult GetUserRoles(int id)
-        {
-            var roles = _dataService.GetSpecialRolesByUserId(id).Result;
-            if (roles == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<SpecialRoleDto>>(roles));
-        }
-
-        //COMPLETED Show User's searchhistory
-        [Authorize]
-        [HttpGet("{id}/searchhistory")]
-        public IActionResult GetUserSearchHistory(int id)
-        {
-            var searchHistory = _dataService.GetSearchHistoryByUserId(id).Result;
-            if (searchHistory == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<SearchHistoryDto>>(searchHistory));
-        }
-
-        //TODO Show User's Ratings
-        [Authorize]
-        [HttpGet("{id}/ratings")]
-        public IActionResult GetUserRatings(int id)
-        {
-            var userRatings = _dataService.GetUserRatingsByUserId(id).Result;
-            if (userRatings == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<UserRatingDto>>(userRatings));
-        }
 
         /*
-                //COMPLETED Delete User's bookmark
         [Authorize]
         [HttpDelete("{uid}/bookmarks/titles{tid}")]
         public IActionResult DeleteBookmark(int uid, string tid)
@@ -222,7 +155,62 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-                //COMPLETED Delete User's Comment
+        
+        //COMPLETED Show User's Roles
+        [Authorize]
+        [HttpGet("/{id}/roles")]
+        public IActionResult GetUserRoles(int id)
+        {
+            var roles = _dataService.GetSpecialRolesByUserId(id).Result;
+            if (roles == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<SpecialRoleDto>>(roles));
+        }
+
+        
+        //COMPLETED Show User's searchhistory
+        [Authorize]
+        [HttpGet("/{id}/searchhistory")]
+        public IActionResult GetUserSearchHistory(int id)
+        {
+            var searchHistory = _dataService.GetSearchHistoryByUserId(id).Result;
+            if (searchHistory == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<SearchHistoryDto>>(searchHistory));
+        }
+
+        [Authorize]
+        [HttpGet("{id}/bookmarks")]
+        public IActionResult GetUserBookmarks(int id)
+        {
+            var bookmarks = _dataService.GetBookmarksByUserId(id).Result;
+            if (bookmarks == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<BookmarkDto>>(bookmarks));
+        }
+
+        [Authorize]
+        [HttpGet("{id}/comments")]
+        public IActionResult GetUserComments(int id)
+        {
+            var comments = _dataService.GetCommentsByUserId(id).Result;
+            if (comments == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<CommentDto>>(comments));
+        }
+
+        [Authorize]
+        [HttpGet("{id}/comments/{cid}")]
+        public IActionResult GetUserComment(int id, int cid)
+        {
+            //If comments change to FlaggingUser + Ordering, then change this to use both id and cid
+            var comment = _dataService.GetCommentById(cid).Result;
+            if (comment == null)
+                return NotFound();
+            return Ok(_mapper.Map<CommentDto>(comment));
+        }
+
+
         [Authorize]
         [HttpDelete("{uid}/comments{cid}")]
         public IActionResult DeleteComment(int uid, int cid)

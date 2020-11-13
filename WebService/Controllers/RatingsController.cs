@@ -17,12 +17,14 @@ namespace WebService.Controllers
     {
         private readonly ICastsDataService _castDataService;
         private readonly ITitlesDataService _titleDataService;
+        private readonly IUsersDataService _userDataService;
         private readonly IMapper _mapper;
 
 
-        public RatingsController(ICastsDataService castDataService, ITitlesDataService titleDataService, IMapper mapper)
+        public RatingsController(IUsersDataService userDataService, ICastsDataService castDataService, ITitlesDataService titleDataService, IMapper mapper)
         {
             _mapper = mapper;
+            _userDataService = userDataService;
             _castDataService = castDataService;
             _titleDataService = titleDataService;
         }
@@ -69,6 +71,23 @@ namespace WebService.Controllers
                 return NotFound();
             _castDataService.UpdateNameRating(newRating.TitleId);
             return NoContent();
+        }
+
+        //TODO Show User's Ratings
+        [HttpGet]
+        public IActionResult GetRatings(RatingForCreateDto ratingForCreateDto)
+        {
+            List<UserRating> userRatings = new List<UserRating>();
+            if (ratingForCreateDto.TitleId != null && ratingForCreateDto.UserId > 0)
+                userRatings = _titleDataService
+                    .GetUserRatingByUserIdAndTitleId(ratingForCreateDto.UserId, ratingForCreateDto.TitleId).Result;
+            if (ratingForCreateDto.UserId > 0 && ratingForCreateDto.TitleId == null)
+                 userRatings = _userDataService.GetUserRatingsByUserId(ratingForCreateDto.UserId).Result;
+            if (ratingForCreateDto.UserId < 1 && ratingForCreateDto.TitleId != null)
+                userRatings = _titleDataService.GetUserRatingByTitleId(ratingForCreateDto.TitleId).Result;
+            if (userRatings == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<UserRatingDto>>(userRatings));
         }
     }
 }
