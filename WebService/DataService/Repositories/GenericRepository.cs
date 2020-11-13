@@ -17,6 +17,10 @@ namespace WebService.DataService.Repositories
         {
             return await Context.Set<T>().FindAsync(id);
         }
+        public async Task<T> ReadById(object[] id)
+        {
+            return await Context.Set<T>().FindAsync(id);
+        }
         public async Task<List<T>> ReadAll()
         {
             return await Context.Set<T>().ToListAsync();

@@ -12,12 +12,14 @@ namespace WebService.Controllers
     public class TitleController : ControllerBase
     {
         private readonly ITitlesDataService _dataService;
+        private readonly ICastsDataService _castDataService;
         private readonly IMapper _mapper;
         private const int MaxPageSize = 50;
 
-        public TitleController(ITitlesDataService dataService, IMapper mapper)
+        public TitleController(ITitlesDataService dataService, ICastsDataService castDataService, IMapper mapper)
         {
             _dataService = dataService;
+            _castDataService = castDataService;
             _mapper = mapper;
         }
 
@@ -40,12 +42,12 @@ namespace WebService.Controllers
             if (query != null)
             {
                 titles = _mapper.Map<IEnumerable<TitleDto>>(userId != null ? _dataService.SearchForTitle(int.Parse(userId), query).Result : _dataService.SearchForTitle(null, query).Result);
-                casts = _mapper.Map<IEnumerable<CastInfoDto>>(_dataService.SearchByName(query).Result);
+                casts = _mapper.Map<IEnumerable<CastInfoDto>>(_castDataService.SearchCastByName(query).Result);
             }
             else
             {
                 titles = _mapper.Map<IEnumerable<TitleDto>>(_dataService.GetAllTitles().Result);
-                casts = _mapper.Map<IEnumerable<CastInfoDto>>(_dataService.GetAllCasts().Result);
+                casts = _mapper.Map<IEnumerable<CastInfoDto>>(_castDataService.GetAllCasts().Result);
             }
             var list = new SearchDto() {Casts = casts, Titles = titles};
             return Ok(list);

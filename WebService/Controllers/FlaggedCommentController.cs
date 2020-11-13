@@ -33,7 +33,7 @@ namespace WebService.Controllers
             var exists = _titleDataService.GetFlaggedComment(newFlaggedComment.FlaggingUser, newFlaggedComment.CommentId).Result;
             if (exists.Count > 0)
                 return NotFound();
-            var flaggedComment = _titleDataService.FlagComment(newFlaggedComment.FlaggingUser, newFlaggedComment).Result;
+            var flaggedComment = _titleDataService.FlagComment(newFlaggedComment).Result;
             return Created("", flaggedComment.ToString());
         }
 

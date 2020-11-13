@@ -37,7 +37,7 @@ namespace WebService.Controllers
             var rating = _titleDataService.GetUserRatingByUserIdAndTitleId(newRating.UserId, newRating.TitleId).Result;
             if (rating.Count > 0)
                 return NotFound();
-            var response = _titleDataService.CreateUserRating(_mapper.Map<UserRating>(newRating)).Result;
+            var response = _titleDataService.RateTitle(_mapper.Map<UserRating>(newRating)).Result;
             _castDataService.UpdateNameRating(newRating.TitleId);
             return Created("", response.ToString());
         }

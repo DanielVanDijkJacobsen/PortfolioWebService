@@ -12,14 +12,7 @@ namespace WebService.DataService.Repositories
         {
 
         }
-
-        public async Task<FlaggedComment> FlagComment(FlaggedComment entity)
-        {
-            await Context.FlaggedComments.AddAsync(entity);
-            await Context.SaveChangesAsync();
-            return entity;
-        }
-
+        
         public async Task<List<FlaggedComment>> WhereByUserIdAndCommentId(int userId, int commentId)
         {
             return await Context.FlaggedComments.Where(flaggedComments =>

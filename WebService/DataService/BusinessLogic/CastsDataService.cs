@@ -72,5 +72,10 @@ namespace WebService.DataService.BusinessLogic
         {
             return await _casts.WhereByTitleId(id);
         }
+
+        public async Task<List<CastInfo>> SearchCastByName(string name)
+        {
+            return await _castInfo.SearchByName(name);
+        }
     }
 }

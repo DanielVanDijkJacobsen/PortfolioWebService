@@ -17,8 +17,7 @@ namespace WebService.DataService.BusinessLogic
         public Task<Comments> GetCommentById(int id);
         public Task<Comments> UpdateComment(object id, Comments entity);
         public Task<Comments> DeleteComment(int id);
-        public void FlagComment(FlaggedComment entity);
-        public Task<Bookmarks> DeleteBookmark(object id);
+        public Task<Bookmarks> DeleteBookmark(object id, string titleId);
         public Task<List<UserRating>> GetUserRatingsByUserId(int id);
         public Task<Bookmarks> DeleteBookmark(int uid, string tid);
         public Task<List<Bookmarks>> GetBookmarksByUserId(int id);

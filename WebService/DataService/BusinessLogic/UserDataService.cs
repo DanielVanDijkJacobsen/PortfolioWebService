@@ -112,15 +112,10 @@ namespace WebService.DataService.BusinessLogic
             var entity = _comments.ReadById(id).Result;
             return await _comments.Delete(entity);
         }
-
-        public async void FlagComment(FlaggedComment entity)
+        
+        public async Task<Bookmarks> DeleteBookmark(object id, string titleId)
         {
-            _flaggedComments.FlagComment(new FlaggedComment { CommentId = entity.CommentId, FlaggingUser = entity.FlaggingUser });
-        }
-
-        public async Task<Bookmarks> DeleteBookmark(object id)
-        {
-            var bookmark = await _bookmarks.ReadById(id);
+            var bookmark = await _bookmarks.ReadById(new object[] { id, titleId});
             return await _bookmarks.Delete(bookmark);
         }
 

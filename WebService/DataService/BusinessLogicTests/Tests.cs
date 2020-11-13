@@ -7,6 +7,8 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WebService.DataService.BusinessLogic;
+using WebService.DataService.CustomTypes;
+using WebService.DataService.DTO;
 using WebService.DTOs;
 using Xunit;
 using Xunit.Abstractions;
@@ -19,6 +21,7 @@ namespace WebService.DataService.BusinessLogicTests
         private readonly ITestOutputHelper _testOutputHelper;
         public IUsersDataService Framework = new UserDataService();
         public ITitlesDataService Movie = new TitleDataService();
+        public ICastsDataService Cast = new CastsDataService();
 
         public Tests(ITestOutputHelper testOutputHelper)
         {
@@ -37,6 +40,7 @@ namespace WebService.DataService.BusinessLogicTests
         {
             var title = Movie.GetTitleById("tt0125742").Result;
             Equal("FVVA: Femme, villa, voiture, argent", title.PrimaryTitle);
+            //TODO::Add all relations readings
             Equal(1, title.TitleAlias.Count);
         }
 
@@ -44,10 +48,185 @@ namespace WebService.DataService.BusinessLogicTests
         public void SearchForTitle()
         {
             var title = Movie.SearchForTitle(1, "casino").Result;
-            Equal("Joji Feat. Clams Casino: Can't Get Over You", title.First().PrimaryTitle);
-            Equal("Joji Feat. Clams Casino: Can't Get Over You", title.First().OriginalTitle);
-            Equal("American Casino", title.Last().PrimaryTitle);
-            Equal("American Casino", title.Last().OriginalTitle);
+            Equal("Casino Royale", title.First().PrimaryTitle);
+            Equal("Casino Royale", title.First().OriginalTitle);
+            Equal("Jacobo deja a un lado su venganza para proteger a Lucía", title.Last().PrimaryTitle);
+            Equal("Jacobo deja a un lado su venganza para proteger a Lucía", title.Last().OriginalTitle);
+        }
+
+        [Fact]
+        public void GetPopularMovies()
+        {
+            var title = Movie.GetPopularTitles(1, "movie").Result;
+            Equal("The Dark Knight Rises", title.First().PrimaryTitle);
+        }
+
+        [Fact]
+        public void GetPopularSeries()
+        {
+            var title = Movie.GetPopularTitles(1, "tvSeries").Result;
+            Equal("Young Dylan", title.First().PrimaryTitle);
+        }
+
+        [Fact]
+        public void RateTitle()
+        {
+            var userRating = new UserRating() {Score = 8, TitleId = "tt0125742", UserId = 1};
+            var rating = Movie.RateTitle(userRating).Result;
+            Equal(8, rating.Score);
+        }
+
+        [Fact]
+        public void GetTitleRatings()
+        {
+            var rating = Movie.GetUserRatingByTitleId("tt0125742").Result;
+            Equal(8, rating.First().Score);
+            Equal(1, rating.Count);
+        }
+
+        [Fact]
+        public void UpdateUserRating()
+        {
+            var userRating = new UserRating() { Score = 9, TitleId = "tt0125742", UserId = 1 };
+            var rating = Movie.UpdateUserRating(userRating).Result;
+            Equal(9, rating.Score);
+            var ratings = Movie.GetUserRatingByTitleId("tt0125742").Result;
+            Equal(1, ratings.Count);
+        }
+
+        [Fact]
+        public void DeleteUserRating()
+        {
+            var ratings = Movie.GetUserRatingByTitleId("tt0125742").Result;
+            var rating = Movie.DeleteUserRating(ratings.First()).Result;
+            Equal(9, rating.Score);
+        }
+
+        [Fact]
+        public void CreateComment()
+        {
+            var comment = new Comments() { Comment = "from tests", UserId = 1, TitleId = "tt0125742" };
+            var rating = Movie.CreateComment(comment).Result;
+            Equal("from tests", rating.Comment);
+        }
+        
+        [Fact]
+        public void CreateSubComment()
+        {
+
+            var commentId = Movie.GetCommentsByTitleId("tt0125742").Result.First().CommentId;
+            var comment = new Comments() { Comment = "from tests sub comment", UserId = 1, TitleId = "tt0125742", ParentCommentId = commentId };
+            var rating = Movie.CreateComment(comment).Result;
+            Equal("from tests sub comment", rating.Comment);
+        }
+
+        [Fact]
+        public void GetCommentsForTitle()
+        {
+            var comments = Movie.GetCommentsByTitleId("tt0125742").Result;
+            Equal("from tests", comments.First().Comment);
+            Equal("from tests sub comment", comments.First().ChildComments.First().Comment);
+        }
+
+        [Fact]
+        public void UpdateComment()
+        {
+            var commentId = Movie.GetCommentsByTitleId("tt0125742").Result.First().CommentId;
+            var comment = new Comments() { Comment = "from tests updated", UserId = 1, TitleId = "tt0125742" }; ;
+            var comments = Movie.UpdateComment(commentId, comment).Result;
+            Equal("from tests updated", comments.Comment);
+        }
+
+        [Fact]
+        public void FlagComment()
+        {
+            var commentId = Movie.GetCommentsByTitleId("tt0125742").Result.First().CommentId;
+            var comment = new FlaggedComment() { CommentId = commentId, FlaggingUser = 1};
+            var comments = Movie.FlagComment(comment).Result;
+            Equal(commentId, comments.CommentId);
+        }
+        [Fact]
+        public void GetFlaggedComment()
+        {
+            var commentId = Movie.GetCommentsByTitleId("tt0125742").Result.First().CommentId;
+            var comment = new FlaggedComment() { CommentId = commentId, FlaggingUser = 1 };
+            var comments = Movie.GetFlaggedComment(1, commentId).Result;
+            Equal(commentId, comments.First().CommentId);
+        }
+
+        [Fact]
+        public void DeleteFlaggedComment()
+        {
+            var commentId = Movie.GetCommentsByTitleId("tt0125742").Result.First().CommentId;
+            var comment = new FlaggedComment() { CommentId = commentId, FlaggingUser = 1 };
+            var comments = Movie.DeleteFlaggedComment(1, commentId).Result;
+            Equal(commentId, comments.CommentId);
+        }
+
+        [Fact]
+        public void GetUserRatingByUserIdAndTitleId()
+        {
+            var rating = Movie.GetUserRatingByUserIdAndTitleId(1, "tt0125742").Result;
+            Equal(1, rating.Count);
+        }
+
+        [Fact]
+        public void CreateBookmark()
+        {
+            var bookmark = new Bookmarks() {BookmarkType = BookmarkType.title,  TypeId = "tt0125742", UserId = 1};
+            var bookmarks = Movie.CreateBookmark(bookmark).Result;
+            Equal("tt0125742", bookmarks.TypeId);
+        }
+        [Fact]
+        public void GetBookmark()
+        {
+            var bookmark = new Bookmarks() { BookmarkType = BookmarkType.title, TypeId = "tt0125742", UserId = 1 };
+            var bookmarks = Movie.GetBookmark("tt0125742", 1).Result;
+            Equal("tt0125742", bookmarks.First().TypeId);
+        }
+
+        [Fact]
+        public void DeleteBookmark()
+        {
+            var bookmark = Movie.GetBookmark("tt0125742", 1).Result.First();
+            var bookmarks = Framework.DeleteBookmark(1, "tt0125742").Result;
+            Equal("tt0125742", bookmarks.TypeId);
+        }
+
+        [Fact]
+        public void GetGenreByTitleId()
+        {
+            var genre = Movie.GetGenreByTitleId("tt0125742").Result;
+            Equal("", genre.Genre);
+        }
+
+        [Fact]
+        public void GetFormatByTitleId()
+        {
+            var format = Movie.GetFormatByTitleId("tt0125742").Result;
+            Equal("", format.Format);
+        }
+
+
+        [Fact]
+        public void GetTitleInfoByTitleId()
+        {
+            var titleInfo = Movie.GetTitleInfoByTitleId("tt0125742").Result;
+            Equal("tt0125742", titleInfo.First().TitleId);
+        }
+
+        [Fact]
+        public void SearchForCast()
+        {
+            var cast = Cast.SearchCastByName("keanu").Result;
+            Equal("Keanu Reeves", cast.First().Name);
+        }
+
+        [Fact]
+        public void GetForCast()
+        {
+            var cast = Cast.SearchCastByName("keanu").Result;
+            Equal("Keanu Reeves", cast.First().Name);
         }
 
         [Fact]
@@ -103,7 +282,7 @@ namespace WebService.DataService.BusinessLogicTests
         [Fact]
         public void TestingComments()
         {
-            var newComment = String.Concat(CommentsApi, "?id=4");
+            var newComment = String.Concat(CommentsApi, "/4");
             var (getComment, statusCodeGet) = GetObject(newComment);
             Equal("OK", statusCodeGet.ToString());
             var createComment = new CommentForCreateOrUpdateDto()

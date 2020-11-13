@@ -16,5 +16,6 @@ namespace WebService.DataService.BusinessLogic
         public Task<List<NameRating>> GetNameRatingByCastId(string id);
         public Task<List<NameRating>> UpdateNameRating(string id);
         public Task<List<Casts>> GetCastsByTitleId(string id);
+        public Task<List<CastInfo>> SearchCastByName(string name);
     }
 }

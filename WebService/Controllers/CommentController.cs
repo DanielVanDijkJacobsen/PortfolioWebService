@@ -45,7 +45,7 @@ namespace WebService.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetComment(int id)
         {
             var comment = _userDataService.GetCommentById(id).Result;

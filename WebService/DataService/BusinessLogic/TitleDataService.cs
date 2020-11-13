@@ -47,6 +47,7 @@ namespace WebService.DataService.BusinessLogic
 
         public async Task<Titles> GetTitleById(object id)
         {
+            await _titleAlias.WhereByTitleId(id.ToString());
             return await _titles.ReadById(id);
         }
 
@@ -55,29 +56,16 @@ namespace WebService.DataService.BusinessLogic
             return await _titles.GetPopularTitles(num, type);
         }
 
-        public async void RateTitle(UserRating rating)
+        public async Task<UserRating> RateTitle(UserRating rating)
         {
-            await _userRating.Create(rating);
-            return;
+            return await _userRating.Create(rating); ;
         }
 
         public async Task<List<Comments>> GetCommentsByTitleId(string id)
         {
             return await _comments.WhereByTitleId(id);
         }
-
-
-
-        public async Task<List<CastInfo>> SearchByName(string name)
-        {
-            return await _castInfo.SearchByName(name);
-        }
-
-        public async Task<List<Casts>> GetAllCasts()
-        {
-            return await _casts.ReadAll();
-        }
-
+        
         public async Task<List<TitleInfo>> GetTitleInfoByTitleId(string id)
         {
             return await _titleInfo.WhereByTitleId(id);
@@ -118,11 +106,6 @@ namespace WebService.DataService.BusinessLogic
             return await _userRating.WhereByTitleId(titleId);
         }
 
-        public async Task<UserRating> CreateUserRating(UserRating entity)
-        {
-            return await _userRating.Create(entity);
-        }
-
         public async Task<Comments> CreateComment(Comments entity)
         {
             entity.CommentTime = DateTime.Now;
@@ -139,10 +122,10 @@ namespace WebService.DataService.BusinessLogic
             return await _comments.Update(entity);
         }
 
-        public async Task<FlaggedComment> FlagComment(int id, FlaggedComment comment)
+        public async Task<FlaggedComment> FlagComment(FlaggedComment comment)
         {
 
-            return await _flaggedComments.FlagComment(comment);
+            return await _flaggedComments.Create(comment);
         }
 
         public async Task<List<FlaggedComment>> GetFlaggedComment(int userId, int commentId)
