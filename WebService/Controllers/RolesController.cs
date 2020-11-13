@@ -23,10 +23,8 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-
-        //COMPLETED Show User's Roles
         [Authorize]
-        [HttpGet("/{id}")]
+        [HttpGet]
         public IActionResult GetUserRoles(int id)
         {
             var roles = _dataService.GetSpecialRolesByUserId(id).Result;

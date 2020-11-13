@@ -29,7 +29,7 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<IEnumerable<CastInfoDto>>(casts));
         }
 
-        [HttpGet("/{id}")]
+        [HttpGet("/")]
         public IActionResult GetCastInfoByCast(string id)
         {
             var castInfo = _dataService.GetCastInfoByCastId(id).Result;
@@ -37,48 +37,5 @@ namespace WebService.Controllers
                 return NotFound();
             return Ok(_mapper.Map<IEnumerable<CastInfoDto>>(castInfo));
         }
-
-
-        /*
-         *         [HttpGet("{id}/rating")]
-        public IActionResult GetNameRating(string id)
-        {
-            var nameRating = _dataService.GetNameRatingByCastId(id).Result;
-            if (nameRating == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<NameRatingDto>>(nameRating));
-        }
-
-                [HttpGet("{id}/knownfor")]
-        public IActionResult GetCastKnownForByCast(string id)
-        {
-            var castKnownFor = _dataService.GetCastKnownForByCastId(id).Result;
-            if (castKnownFor == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<CastKnownForDto>>(castKnownFor));
-        }
-
-                [HttpGet("{id}", Name = nameof(GetCast))]
-        public IActionResult GetCast(string id)
-        {
-            var cast = _dataService.GetCastById(id).Result;
-
-            if (cast == null)
-            {
-                return NotFound();
-            }
-            return Ok(_mapper.Map<CastDto>(cast));
-        }
-
-                [HttpGet("{id}/profession")]
-        public IActionResult GetCastProfessionByCast(string id)
-        {
-            var castProfession = _dataService.GetCastProfessionByCastId(id).Result;
-            if (castProfession == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<CastProfessionDto>>(castProfession));
-        }
-
-         */
     }
 }

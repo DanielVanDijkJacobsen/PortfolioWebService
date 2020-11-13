@@ -22,7 +22,7 @@ namespace WebService.Controllers
             _titleDataService = titleDataService;
         }
 
-        [HttpGet("/{id}")]
+        [HttpGet]
         public IActionResult GetFormatByTitleId(string id)
         {
             var genre = _titleDataService.GetFormatByTitleId(id).Result;
@@ -30,6 +30,5 @@ namespace WebService.Controllers
                 return NotFound();
             return Ok(_mapper.Map<FormatDto>(genre));
         }
-
     }
 }

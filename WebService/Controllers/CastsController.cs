@@ -23,7 +23,6 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-
         [HttpGet]
         public IActionResult GetCasts(CastForGetDto castForGetDto)
         {
@@ -45,7 +44,5 @@ namespace WebService.Controllers
                 return NotFound();
             return Ok(_mapper.Map<ICollection<CastDto>>(casts));
         }
-
-
     }
 }

@@ -29,7 +29,6 @@ namespace WebService.Controllers
             _titleDataService = titleDataService;
         }
 
-        //COMPLETED Create Rating
         [Authorize]
         [HttpPost]
         public IActionResult CreateRating(RatingForCreateDto ratingForCreateDto)
@@ -43,7 +42,6 @@ namespace WebService.Controllers
             return Created("", response.ToString());
         }
 
-        //TODO TEST Update Rating
         [Authorize]
         [HttpPut]
         public IActionResult UpdateRating(RatingForCreateDto ratingForCreateDto)
@@ -58,7 +56,6 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-        //Todo TEST Delete Rating
         [Authorize]
         [HttpDelete]
         public IActionResult DeleteRating(RatingForCreateDto ratingForCreateDto)
@@ -73,7 +70,6 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-        //TODO Show User's Ratings
         [HttpGet]
         public IActionResult GetRatings(RatingForCreateDto ratingForCreateDto)
         {

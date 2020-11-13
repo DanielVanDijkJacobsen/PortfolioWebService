@@ -22,7 +22,7 @@ namespace WebService.Controllers
             _titleDataService = titleDataService;
         }
 
-        [HttpGet("/{id}")]
+        [HttpGet]
         public IActionResult GetGenreByTitleId(string id)
         {
             var genre = _titleDataService.GetGenreByTitleId(id).Result;

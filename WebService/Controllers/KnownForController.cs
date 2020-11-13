@@ -22,7 +22,7 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("/{id}")]
+        [HttpGet]
         public IActionResult GetCastKnownForByCast(string id)
         {
             var castKnownFor = _dataService.GetCastKnownForByCastId(id).Result;

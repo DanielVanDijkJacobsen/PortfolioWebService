@@ -23,9 +23,8 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        //COMPLETED Show User's searchhistory
         [Authorize]
-        [HttpGet("/{id}")]
+        [HttpGet]
         public IActionResult GetUserSearchHistory(int id)
         {
             var searchHistory = _dataService.GetSearchHistoryByUserId(id).Result;
@@ -33,6 +32,5 @@ namespace WebService.Controllers
                 return NotFound();
             return Ok(_mapper.Map<IEnumerable<SearchHistoryDto>>(searchHistory));
         }
-
     }
 }

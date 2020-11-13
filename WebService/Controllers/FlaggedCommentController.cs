@@ -24,9 +24,8 @@ namespace WebService.Controllers
             _titleDataService = titleDataService;
         }
 
-        //TODO TEST (Completed) Flag Comment
         [Authorize]
-        [HttpPost()]
+        [HttpPost]
         public IActionResult FlagComment(FlaggedCommentForCreateDto flaggedCommentForCreateDto)
         {
             var newFlaggedComment = _mapper.Map<FlaggedComment>(flaggedCommentForCreateDto);
@@ -38,9 +37,8 @@ namespace WebService.Controllers
             return Created("", flaggedComment.ToString());
         }
 
-        //TODO TEST (Completed) DeleteFlaggedComment
         [Authorize]
-        [HttpDelete()]
+        [HttpDelete]
         public IActionResult DeleteFlagComment(FlaggedCommentForCreateDto flaggedCommentForCreateDto)
         {
             var newFlaggedComment = _mapper.Map<FlaggedComment>(flaggedCommentForCreateDto);

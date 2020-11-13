@@ -27,8 +27,7 @@ namespace WebService.Controllers
             _titleDataService = titleDataService;
         }
 
-        //COMPLETED Create Comment
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public IActionResult CreateComment(CommentForCreateOrUpdateDto commentForCreateOrUpdateDto)
         {
@@ -36,8 +35,7 @@ namespace WebService.Controllers
             return Created("", _titleDataService.CreateComment(newComment).Result);
         }
 
-        //TODO TEST Delete User's Comment
-        //[Authorize]
+        [Authorize]
         [HttpDelete]
         public IActionResult DeleteComment(int id)
         {
@@ -51,12 +49,12 @@ namespace WebService.Controllers
         public IActionResult GetComment(int id)
         {
             var comment = _userDataService.GetCommentById(id).Result;
-            //if (comment == null)
-              //  return NotFound();
+            if (comment == null)
+                return NotFound();
             return Ok(_mapper.Map<CommentDto>(comment));
         }
 
-        /*
+        
         [HttpGet]
         public IActionResult GetComments(CommentForGetDto commentForGetDto)
         {
@@ -69,11 +67,8 @@ namespace WebService.Controllers
                 return NotFound();
             return Ok(_mapper.Map<ICollection<CommentDto>>(comments));
         }
-        */
-
-
-        //TODO TEST (Completed) Update Comment
-        //[Authorize]
+        
+        [Authorize]
         [HttpPut]
         public IActionResult UpdateComment(CommentDto commentForCreateOrUpdateDto)
         {

@@ -30,7 +30,6 @@ namespace WebService.Controllers
             _config= config;
         }
 
-        //COMPLETED Get Users
         [Authorize]
         [HttpGet]
         public IActionResult GetUsers()
@@ -39,7 +38,6 @@ namespace WebService.Controllers
             return Ok(users);
         }
 
-        //COMPLETED Get User
         [Authorize]
         [HttpGet("/{id}")]
         public IActionResult GetUserById(int id)
@@ -53,7 +51,6 @@ namespace WebService.Controllers
             return Ok(user);
         }
 
-        //COMPLETED Create user
         [AllowAnonymous]
         [HttpPost]
         public IActionResult CreateUser(UserForCreateOrUpdateDto userForCreateOrUpdateDto)
@@ -84,7 +81,6 @@ namespace WebService.Controllers
             return Created("", userToReturn);
         }
 
-        //COMPLETED Login user
         [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult LoginUser(UserForCreateOrUpdateDto userForCreateOrUpdateDto)
@@ -116,7 +112,6 @@ namespace WebService.Controllers
             return Ok(userToReturn);
         }
 
-        //COMPLETED Update User
         [Authorize]
         [HttpPut]
         public IActionResult UpdateUser(int id, UserForCreateOrUpdateDto userForCreateOrUpdateDto)
@@ -130,7 +125,6 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-        //COMPLETED Delete User
         [Authorize]
         [HttpDelete]
         public IActionResult DeleteUser(int id)
@@ -141,95 +135,5 @@ namespace WebService.Controllers
             _dataService.DeleteUser(id);
             return NoContent();
         }
-
-
-        /*
-        [Authorize]
-        [HttpDelete("{uid}/bookmarks/titles{tid}")]
-        public IActionResult DeleteBookmark(int uid, string tid)
-        {
-            if (_dataService.DeleteBookmark(uid, tid).Result == null)
-            {
-                return NotFound();
-            }
-            return NoContent();
-        }
-
-        
-        //COMPLETED Show User's Roles
-        [Authorize]
-        [HttpGet("/{id}/roles")]
-        public IActionResult GetUserRoles(int id)
-        {
-            var roles = _dataService.GetSpecialRolesByUserId(id).Result;
-            if (roles == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<SpecialRoleDto>>(roles));
-        }
-
-        
-        //COMPLETED Show User's searchhistory
-        [Authorize]
-        [HttpGet("/{id}/searchhistory")]
-        public IActionResult GetUserSearchHistory(int id)
-        {
-            var searchHistory = _dataService.GetSearchHistoryByUserId(id).Result;
-            if (searchHistory == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<SearchHistoryDto>>(searchHistory));
-        }
-
-        [Authorize]
-        [HttpGet("{id}/bookmarks")]
-        public IActionResult GetUserBookmarks(int id)
-        {
-            var bookmarks = _dataService.GetBookmarksByUserId(id).Result;
-            if (bookmarks == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<BookmarkDto>>(bookmarks));
-        }
-
-        [Authorize]
-        [HttpGet("{id}/comments")]
-        public IActionResult GetUserComments(int id)
-        {
-            var comments = _dataService.GetCommentsByUserId(id).Result;
-            if (comments == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<CommentDto>>(comments));
-        }
-
-        [Authorize]
-        [HttpGet("{id}/comments/{cid}")]
-        public IActionResult GetUserComment(int id, int cid)
-        {
-            //If comments change to FlaggingUser + Ordering, then change this to use both id and cid
-            var comment = _dataService.GetCommentById(cid).Result;
-            if (comment == null)
-                return NotFound();
-            return Ok(_mapper.Map<CommentDto>(comment));
-        }
-
-
-        [Authorize]
-        [HttpDelete("{uid}/comments{cid}")]
-        public IActionResult DeleteComment(int uid, int cid)
-        {
-            var comments = _dataService.GetCommentsByUserId(uid).Result;
-            var owns = false;
-            foreach (var userid in comments.Where(userid => userid.CommentId == cid))
-            {
-                owns = true;
-            }
-            if (owns == false)
-                return NotFound();
-            if (_dataService.DeleteComment(cid).Result == null)
-            {
-                return NotFound();
-            }
-            return NoContent();
-        }
-
-         */
     }
 }

@@ -24,7 +24,6 @@ namespace WebService.Controllers
             _titleDataService = titleDataService;
         }
 
-        //TODO TEST (Completed) Create Title Bookmark
         [Authorize]
         [HttpPost("title")]
         public IActionResult BookmarkTitle(BookmarkForCreateDto bookmarkForCreateDto)
@@ -36,7 +35,6 @@ namespace WebService.Controllers
             return Created("", CreateBookmark(newBookmark, "title"));
         }
 
-        //TODO TEST Create Actor bookmark
         [Authorize]
         [HttpPost("actor")]
         public IActionResult BookmarkActor(BookmarkForCreateDto bookmarkForCreateDto)
@@ -48,7 +46,6 @@ namespace WebService.Controllers
             return Created("", CreateBookmark(newBookmark, "actor"));
         }
 
-        //TODO TEST Delete Title Bookmarks
         [Authorize]
         [HttpDelete]
         public IActionResult DeleteBookmark(BookmarkForCreateDto bookmarkForCreateDto)

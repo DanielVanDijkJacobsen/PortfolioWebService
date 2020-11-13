@@ -22,8 +22,7 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        //TODO (Completed) Get Title Info
-        [HttpGet("/{id}")]
+        [HttpGet]
         public IActionResult GetTitleInfo(string id)
         {
             var titleInfo = _dataService.GetTitleInfoByTitleId(id).Result;
