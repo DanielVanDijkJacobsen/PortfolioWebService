@@ -7,13 +7,9 @@
 
   <ItemGroup>
     <Compile Remove="DataService\RepositoryTests\**" />
-    <Compile Remove="WebServiceTests\**" />
     <Content Remove="DataService\RepositoryTests\**" />
-    <Content Remove="WebServiceTests\**" />
     <EmbeddedResource Remove="DataService\RepositoryTests\**" />
-    <EmbeddedResource Remove="WebServiceTests\**" />
     <None Remove="DataService\RepositoryTests\**" />
-    <None Remove="WebServiceTests\**" />
   </ItemGroup>
 
   <ItemGroup>

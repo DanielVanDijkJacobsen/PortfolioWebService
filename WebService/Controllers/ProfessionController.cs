@@ -22,7 +22,7 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetCastProfessionByCast(string id)
         {
             var castProfession = _dataService.GetCastProfessionByCastId(id).Result;

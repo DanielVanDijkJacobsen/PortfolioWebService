@@ -39,7 +39,7 @@ namespace WebService.Controllers
         }
 
         [Authorize]
-        [HttpGet("/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetUserById(int id)
         {
             var user = _mapper.Map<UserDto>(_dataService.GetUserById(id).Result); 
@@ -113,7 +113,7 @@ namespace WebService.Controllers
         }
 
         [Authorize]
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, UserForCreateOrUpdateDto userForCreateOrUpdateDto)
         {
             var user = _mapper.Map<Users>(userForCreateOrUpdateDto);
@@ -126,7 +126,7 @@ namespace WebService.Controllers
         }
 
         [Authorize]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
         {
             var user = _dataService.GetUserById(id).Result;

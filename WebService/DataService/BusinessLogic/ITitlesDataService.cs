@@ -22,6 +22,10 @@ namespace WebService.DataService.BusinessLogic
         public Task<Bookmarks> CreateBookmark(Bookmarks entity);
         public Task<List<Bookmarks>> GetBookmark(string tid, int uid);
         public Task<Genres> GetGenreByTitleId(string id);
+
+        public Task<List<Genres>> GetAllGenres();
+        public Task<List<Formats>> GetAllFormats();
+
         public Task<Formats> GetFormatByTitleId(string id);
     }
 }

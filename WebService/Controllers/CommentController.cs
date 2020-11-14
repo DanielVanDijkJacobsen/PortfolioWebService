@@ -41,7 +41,7 @@ namespace WebService.Controllers
         }
 
         [Authorize]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteComment(int id)
         {
             if (_userDataService.DeleteComment(id).Result == null)
@@ -83,19 +83,6 @@ namespace WebService.Controllers
             return Ok(response);
         }
 
-        //[HttpGet]
-        //public IActionResult GetComments(CommentForGetDto commentForGetDto)
-        //{
-        //    List<Comments> comments = new List<Comments>();
-        //    if(commentForGetDto.TitleId != null)
-        //        comments = _titleDataService.GetCommentsByTitleId(commentForGetDto.TitleId).Result;
-        //    if(commentForGetDto.UserId != 0)
-        //        comments = _userDataService.GetCommentsByUserId(commentForGetDto.UserId).Result;
-        //    if (comments.Count < 1)
-        //        return NotFound();
-        //    return Ok(_mapper.Map<ICollection<CommentDto>>(comments));
-        //}
-        
         [Authorize]
         [HttpPut]
         public IActionResult UpdateComment(CommentDto commentForCreateOrUpdateDto)

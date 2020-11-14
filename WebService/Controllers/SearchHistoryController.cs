@@ -29,14 +29,15 @@ namespace WebService.Controllers
         }
 
         [Authorize]
-        [HttpGet]
-        public IActionResult GetUserSearchHistory([FromQuery] PaginationFilter filter)
+        [HttpGet("{id}")]
+        public IActionResult GetUserSearchHistory(int id, [FromQuery] PaginationFilter filter)
         {
-            var userId = User.FindFirst("user_id")?.Value;
+            //var userId = User.FindFirst("user_id")?.Value;
+            var userId = id;
             var route = Request.Path.Value;
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
-            var searchHistory = _dataService.GetSearchHistoryByUserId(int.Parse(userId), validFilter).Result;
-            var totalRecords = _dataService.GetSearchHistoryByUserId(int.Parse(userId)).Result.Count;
+            var searchHistory = _dataService.GetSearchHistoryByUserId((userId), validFilter).Result;
+            var totalRecords = _dataService.GetSearchHistoryByUserId(userId).Result.Count;
             if (searchHistory == null || searchHistory.Count < 1)
                 return NotFound();
             var response = PaginationHelper.CreatePagedReponse<SearchHistoryDto>(_mapper.Map<IEnumerable<SearchHistoryDto>>(searchHistory), validFilter, totalRecords, _uriService, route);

@@ -22,7 +22,7 @@ namespace WebService.Controllers
             _dataService = dataService;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetNameRating(string id)
         {
             var nameRating = _dataService.GetNameRatingByCastId(id).Result;

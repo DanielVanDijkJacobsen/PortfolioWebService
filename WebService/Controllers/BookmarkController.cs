@@ -30,7 +30,7 @@ namespace WebService.Controllers
             _uriService = uriService;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public IActionResult BookmarkTitle(BookmarkForCreateDto bookmarkForCreateDto)
         {
@@ -46,19 +46,7 @@ namespace WebService.Controllers
             };
         }
 
-        /*
         [Authorize]
-        [HttpPost("actor")]
-        public IActionResult BookmarkActor(BookmarkForCreateDto bookmarkForCreateDto)
-        {
-            var newBookmark = _mapper.Map<Bookmarks>(bookmarkForCreateDto);
-            var exist = _titleDataService.GetBookmark(newBookmark.TypeId, newBookmark.UserId).Result;
-            if (exist.Count > 0)
-                return NotFound();
-            return Created("", CreateBookmark(newBookmark, "actor"));
-        }
-        */
-        //[Authorize]
         [HttpDelete]
         public IActionResult DeleteBookmark(BookmarkForCreateDto bookmarkForCreateDto)
         {
@@ -70,7 +58,7 @@ namespace WebService.Controllers
             return NoContent();
         }
 
-        [HttpGet]
+        [HttpGet("{userId}")]
         public IActionResult GetBookmarks(int? userId, [FromQuery] PaginationFilter filter)
         {
             var route = Request.Path.Value;
@@ -95,20 +83,6 @@ namespace WebService.Controllers
             var response = PaginationHelper.CreatePagedReponse<BookmarkDto>(_mapper.Map<IEnumerable<BookmarkDto>>(bookmarks), validFilter, totalRecords, _uriService, route);
             return Ok(response);
         }
-
-        //[HttpGet]
-        //public IActionResult GetBookmarks(BookmarkForCreateDto bookmarkForCreateDto)
-        //{
-        //    List<Bookmarks> bookmarks = new List<Bookmarks>();
-        //    if (bookmarkForCreateDto.UserId > 0 && bookmarkForCreateDto.TypeId != null)
-        //        bookmarks = _titleDataService.GetBookmark(bookmarkForCreateDto.TypeId, bookmarkForCreateDto.UserId)
-        //            .Result;
-        //    else if (bookmarkForCreateDto.UserId > 0 && bookmarkForCreateDto.TypeId == null)
-        //        bookmarks = _userDataService.GetBookmarksByUserId(bookmarkForCreateDto.UserId).Result;
-        //    else if (bookmarkForCreateDto.UserId < 1 && bookmarkForCreateDto.TypeId == null)
-        //        return NotFound();
-        //    return Ok(_mapper.Map<IEnumerable<BookmarkDto>>(bookmarks));
-        //}
 
         private Bookmarks CreateBookmark(Bookmarks bookmark, string type)
         {

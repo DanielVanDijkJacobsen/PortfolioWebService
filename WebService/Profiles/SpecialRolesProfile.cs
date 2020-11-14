@@ -9,6 +9,7 @@ namespace WebService.Profiles
         public SpecialRolesProfile()
         {
             CreateMap<SpecialRoles, SpecialRoleDto>();
+            CreateMap<SpecialRoleDto, SpecialRoles>();
         }
     }
 }

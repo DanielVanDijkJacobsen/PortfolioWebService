@@ -21,6 +21,9 @@ namespace WebService.DataService.BusinessLogic
         public Task<Bookmarks> DeleteBookmark(int uid, string tid);
         public Task<List<Bookmarks>> GetBookmarksByUserId(int id, PaginationFilter filter = null);
         public Task<List<SpecialRoles>> GetSpecialRolesByUserId(int id);
+        public Task<List<SpecialRoles>> DeleteSpecialRoleByUserId(int id);
+        public Task<SpecialRoles> CreateSpecialRole(SpecialRoles entity);
+        public Task<SpecialRoles> UpdateSpecialRole(SpecialRoles entity);
         public Task<List<SearchHistory>> GetSearchHistoryByUserId(int id, PaginationFilter filter = null);
         public Task<Comments> CreateComment(Comments entity);
         public Task<Comments> UpdateComment(int id, Comments comment);

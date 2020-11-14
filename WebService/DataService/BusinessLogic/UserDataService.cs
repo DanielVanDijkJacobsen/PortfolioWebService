@@ -117,6 +117,21 @@ namespace WebService.DataService.BusinessLogic
             return await _specialRoles.WhereByUserId(id);
         }
 
+        public async Task<List<SpecialRoles>> DeleteSpecialRoleByUserId(int id)
+        {
+            return await _specialRoles.WhereByUserId(id);
+        }
+
+        public async Task<SpecialRoles> CreateSpecialRole(SpecialRoles entity)
+        {
+            return await _specialRoles.Create(entity);
+        }
+
+        public async Task<SpecialRoles> UpdateSpecialRole(SpecialRoles entity)
+        {
+            return await _specialRoles.Update(entity);
+        }
+
         public async Task<List<SearchHistory>> GetSearchHistoryByUserId(int id, PaginationFilter filter = null)
         {
             return await _searchHistory.WhereByUserId(id, filter);

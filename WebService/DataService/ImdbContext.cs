@@ -165,8 +165,8 @@ namespace WebService.DataService
                 entity.Property(x => x.FormatId).HasColumnName("format_id");
 
                 //Sets Foreign Keys
-                //entity.HasOne(x => x.TitleAlias).WithMany(d => d.TitleFormat)
-                //    .HasForeignKey(x => new { title_id = x.TitleId, ordering = x.Ordering });
+                entity.HasOne(x => x.TitleAlias).WithMany(d => d.TitleFormat)
+                    .HasForeignKey(x => new { title_id = x.TitleId, ordering = x.Ordering });
                 entity.HasOne(x => x.Format).WithMany(d => d.TitleFormats)
                     .HasForeignKey(x => x.FormatId);
             });

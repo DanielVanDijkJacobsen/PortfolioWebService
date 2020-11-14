@@ -6,6 +6,5 @@ namespace WebService.DTOs
         public int UserId { get; set; }
         public string RoleType { get; set; }
 
-        //public UserDto User { get; set; }
     }
 }

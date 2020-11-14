@@ -29,7 +29,7 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<IEnumerable<CastInfoDto>>(casts));
         }
 
-        [HttpGet("/")]
+        [HttpGet("{id}")]
         public IActionResult GetCastInfoByCast(string id)
         {
             var castInfo = _dataService.GetCastInfoByCastId(id).Result;

@@ -22,13 +22,22 @@ namespace WebService.Controllers
             _titleDataService = titleDataService;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetGenreByTitleId(string id)
         {
             var genre = _titleDataService.GetGenreByTitleId(id).Result;
             if (genre == null)
                 return NotFound();
             return Ok(_mapper.Map<GenreDto>(genre));
+        }
+
+        [HttpGet]
+        public IActionResult GetAllGenres()
+        {
+            var genres = _titleDataService.GetAllGenres().Result;
+            if (genres.Count < 1)
+                return NotFound();
+            return Ok(_mapper.Map<FormatDto>(genres));
         }
     }
 }

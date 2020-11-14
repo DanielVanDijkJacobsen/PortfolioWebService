@@ -67,8 +67,8 @@ namespace WebService.Controllers
         {
            if (_userDataService.DeleteUserRating(userId, titleId) == null)
                 return NotFound();
-            _castDataService.UpdateNameRating(titleId);
-            return NoContent();
+           _castDataService.UpdateNameRating(titleId);
+           return NoContent();
         }
 
         [HttpGet]
@@ -103,20 +103,5 @@ namespace WebService.Controllers
 
             return Ok(response);
         }
-        //[HttpGet]
-        //public IActionResult GetRatings(RatingForCreateDto ratingForCreateDto)
-        //{
-        //    List<UserRating> userRatings = new List<UserRating>();
-        //    if (ratingForCreateDto.TitleId != null && ratingForCreateDto.UserId > 0)
-        //        userRatings = _titleDataService
-        //            .GetUserRatingByUserIdAndTitleId(ratingForCreateDto.UserId, ratingForCreateDto.TitleId).Result;
-        //    if (ratingForCreateDto.UserId > 0 && ratingForCreateDto.TitleId == null)
-        //         userRatings = _userDataService.GetUserRatingsByUserId(ratingForCreateDto.UserId).Result;
-        //    if (ratingForCreateDto.UserId < 1 && ratingForCreateDto.TitleId != null)
-        //        userRatings = _titleDataService.GetUserRatingByTitleId(ratingForCreateDto.TitleId).Result;
-        //    if (userRatings == null)
-        //        return NotFound();
-        //    return Ok(_mapper.Map<IEnumerable<UserRatingDto>>(userRatings));
-        //}
     }
 }

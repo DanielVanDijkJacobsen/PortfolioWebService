@@ -23,12 +23,22 @@ namespace WebService.Controllers
         }
 
         [HttpGet]
+        public IActionResult GetAllFormats()
+        {
+            var formats = _titleDataService.GetAllFormats().Result;
+            if (formats.Count < 1)
+                return NotFound();
+            return Ok(_mapper.Map<FormatDto>(formats));
+        }
+
+        [HttpGet("{id}")]
         public IActionResult GetFormatByTitleId(string id)
         {
-            var genre = _titleDataService.GetFormatByTitleId(id).Result;
-            if (genre == null)
+            var format = _titleDataService.GetFormatByTitleId(id).Result;
+            if (format == null)
                 return NotFound();
-            return Ok(_mapper.Map<FormatDto>(genre));
+            return Ok(_mapper.Map<FormatDto>(format));
         }
+
     }
 }

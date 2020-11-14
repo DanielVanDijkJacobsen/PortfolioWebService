@@ -22,7 +22,7 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetTitleInfo(string id)
         {
             var titleInfo = _dataService.GetTitleInfoByTitleId(id).Result;
