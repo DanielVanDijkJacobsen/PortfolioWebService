@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebService.DataService.DTO;
 using WebService.DataService.Repositories;
+using WebService.Filters;
 
 namespace WebService.DataService.BusinessLogic
 {
@@ -84,14 +85,14 @@ namespace WebService.DataService.BusinessLogic
             return await _comments.ReadById(id);
         }
 
-        public async Task<List<Comments>> GetCommentsByUserId(int id)
+        public async Task<List<Comments>> GetCommentsByUserId(int id, PaginationFilter filter = null)
         {
-            return await _comments.WhereByUserId(id);
+            return await _comments.WhereByUserId(id, filter);
         }
 
-        public async Task<List<Bookmarks>> GetBookmarksByUserId(int id)
+        public async Task<List<Bookmarks>> GetBookmarksByUserId(int id, PaginationFilter filter = null)
         {
-            return await _bookmarks.WhereByUserId(id);
+            return await _bookmarks.WhereByUserId(id, filter);
         }
         
         public async Task<Comments> DeleteComment(int id)
@@ -100,9 +101,9 @@ namespace WebService.DataService.BusinessLogic
             return await _comments.Delete(entity);
         }
         
-        public async Task<List<UserRating>> GetUserRatingsByUserId(int id)
+        public async Task<List<UserRating>> GetUserRatingsByUserId(int id, PaginationFilter filter = null)
         {
-            return await _userRatings.WhereByUserId(id);
+            return await _userRatings.WhereByUserId(id, filter);
         }
 
         public async Task<Bookmarks> DeleteBookmark(int uid, string tid)
@@ -116,9 +117,9 @@ namespace WebService.DataService.BusinessLogic
             return await _specialRoles.WhereByUserId(id);
         }
 
-        public async Task<List<SearchHistory>> GetSearchHistoryByUserId(int id)
+        public async Task<List<SearchHistory>> GetSearchHistoryByUserId(int id, PaginationFilter filter = null)
         {
-            return await _searchHistory.WhereByUserId(id);
+            return await _searchHistory.WhereByUserId(id, filter);
         }
 
         public async Task<UserRating> UpdateUserRating(UserRating entity)

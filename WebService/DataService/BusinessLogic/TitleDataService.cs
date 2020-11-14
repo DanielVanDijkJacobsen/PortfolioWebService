@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using WebService.DataService.DTO;
 using WebService.DataService.Repositories;
+using WebService.Filters;
 
 namespace WebService.DataService.BusinessLogic
 {
@@ -61,9 +62,9 @@ namespace WebService.DataService.BusinessLogic
             return await _userRating.Create(rating); ;
         }
 
-        public async Task<List<Comments>> GetCommentsByTitleId(string id)
+        public async Task<List<Comments>> GetCommentsByTitleId(string id, PaginationFilter filter = null)
         {
-            return await _comments.WhereByTitleId(id);
+            return await _comments.WhereByTitleId(id, filter);
         }
         
         public async Task<List<TitleInfo>> GetTitleInfoByTitleId(string id)
@@ -91,15 +92,15 @@ namespace WebService.DataService.BusinessLogic
             return await _titles.ReadAll();
         }
 
-        public async Task<List<UserRating>> GetUserRatingByTitleId(string titleId)
+        public async Task<List<UserRating>> GetUserRatingByTitleId(string titleId, PaginationFilter filter = null)
         {
-            return await _userRating.WhereByTitleId(titleId);
+            return await _userRating.WhereByTitleId(titleId, filter);
         }
 
 
-        public async Task<List<UserRating>> GetUserRatingByUserIdAndTitleId(int userId, string titleId)
+        public async Task<List<UserRating>> GetUserRatingByUserIdAndTitleId(int userId, string titleId, PaginationFilter filter = null)
         {
-            return await _userRating.WhereByUserIdAndTitleId(userId, titleId);
+            return await _userRating.WhereByUserIdAndTitleId(userId, titleId, filter);
         }
 
         public async Task<Bookmarks> CreateBookmark(Bookmarks entity)

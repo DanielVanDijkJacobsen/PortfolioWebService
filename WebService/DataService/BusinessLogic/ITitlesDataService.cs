@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Threading.Tasks;
 using WebService.DataService.DTO;
+using WebService.Filters;
 
 namespace WebService.DataService.BusinessLogic
 {
@@ -12,12 +13,12 @@ namespace WebService.DataService.BusinessLogic
         public Task<List<Titles>> SearchForTitle(int? num, string searchString);
         public Task<UserRating> RateTitle(UserRating rating);
         public Task<List<Titles>> GetPopularTitles(int num, string type);
-        public Task<List<Comments>> GetCommentsByTitleId(string id);
+        public Task<List<Comments>> GetCommentsByTitleId(string id, PaginationFilter filter = null);
         public Task<List<TitleInfo>> GetTitleInfoByTitleId(string id);
         public Task<List<TitleAlias>> GetTitleAliasByTitleId(string id);
         public Task<List<TitleFormats>> GetTitleFormatByTitleId(string id);
-        public Task<List<UserRating>> GetUserRatingByUserIdAndTitleId(int userId, string titleId);
-        public Task<List<UserRating>> GetUserRatingByTitleId(string titleId);
+        public Task<List<UserRating>> GetUserRatingByUserIdAndTitleId(int userId, string titleId, PaginationFilter filter = null);
+        public Task<List<UserRating>> GetUserRatingByTitleId(string titleId, PaginationFilter filter = null);
         public Task<Bookmarks> CreateBookmark(Bookmarks entity);
         public Task<List<Bookmarks>> GetBookmark(string tid, int uid);
         public Task<Genres> GetGenreByTitleId(string id);

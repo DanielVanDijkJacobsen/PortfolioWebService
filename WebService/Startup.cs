@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using WebService.DataService.BusinessLogic;
 using WebService.Middleware;
+using WebService.Services;
 
 namespace WebService
 {
@@ -45,7 +46,15 @@ namespace WebService
                 });
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
+            ); 
+            services.AddHttpContextAccessor();
+            services.AddSingleton<IUriService>(o =>
+            {
+                var accessor = o.GetRequiredService<IHttpContextAccessor>();
+                var request = accessor.HttpContext.Request;
+                var uri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
+                return new UriService(uri);
+            });
             services.AddSingleton<IUsersDataService, UserDataService>();
             services.AddSingleton<ICastsDataService, CastsDataService>();
             services.AddSingleton<ITitlesDataService, TitleDataService>();

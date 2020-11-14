@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using WebService.DataService.DTO;
 using WebService.DataService.Repositories;
+using WebService.Filters;
 
 namespace WebService.DataService.BusinessLogic
 {
@@ -23,9 +24,14 @@ namespace WebService.DataService.BusinessLogic
             _castKnownFor = new CastKnownForRepository(context);
         }
 
-        public async Task<List<Casts>> GetAllCasts()
+        public async Task<List<Casts>> GetAllCasts(PaginationFilter paginationFilter = null)
         {
-            return await _casts.ReadAll();
+            return await _casts.ReadAll(paginationFilter);
+        }
+
+        public async Task<int> CountAll()
+        {
+            return await _casts.CountAll();
         }
 
         public async Task<List<CastInfo>> GetAllCastInfos()

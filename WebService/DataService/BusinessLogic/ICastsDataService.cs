@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebService.DataService.DTO;
+using WebService.Filters;
 
 namespace WebService.DataService.BusinessLogic
 {
@@ -8,7 +9,8 @@ namespace WebService.DataService.BusinessLogic
     {
         public Task<Casts> GetCastById(string id, int ordering);
         public Task<CastInfo> GetCastInfoById(string id);
-        public Task<List<Casts>> GetAllCasts();
+        public Task<List<Casts>> GetAllCasts(PaginationFilter paginationFilter = null);
+        public Task<int> CountAll();
         public Task<List<CastInfo>> GetAllCastInfos();
         public Task<List<CastProfession>> GetCastProfessionByCastId(string id);
         public Task<List<CastKnownFor>> GetCastKnownForByCastId(string id);
