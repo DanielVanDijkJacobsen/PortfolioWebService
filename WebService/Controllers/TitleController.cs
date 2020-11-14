@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Security.Claims;
+﻿using System.Collections.Generic;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using WebService.DataService.BusinessLogic;
 using WebService.DataService.DTO;
 using WebService.DTOs;
@@ -16,42 +12,21 @@ namespace WebService.Controllers
     public class TitleController : ControllerBase
     {
         private readonly ITitlesDataService _dataService;
+        private readonly ICastsDataService _castDataService;
         private readonly IMapper _mapper;
         private const int MaxPageSize = 50;
 
-        public TitleController(ITitlesDataService dataService, IMapper mapper)
+        public TitleController(ITitlesDataService dataService, ICastsDataService castDataService, IMapper mapper)
         {
             _dataService = dataService;
+            _castDataService = castDataService;
             _mapper = mapper;
         }
 
-        [HttpGet("popular/movies")]
-        public IActionResult GetPopularMovies()
+        [HttpGet("popular")]
+        public IActionResult GetPopular(string type)
         {
-            var titles = _dataService.GetPopularTitles(6, "movie").Result;
-            if (titles == null)
-                return NotFound();
-            return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
-        }
-
-        [HttpGet("{id}/comments")]
-        public IActionResult GetTitleComments(string id)
-        {
-            var comments = _dataService.GetCommentsByTitleId(id).Result;
-            return Ok(_mapper.Map<ICollection<CommentDto>>(comments));
-        }
-
-        [HttpGet("{id}/casts")]
-        public IActionResult GetTitleCasts(string id)
-        {
-            var casts = _dataService.GetCastsByTitleId(id).Result;
-            return Ok(_mapper.Map<ICollection<CastDto>>(casts));
-        }
-
-        [HttpGet("popular/shows")]
-        public IActionResult GetPopularShows()
-        {
-            var titles =_dataService.GetPopularTitles(6, "tvSeries").Result;
+            var titles = _dataService.GetPopularTitles(6, type).Result;
             if (titles == null)
                 return NotFound();
             return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
@@ -67,19 +42,14 @@ namespace WebService.Controllers
             if (query != null)
             {
                 titles = _mapper.Map<IEnumerable<TitleDto>>(userId != null ? _dataService.SearchForTitle(int.Parse(userId), query).Result : _dataService.SearchForTitle(null, query).Result);
-                casts = _mapper.Map<IEnumerable<CastInfoDto>>(_dataService.SearchByName(query).Result);
+                casts = _mapper.Map<IEnumerable<CastInfoDto>>(_castDataService.SearchCastByName(query).Result);
             }
             else
             {
                 titles = _mapper.Map<IEnumerable<TitleDto>>(_dataService.GetAllTitles().Result);
-                casts = _mapper.Map<IEnumerable<CastInfoDto>>(_dataService.GetAllCasts().Result);
+                casts = _mapper.Map<IEnumerable<CastInfoDto>>(_castDataService.GetAllCasts().Result);
             }
-
-            //var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(titles);
             var list = new SearchDto() {Casts = casts, Titles = titles};
-
-            _mapper.Map<IEnumerable<TitleDto>>(titles);
-
             return Ok(list);
         }
 
@@ -87,16 +57,11 @@ namespace WebService.Controllers
         public IActionResult GetTitle(string id)
         {
             var title = _dataService.GetTitleById(id).Result;
-
             if (title == null)
             {
                 return NotFound();
             }
-
-            var dto = _mapper.Map<TitleDto>(title);
-            dto.Url = Url.Link(nameof(GetTitle), new {id}); //Add URL
-
-            return Ok(dto);
+            return Ok(_mapper.Map<TitleDto>(title));
         }
     }
 }

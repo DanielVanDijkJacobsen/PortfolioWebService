@@ -25,6 +25,7 @@ namespace WebService.DataService
         public DbSet<Comments> Comments { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<FlaggedComment> FlaggedComments { get; set; }
+        public DbSet<NameRating> NameRatings { get; set; }
 
         //Don't change this
         public string connectionString = "host=imdb-do-user-673066-0.b.db.ondigitalocean.com;port = 25060;database = defaultdb;username = doadmin;password = jvciw0phpg56ch5q;sslmode = Prefer;Trust Server Certificate=true;";
@@ -32,7 +33,7 @@ namespace WebService.DataService
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             NpgsqlConnection.GlobalTypeMapper.MapEnum<BookmarkType>("bookmark_enum");
-            optionsBuilder.UseLazyLoadingProxies().UseNpgsql(connectionString);
+            optionsBuilder.UseNpgsql(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -391,15 +392,33 @@ namespace WebService.DataService
                 entity.ToTable("flaggedcomments");
 
                 //Sets Primary Key
-                entity.HasKey(x => new { x.CommentId, x.UserId });
+                entity.HasKey(x => new { x.CommentId, UserId = x.FlaggingUser });
 
                 //Sets properties
                 entity.Property(x => x.CommentId).HasColumnName("comment_id");
-                entity.Property(x => x.UserId).HasColumnName("flagging_user");
+                entity.Property(x => x.FlaggingUser).HasColumnName("flagging_user");
 
                 //Sets foreign Keys
-                entity.HasOne(x => x.User).WithMany(d => d.FlaggedComments).HasForeignKey(x => x.UserId);
+                entity.HasOne(x => x.User).WithMany(d => d.FlaggedComments).HasForeignKey(x => x.FlaggingUser);
                 entity.HasOne(x => x.Comment).WithMany(d => d.FlaggedComments).HasForeignKey(x => x.CommentId);
+            });
+
+            //NameRatings
+            modelBuilder.Entity<NameRating>(entity =>
+            {
+                //Points to Database Table
+                entity.ToTable("nameratings");
+
+                //Sets Primary key
+                entity.HasKey(x => x.CastId).HasName("cast_id");
+
+                //Sets Properties
+                entity.Property(x => x.CastId).HasColumnName("cast_id");
+                entity.Property(x => x.Score).HasColumnName("score");
+
+                //Sets Foreign Keys
+                entity.HasOne(x => x.CastInfo).WithMany(d => d.NameRating).HasForeignKey(x => x.CastId);
+
             });
         }
     }

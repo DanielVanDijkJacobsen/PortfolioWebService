@@ -10,6 +10,7 @@ namespace WebService.Profiles
         {
             CreateMap<Comments, CommentDto>();
             CreateMap<CommentForCreateOrUpdateDto, Comments>();
+            CreateMap<CommentDto, Comments>();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebService.DataService.DTO;
+using WebService.Filters;
 
 namespace WebService.DataService.Repositories
 {
@@ -13,14 +14,24 @@ namespace WebService.DataService.Repositories
 
         }
 
-        public async Task<List<Comments>> WhereByUserId(int? id)
+        public async Task<List<Comments>> WhereByUserId(int? id, PaginationFilter filter = null)
         {
-            return await Context.Set<Comments>().Where(comment => comment.UserId == id).ToListAsync();
+            if (filter != null)
+            {
+                return await Context.Set<Comments>().Skip((filter.PageNumber - 1) * filter.PageSize)
+                    .Take(filter.PageSize).Where(comments => comments.UserId == id).ToListAsync();
+            }
+            return await Context.Set<Comments>().Where(comments => comments.UserId == id).ToListAsync();
         }
 
-        public async Task<List<Comments>> WhereByTitleId(object? id)
+        public async Task<List<Comments>> WhereByTitleId(string id, PaginationFilter filter = null)
         {
-            return await Context.Set<Comments>().Where(Comments => Comments.TitleId == id).ToListAsync();
+            if (filter != null)
+            {
+                return await Context.Set<Comments>().Skip((filter.PageNumber - 1) * filter.PageSize)
+                    .Take(filter.PageSize).Where(comments => comments.TitleId == id).ToListAsync();
+            }
+            return await Context.Set<Comments>().Where(comments => comments.TitleId == id).ToListAsync();
         }
 
     }

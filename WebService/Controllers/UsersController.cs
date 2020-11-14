@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Security.Cryptography;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -17,11 +19,11 @@ namespace WebService.Controllers
     [Route("api/users")]
     public class UsersController : ControllerBase
     {
-        private readonly IFrameworkDataService _dataService;
+        private readonly IUsersDataService _dataService;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
 
-        public UsersController(IFrameworkDataService dataService, IMapper mapper, IConfiguration config)
+        public UsersController(IUsersDataService dataService, IMapper mapper, IConfiguration config)
         {
             _dataService = dataService;
             _mapper = mapper;
@@ -32,12 +34,12 @@ namespace WebService.Controllers
         [HttpGet]
         public IActionResult GetUsers()
         {
-            var users = _mapper.Map<IEnumerable<UserDto>>(_dataService.GetAllUsers().Result); ;
+            var users = _mapper.Map<IEnumerable<UserDto>>(_dataService.GetAllUsers().Result);
             return Ok(users);
         }
 
         [Authorize]
-        [HttpGet("{id}")]
+        [HttpGet("/{id}")]
         public IActionResult GetUserById(int id)
         {
             var user = _mapper.Map<UserDto>(_dataService.GetUserById(id).Result); 
@@ -111,7 +113,7 @@ namespace WebService.Controllers
         }
 
         [Authorize]
-        [HttpPut("{id}")]
+        [HttpPut]
         public IActionResult UpdateUser(int id, UserForCreateOrUpdateDto userForCreateOrUpdateDto)
         {
             var user = _mapper.Map<Users>(userForCreateOrUpdateDto);
@@ -124,13 +126,13 @@ namespace WebService.Controllers
         }
 
         [Authorize]
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public IActionResult DeleteUser(int id)
         {
-            if (_dataService.DeleteUser(id).Result == null)
-            {
+            var user = _dataService.GetUserById(id).Result;
+            if (user == null)
                 return NotFound();
-            }
+            _dataService.DeleteUser(id);
             return NoContent();
         }
     }
