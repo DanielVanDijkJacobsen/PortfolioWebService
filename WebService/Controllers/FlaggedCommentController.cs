@@ -15,13 +15,13 @@ namespace WebService.Controllers
     [Route("api/flaggedComments")]
     public class FlaggedCommentController : ControllerBase
     {
-        private readonly ITitlesDataService _titleDataService;
+        private readonly IUsersDataService _usersDataService;
         private readonly IMapper _mapper;
 
-        public FlaggedCommentController(ITitlesDataService titleDataService, IMapper mapper)
+        public FlaggedCommentController(IUsersDataService usersDataService, IMapper mapper)
         {
             _mapper = mapper;
-            _titleDataService = titleDataService;
+            _usersDataService = usersDataService;
         }
 
         [Authorize]
@@ -30,10 +30,10 @@ namespace WebService.Controllers
         {
             var newFlaggedComment = _mapper.Map<FlaggedComment>(flaggedCommentForCreateDto);
 
-            var exists = _titleDataService.GetFlaggedComment(newFlaggedComment.FlaggingUser, newFlaggedComment.CommentId).Result;
+            var exists = _usersDataService.GetFlaggedComment(newFlaggedComment.FlaggingUser, newFlaggedComment.CommentId).Result;
             if (exists.Count > 0)
                 return NotFound();
-            var flaggedComment = _titleDataService.FlagComment(newFlaggedComment).Result;
+            var flaggedComment = _usersDataService.FlagComment(newFlaggedComment).Result;
             return Created("", flaggedComment.ToString());
         }
 
@@ -43,10 +43,10 @@ namespace WebService.Controllers
         {
             var newFlaggedComment = _mapper.Map<FlaggedComment>(flaggedCommentForCreateDto);
 
-            var exists = _titleDataService.GetFlaggedComment(newFlaggedComment.FlaggingUser, newFlaggedComment.CommentId).Result;
+            var exists = _usersDataService.GetFlaggedComment(newFlaggedComment.FlaggingUser, newFlaggedComment.CommentId).Result;
             if (exists.Count < 1)
                 return NotFound();
-            _titleDataService.DeleteFlaggedComment(newFlaggedComment.FlaggingUser, newFlaggedComment.CommentId);
+            _usersDataService.DeleteFlaggedComment(newFlaggedComment.FlaggingUser, newFlaggedComment.CommentId);
             return NoContent();
         }
     }

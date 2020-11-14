@@ -6,7 +6,7 @@ namespace WebService.DataService.BusinessLogic
 {
     public interface ICastsDataService
     {
-        public Task<Casts> GetCastById(string id);
+        public Task<Casts> GetCastById(string id, int ordering);
         public Task<CastInfo> GetCastInfoById(string id);
         public Task<List<Casts>> GetAllCasts();
         public Task<List<CastInfo>> GetAllCastInfos();

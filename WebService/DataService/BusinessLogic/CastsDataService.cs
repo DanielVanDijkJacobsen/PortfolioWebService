@@ -58,9 +58,9 @@ namespace WebService.DataService.BusinessLogic
             return await _nameRating.UpdateNameRating(id);
         }
 
-        public async Task<Casts> GetCastById(string id)
+        public async Task<Casts> GetCastById(string id, int ordering)
         {
-            return await _casts.ReadById(id);
+            return await _casts.ReadById(new object[] { id, ordering});
         }
 
         public async Task<CastInfo> GetCastInfoById(string id)

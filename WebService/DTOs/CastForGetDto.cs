@@ -9,5 +9,6 @@ namespace WebService.DTOs
     {
         public string TitleId { get; set; }
         public string CastId { get; set; }
+        public int Ordering { get; set; }
     }
 }

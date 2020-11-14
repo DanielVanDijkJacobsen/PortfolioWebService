@@ -23,14 +23,18 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public IActionResult GetCasts(CastForGetDto castForGetDto)
+        [HttpGet("{titleId}")]
+        public IActionResult GetCasts(string titleId, int? ordering = null)
         {
             List<Casts> casts = new List<Casts>();
-            if (castForGetDto.CastId != null)
-                casts.Add(_dataService.GetCastById(castForGetDto.CastId).Result);
-            if (castForGetDto.TitleId != null)
-                casts = _dataService.GetCastsByTitleId(castForGetDto.TitleId).Result;
+            if (ordering != null)
+            {
+                casts.Add(_dataService.GetCastById(titleId, (int)ordering).Result);
+            }
+            else
+            {
+                casts = _dataService.GetCastsByTitleId(titleId).Result;
+            }
             if (casts.Count < 1)
                 return NotFound();
             return Ok(_mapper.Map<ICollection<CastDto>>(casts));

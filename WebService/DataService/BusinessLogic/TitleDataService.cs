@@ -91,53 +91,11 @@ namespace WebService.DataService.BusinessLogic
             return await _titles.ReadAll();
         }
 
-        public async Task<UserRating> UpdateUserRating(UserRating entity)
-        {
-            return await _userRating.Update(entity);
-        }
-
-        public async Task<UserRating> DeleteUserRating(UserRating entity)
-        {
-            return await _userRating.Delete(entity);
-        }
-
         public async Task<List<UserRating>> GetUserRatingByTitleId(string titleId)
         {
             return await _userRating.WhereByTitleId(titleId);
         }
 
-        public async Task<Comments> CreateComment(Comments entity)
-        {
-            entity.CommentTime = DateTime.Now;
-            await _comments.Create(entity);
-            return _comments.WhereByUserId(entity.UserId).Result.Last();
-        }
-
-        public async Task<Comments> UpdateComment(int id, Comments comment)
-        {
-            var entity = _comments.ReadById(id).Result;
-            entity.Comment = comment.Comment;
-            entity.CommentTime = comment.CommentTime;
-            entity.IsEdited = true;
-            return await _comments.Update(entity);
-        }
-
-        public async Task<FlaggedComment> FlagComment(FlaggedComment comment)
-        {
-
-            return await _flaggedComments.Create(comment);
-        }
-
-        public async Task<List<FlaggedComment>> GetFlaggedComment(int userId, int commentId)
-        {
-            return await _flaggedComments.WhereByUserIdAndCommentId(userId, commentId);
-        }
-
-        public async Task<FlaggedComment> DeleteFlaggedComment(int userId, int commentId)
-        {
-            var flaggedComment = await GetFlaggedComment(userId, commentId);
-            return await _flaggedComments.Delete(flaggedComment.First());
-        }
 
         public async Task<List<UserRating>> GetUserRatingByUserIdAndTitleId(int userId, string titleId)
         {

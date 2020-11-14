@@ -50,23 +50,19 @@ namespace WebService.Controllers
             var rating = _titleDataService.GetUserRatingByUserIdAndTitleId(newRating.UserId, newRating.TitleId).Result;
             if (rating.Count < 1)
                 return NotFound();
-            if (_titleDataService.UpdateUserRating(newRating) == null)
+            if (_userDataService.UpdateUserRating(newRating) == null)
                 return NotFound();
             _castDataService.UpdateNameRating(newRating.TitleId);
             return NoContent();
         }
 
         [Authorize]
-        [HttpDelete]
-        public IActionResult DeleteRating(RatingForCreateDto ratingForCreateDto)
+        [HttpDelete("{userId}")]
+        public IActionResult DeleteRating(int userId, string titleId)
         {
-            var newRating = _mapper.Map<UserRating>(ratingForCreateDto);
-            var rating = _titleDataService.GetUserRatingByUserIdAndTitleId(newRating.UserId, newRating.TitleId).Result;
-            if (rating.Count < 1)
+           if (_userDataService.DeleteUserRating(userId, titleId) == null)
                 return NotFound();
-            if (_titleDataService.DeleteUserRating(newRating) == null)
-                return NotFound();
-            _castDataService.UpdateNameRating(newRating.TitleId);
+            _castDataService.UpdateNameRating(titleId);
             return NoContent();
         }
 

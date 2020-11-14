@@ -93,32 +93,13 @@ namespace WebService.DataService.BusinessLogic
         {
             return await _bookmarks.WhereByUserId(id);
         }
-
-        public async Task<List<Comments>> GetAllComments()
-        {
-            return await _comments.ReadAll();
-        }
-
-        public async Task<Comments> UpdateComment(object id, Comments entity)
-        {
-            var _entity = _comments.ReadById(id).Result;
-            _entity.Comment = entity.Comment;
-            _entity.CommentTime = entity.CommentTime;
-            return await _comments.Update(_entity);
-        }
-
+        
         public async Task<Comments> DeleteComment(int id)
         {
             var entity = _comments.ReadById(id).Result;
             return await _comments.Delete(entity);
         }
         
-        public async Task<Bookmarks> DeleteBookmark(object id, string titleId)
-        {
-            var bookmark = await _bookmarks.ReadById(new object[] { id, titleId});
-            return await _bookmarks.Delete(bookmark);
-        }
-
         public async Task<List<UserRating>> GetUserRatingsByUserId(int id)
         {
             return await _userRatings.WhereByUserId(id);
@@ -138,6 +119,50 @@ namespace WebService.DataService.BusinessLogic
         public async Task<List<SearchHistory>> GetSearchHistoryByUserId(int id)
         {
             return await _searchHistory.WhereByUserId(id);
+        }
+
+        public async Task<UserRating> UpdateUserRating(UserRating entity)
+        {
+            return await _userRatings.Update(entity);
+        }
+
+        public async Task<UserRating> DeleteUserRating(int userId, string titleId)
+        {
+            var userRating = await _userRatings.ReadById(new object[] {userId, titleId});
+            return await _userRatings.Delete(userRating);
+        }
+
+        public async Task<Comments> CreateComment(Comments entity)
+        {
+            entity.CommentTime = DateTime.Now;
+            await _comments.Create(entity);
+            return _comments.WhereByUserId(entity.UserId).Result.Last();
+        }
+
+        public async Task<Comments> UpdateComment(int id, Comments comment)
+        {
+            var entity = _comments.ReadById(id).Result;
+            entity.Comment = comment.Comment;
+            entity.CommentTime = comment.CommentTime;
+            entity.IsEdited = true;
+            return await _comments.Update(entity);
+        }
+
+        public async Task<FlaggedComment> FlagComment(FlaggedComment comment)
+        {
+
+            return await _flaggedComments.Create(comment);
+        }
+
+        public async Task<List<FlaggedComment>> GetFlaggedComment(int userId, int commentId)
+        {
+            return await _flaggedComments.WhereByUserIdAndCommentId(userId, commentId);
+        }
+
+        public async Task<FlaggedComment> DeleteFlaggedComment(int userId, int commentId)
+        {
+            var flaggedComment = await GetFlaggedComment(userId, commentId);
+            return await _flaggedComments.Delete(flaggedComment.First());
         }
     }
 }

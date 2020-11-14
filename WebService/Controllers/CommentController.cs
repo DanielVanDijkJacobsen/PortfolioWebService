@@ -32,7 +32,7 @@ namespace WebService.Controllers
         public IActionResult CreateComment(CommentForCreateOrUpdateDto commentForCreateOrUpdateDto)
         {
             var newComment = _mapper.Map<Comments>(commentForCreateOrUpdateDto);
-            return Created("", _titleDataService.CreateComment(newComment).Result);
+            return Created("", _userDataService.CreateComment(newComment).Result);
         }
 
         [Authorize]
@@ -75,7 +75,7 @@ namespace WebService.Controllers
             var newComment = _mapper.Map<Comments>(commentForCreateOrUpdateDto);
             newComment.IsEdited = true;
 
-            if (_titleDataService.UpdateComment(newComment.CommentId, newComment).Result == null)
+            if (_userDataService.UpdateComment(newComment.CommentId, newComment).Result == null)
             {
                 return NotFound();
             }
