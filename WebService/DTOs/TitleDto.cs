@@ -14,6 +14,7 @@ namespace WebService.DTOs
         public string Poster { get; set; }
         public string StartYear { get; set; }
         public string YearEnd { get; set; }
+        public string Url { get; set; }
 
         public virtual TitleInfo TitleInfo { get; set; }
         public virtual ICollection<TitleAliasDto> TitleAlias { get; set; }
