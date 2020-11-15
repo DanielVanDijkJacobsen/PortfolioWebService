@@ -2,22 +2,13 @@
 using System.Linq;
 using System.Threading;
 using Newtonsoft.Json;
-using WebService.DataService.CustomTypes;
 using WebService.DTOs;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace WebService.WebServiceTests
 {
     public class UserTests
     {
-        private readonly ITestOutputHelper _testOutputHelper;
-
-        public UserTests(ITestOutputHelper testOutputHelper)
-        {
-            _testOutputHelper = testOutputHelper;
-        }
-
         //Users
         private const string UsersApi = "https://localhost:5001/api/users";
         [Fact]
@@ -43,7 +34,7 @@ namespace WebService.WebServiceTests
             userUpdate.Name = "Smed3";
             userUpdate.Nickname = "Smed3";
 
-            var url3 = String.Concat(UsersApi, "?id=");
+            var url3 = String.Concat(UsersApi, "/");
             url3 = String.Concat(url3, (int)userid);
             var statusUpdate = TestHelpers.PutData(url3, userUpdate, token);
             Assert.Equal("NoContent", statusUpdate.ToString());
@@ -53,7 +44,6 @@ namespace WebService.WebServiceTests
 
         //Comments
         private const string CommentsApi = "https://localhost:5001/api/comments";
-
         [Fact]
         public void TestingComments()
         {
@@ -110,7 +100,7 @@ namespace WebService.WebServiceTests
             var response = TestHelpers.DeleteData(url, token);
             Assert.Contains("NoContent", response.ToString());
 
-            var url3 = String.Concat(UsersApi, "?id=");
+            var url3 = String.Concat(UsersApi, "/");
             url3 = String.Concat(url3, (int)userid);
             var statusDelete = TestHelpers.DeleteData(url3, token);
             Assert.Contains("NoContent", statusDelete.ToString());
@@ -152,70 +142,17 @@ namespace WebService.WebServiceTests
             Assert.Equal("Created", statusTitle.ToString());
 
             var urlGet = String.Concat(BookmarksApi, String.Concat("/", titleBookmark.UserId));
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             var (dataGet, statusGet) = TestHelpers.GetObject(urlGet, token);
             Assert.Contains("OK", statusGet.ToString());
             var deleteUrl = String.Concat(BookmarksApi, JsonConvert.SerializeObject(titleBookmark));
 
             TestHelpers.DeleteData(deleteUrl, token);
-            var url3 = String.Concat(UsersApi, "?id=");
+            var url3 = String.Concat(UsersApi, "/");
             url3 = String.Concat(url3, (int)userid);
             var statusDelete = TestHelpers.DeleteData(url3, token);
             Assert.Equal("NoContent", statusDelete.ToString());
         }
-
-        //SpecialRoles
-        private const string RolesApi = "https://localhost:5001/api/roles";
-        [Fact]
-        public void TestingRoles()
-        {
-            var loginUser = new UserForCreateOrUpdateDto
-            {
-                Email = "Smedenergod2@gmail.com",
-                Name = "Smed2",
-                Password = "Smed2",
-                Nickname = "Smed2"
-            };
-
-            var url = String.Concat(UsersApi, "/login");
-            var (dataCreate, statusCodeCreate) = TestHelpers.PostData(UsersApi, loginUser);
-            var (dataLogin, statusLogin) = TestHelpers.PostData(url, loginUser);
-            var token = dataLogin["jwtToken"].ToString();
-
-            var (data, statusCode) = TestHelpers.GetArray(UsersApi, token);
-            var userid = data.Last()["userId"];
-
-            var role = new SpecialRoleDto()
-            {
-                UserId = (int)userid,
-                RoleType = RoleType.moderator
-            };
-
-            var (dataTitle, statusTitle) = TestHelpers.PostData(RolesApi, role, token);
-            Assert.Equal("Created", statusTitle.ToString());
-            var urlGet = String.Concat(RolesApi, String.Concat("/", (int) userid));
-
-            role.RoleType = RoleType.owner;
-
-            var statusUpdate = TestHelpers.PutData(RolesApi, role, token);
-
-            Assert.Contains("204", JsonConvert.SerializeObject(statusUpdate));
-
-
-            var response = TestHelpers.DeleteData(urlGet, token);
-            Assert.Contains("NoContent", response.ToString());
-
-            var url3 = String.Concat(UsersApi, "?id=");
-            url3 = String.Concat(url3, (int)userid);
-            var statusDelete = TestHelpers.DeleteData(url3, token);
-            Assert.Equal("NoContent", statusDelete.ToString());
-        }
-    }
-
-    internal class CommentForGetDto
-    {
-        public int UserId;
-        public string TitleId;
     }
 
     internal class BookmarkForCreate

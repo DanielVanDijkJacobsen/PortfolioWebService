@@ -23,6 +23,7 @@ namespace WebService.WebServiceTests
             Assert.Equal("Batman Begins", dataSearch["titles"][0]["primaryTitle"]);
         }
 
+
         private const string GenresApi = "https://localhost:5001/api/genre";
         [Fact]
         public void TestingGenreByTitle()
@@ -32,7 +33,7 @@ namespace WebService.WebServiceTests
                 TitleId = "tt0349878",
                 UserId = 1
             };
-            var urlGet = String.Concat(GenresApi, String.Concat("?id=", titleId.TitleId));
+            var urlGet = String.Concat(GenresApi, String.Concat("/", titleId.TitleId));
             var (dataGet, statusGet) = TestHelpers.GetObject(urlGet);
             Assert.Equal("OK", statusGet.ToString());
         }
@@ -41,7 +42,7 @@ namespace WebService.WebServiceTests
         public void TestingAllGenres()
         {
             var urlGet = GenresApi;
-            var (dataGet, statusGet) = TestHelpers.GetObject(urlGet);
+            var (dataGet, statusGet) = TestHelpers.GetArray(urlGet);
             Assert.Equal("OK", statusGet.ToString());
         }
 
@@ -54,7 +55,7 @@ namespace WebService.WebServiceTests
                 TitleId = "tt0349878",
                 UserId = 1
             };
-            var urlGet = String.Concat(FormatsApi, String.Concat("?id=", titleId.TitleId));
+            var urlGet = String.Concat(FormatsApi, String.Concat("/", titleId.TitleId));
             var (dataGet, statusGet) = TestHelpers.GetObject(urlGet);
             Assert.Equal("OK", statusGet.ToString());
         }
@@ -63,7 +64,7 @@ namespace WebService.WebServiceTests
         public void TestingAllFormats()
         {
             var urlGet = FormatsApi;
-            var (dataGet, statusGet) = TestHelpers.GetObject(urlGet);
+            var (dataGet, statusGet) = TestHelpers.GetArray(urlGet);
             Assert.Equal("OK", statusGet.ToString());
         }
 

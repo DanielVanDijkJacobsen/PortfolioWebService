@@ -37,7 +37,7 @@ namespace WebService.Controllers
             var genres = _titleDataService.GetAllGenres().Result;
             if (genres.Count < 1)
                 return NotFound();
-            return Ok(_mapper.Map<FormatDto>(genres));
+            return Ok(_mapper.Map<IEnumerable<GenreDto>>(genres));
         }
     }
 }

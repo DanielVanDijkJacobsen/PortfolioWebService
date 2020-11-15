@@ -28,7 +28,7 @@ namespace WebService.Controllers
             var formats = _titleDataService.GetAllFormats().Result;
             if (formats.Count < 1)
                 return NotFound();
-            return Ok(_mapper.Map<FormatDto>(formats));
+            return Ok(_mapper.Map<IEnumerable<FormatDto>>(formats));
         }
 
         [HttpGet("{id}")]

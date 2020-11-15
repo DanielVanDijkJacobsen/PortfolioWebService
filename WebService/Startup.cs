@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using WebService.DataService.BusinessLogic;
 using WebService.Middleware;
 using WebService.Services;
@@ -46,7 +47,13 @@ namespace WebService
                 });
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            ); 
+            );
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo() { Title = "API Docs", Version = "v1" });
+            });
+
             services.AddHttpContextAccessor();
             services.AddSingleton<IUriService>(o =>
             {
@@ -59,7 +66,8 @@ namespace WebService
             services.AddSingleton<ICastsDataService, CastsDataService>();
             services.AddSingleton<ITitlesDataService, TitleDataService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +77,17 @@ namespace WebService
             {
                 app.UseDeveloperExceptionPage();
             }
+
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
             app.UseAuthentication();

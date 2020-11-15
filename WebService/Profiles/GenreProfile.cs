@@ -13,6 +13,7 @@ namespace WebService.Profiles
         public GenreProfile()
         {
             CreateMap<Genres, GenreDto>();
+            CreateMap<GenreDto, Genres>();
         }
     }
 }
