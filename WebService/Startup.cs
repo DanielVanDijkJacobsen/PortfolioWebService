@@ -93,7 +93,7 @@ namespace WebService
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //app.UseRequestLogging();
+            app.UseRequestLogging();
             
 
             app.UseEndpoints(endpoints =>
