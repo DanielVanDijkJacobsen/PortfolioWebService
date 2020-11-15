@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using Newtonsoft.Json;
+using WebService.DataService.CustomTypes;
 using WebService.DTOs;
 using Xunit;
 using Xunit.Abstractions;
@@ -147,19 +148,63 @@ namespace WebService.WebServiceTests
             };
 
 
-            _testOutputHelper.WriteLine(JsonConvert.SerializeObject(titleBookmark));
-
             var (dataTitle, statusTitle) = TestHelpers.PostData(BookmarksApi, titleBookmark, token);
             Assert.Equal("Created", statusTitle.ToString());
 
             var urlGet = String.Concat(BookmarksApi, String.Concat("/", titleBookmark.UserId));
-            _testOutputHelper.WriteLine(urlGet);
-            Thread.Sleep(10000);
+            Thread.Sleep(3000);
             var (dataGet, statusGet) = TestHelpers.GetObject(urlGet, token);
             Assert.Contains("OK", statusGet.ToString());
             var deleteUrl = String.Concat(BookmarksApi, JsonConvert.SerializeObject(titleBookmark));
 
             TestHelpers.DeleteData(deleteUrl, token);
+            var url3 = String.Concat(UsersApi, "?id=");
+            url3 = String.Concat(url3, (int)userid);
+            var statusDelete = TestHelpers.DeleteData(url3, token);
+            Assert.Equal("NoContent", statusDelete.ToString());
+        }
+
+        //SpecialRoles
+        private const string RolesApi = "https://localhost:5001/api/roles";
+        [Fact]
+        public void TestingRoles()
+        {
+            var loginUser = new UserForCreateOrUpdateDto
+            {
+                Email = "Smedenergod2@gmail.com",
+                Name = "Smed2",
+                Password = "Smed2",
+                Nickname = "Smed2"
+            };
+
+            var url = String.Concat(UsersApi, "/login");
+            var (dataCreate, statusCodeCreate) = TestHelpers.PostData(UsersApi, loginUser);
+            var (dataLogin, statusLogin) = TestHelpers.PostData(url, loginUser);
+            var token = dataLogin["jwtToken"].ToString();
+
+            var (data, statusCode) = TestHelpers.GetArray(UsersApi, token);
+            var userid = data.Last()["userId"];
+
+            var role = new SpecialRoleDto()
+            {
+                UserId = (int)userid,
+                RoleType = RoleType.moderator
+            };
+
+            var (dataTitle, statusTitle) = TestHelpers.PostData(RolesApi, role, token);
+            Assert.Equal("Created", statusTitle.ToString());
+            var urlGet = String.Concat(RolesApi, String.Concat("/", (int) userid));
+
+            role.RoleType = RoleType.owner;
+
+            var statusUpdate = TestHelpers.PutData(RolesApi, role, token);
+
+            Assert.Contains("204", JsonConvert.SerializeObject(statusUpdate));
+
+
+            var response = TestHelpers.DeleteData(urlGet, token);
+            Assert.Contains("NoContent", response.ToString());
+
             var url3 = String.Concat(UsersApi, "?id=");
             url3 = String.Concat(url3, (int)userid);
             var statusDelete = TestHelpers.DeleteData(url3, token);

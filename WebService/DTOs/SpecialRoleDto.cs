@@ -1,10 +1,13 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
+using WebService.DataService.CustomTypes;
+
 namespace WebService.DTOs
 {
     public class SpecialRoleDto
     {
         public int UserId { get; set; }
-        public string RoleType { get; set; }
-
+        
+        public RoleType RoleType { get; set; }
     }
 }

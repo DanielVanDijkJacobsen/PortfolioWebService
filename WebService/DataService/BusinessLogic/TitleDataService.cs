@@ -119,6 +119,16 @@ namespace WebService.DataService.BusinessLogic
             return await _genre.ReadById(genreId.First().GenreId);
         }
 
+        public async Task<List<Genres>> GetAllGenres()
+        {
+            return await _genre.ReadAll();
+        }
+
+        public async Task<List<Formats>> GetAllFormats()
+        {
+            return await _format.ReadAll();
+        }
+
         public async Task<Formats> GetFormatByTitleId(string id)
         {
             var formatId = await _titleFormat.WhereByTitleId(id);

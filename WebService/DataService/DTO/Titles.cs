@@ -5,6 +5,7 @@ namespace WebService.DataService.DTO
 {
     public class Titles
     {
+
         public string TitleId { get; set; }
         public string TitleType { get; set; }
         public string PrimaryTitle { get; set; }

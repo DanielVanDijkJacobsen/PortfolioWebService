@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using WebService.DataService.BusinessLogic;
+using WebService.DataService.CustomTypes;
 using WebService.DataService.DTO;
 using WebService.DTOs;
 
@@ -51,13 +53,14 @@ namespace WebService.Controllers
         [HttpPost]
         public IActionResult CreateUserRole(SpecialRoleDto role)
         {
-            var roles = _dataService.GetSpecialRolesByUserId(role.UserId).Result;
-            if (roles == null)
-                return NotFound();
-            var newRole = _dataService.CreateSpecialRole(_mapper.Map<SpecialRoles>(role)).Result;
-            if (newRole == null)
-                return NotFound();
-            return Created("", _mapper.Map<SpecialRoleDto>(roles.First()));
+            var newRoles = _mapper.Map<SpecialRoles>(role);
+            return newRoles.RoleType switch
+            {
+                RoleType.moderator => Created("", CreateRole(newRoles, "moderator")),
+                RoleType.owner => Created("", CreateRole(newRoles, "owner")),
+                RoleType.administrator => Created("", CreateRole(newRoles, "administrator")),
+                _ => NotFound()
+            };
         }
 
         [Authorize]
@@ -67,10 +70,31 @@ namespace WebService.Controllers
             var roles = _dataService.GetSpecialRolesByUserId(role.UserId).Result;
             if (roles == null)
                 return NotFound();
+            Console.WriteLine(JsonConvert.SerializeObject(role));
             var updatedRole = _dataService.UpdateSpecialRole(_mapper.Map<SpecialRoles>(role)).Result;
             if (updatedRole == null)
                 return NotFound();
             return NoContent();
+        }
+
+
+        private SpecialRoles CreateRole(SpecialRoles role, string type)
+        {
+            switch (type)
+            {
+                case "moderator":
+                    role.RoleType = RoleType.moderator;
+                    break;
+                case "owner":
+                    role.RoleType = RoleType.owner;
+                    break;
+                case "administrator":
+                    role.RoleType = RoleType.administrator;
+                    break;
+            }
+
+            _dataService.CreateSpecialRole(role);
+            return role;
         }
     }
 }
