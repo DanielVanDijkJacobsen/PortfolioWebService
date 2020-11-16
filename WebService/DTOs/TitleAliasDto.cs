@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebService.DataService.DTO;
-
+﻿
 namespace WebService.DTOs
 {
     public class TitleAliasDto
     {
         public string TitleId { get; set; }
-        //public virtual TitleDto Titles { get; set; }
         public int Ordering { get; set; }
         public string Title { get; set; }
         public string Region { get; set; }

@@ -2,7 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebService.DataService.BusinessLogic;
-using WebService.DataService.DTO;
+using WebService.DataService.DMO;
 using WebService.DTOs;
 
 namespace WebService.Controllers

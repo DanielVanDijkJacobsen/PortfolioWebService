@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebService.DataService.DTO
+namespace WebService.DataService.DMO
 {
     public class Users
     {

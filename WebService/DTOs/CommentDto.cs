@@ -12,9 +12,6 @@ namespace WebService.DTOs
         public string Comment { get; set; }
         public int? ParentCommentId { get; set; }
         public bool? Edited { get; set; }
-
-        //public UserDto User { get; set; }
-        //public TitleDto Title { get; set; }
         public virtual CommentDto Parent { get; set; }
         public virtual ICollection<CommentDto> Children { get; set; }
         public virtual ICollection<FlaggedCommentDto> FlaggedComments { get; set; }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using WebService.DataService.DTO;
 
 
 namespace WebService.DTOs

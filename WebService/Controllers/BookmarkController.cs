@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebService.DataService.BusinessLogic;
 using WebService.DataService.CustomTypes;
-using WebService.DataService.DTO;
+using WebService.DataService.DMO;
 using WebService.DTOs;
 using WebService.Filters;
 using WebService.Services;

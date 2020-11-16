@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using WebService.DataService.CustomTypes;
-using WebService.DataService.DTO;
+using WebService.DataService.DMO;
 
 namespace WebService.DataService
 {

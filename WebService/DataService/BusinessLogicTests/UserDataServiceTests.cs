@@ -1,15 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using System.Linq;
 using WebService.DataService.BusinessLogic;
-using WebService.DataService.CustomTypes;
-using WebService.DataService.DTO;
-using WebService.DTOs;
+using WebService.DataService.DMO;
 using Xunit;
 using Xunit.Abstractions;
 using static Xunit.Assert;

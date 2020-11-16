@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebService.DataService.DTO;
+using WebService.DataService.DMO;
 using WebService.DataService.Repositories;
 using WebService.Filters;
 

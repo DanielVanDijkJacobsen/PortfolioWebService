@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using WebService.DataService.DTO;
+using WebService.DataService.DMO;
 using WebService.DTOs;
 
 namespace WebService.Profiles

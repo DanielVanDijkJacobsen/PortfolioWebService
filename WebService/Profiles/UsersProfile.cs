@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using WebService.DataService.DTO;
+using WebService.DataService.DMO;
 using WebService.DTOs;
-using WebService.Resolvers;
 
 namespace WebService.Profiles
 {

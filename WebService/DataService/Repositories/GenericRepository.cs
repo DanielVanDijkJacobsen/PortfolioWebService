@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using WebService.DataService.DTO;
 using WebService.Filters;
 
 namespace WebService.DataService.Repositories

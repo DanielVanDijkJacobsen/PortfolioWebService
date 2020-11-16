@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using WebService.DataService.DTO;
+﻿using AutoMapper;
+using WebService.DataService.DMO;
 using WebService.DTOs;
 
 namespace WebService.Profiles
@@ -14,6 +10,5 @@ namespace WebService.Profiles
         {
             CreateMap<TitleGenres, TitleGenreDto>();
         }
-
     }
 }

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using WebService.DataService.DTO;
+using WebService.DataService.DMO;
 using WebService.Filters;
 
 namespace WebService.DataService.Repositories

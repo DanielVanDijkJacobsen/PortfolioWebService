@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WebService.DTOs;
 
-namespace WebService.DataService.DTO
+namespace WebService.DataService.DMO
 {
     public class SearchDto
     {

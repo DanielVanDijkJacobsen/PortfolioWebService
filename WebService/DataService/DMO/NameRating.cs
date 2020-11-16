@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebService.DTOs;
-
-namespace WebService.DataService.DTO
+﻿namespace WebService.DataService.DMO
 {
     public class NameRating
     {

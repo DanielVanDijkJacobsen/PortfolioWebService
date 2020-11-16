@@ -1,6 +1,6 @@
 ﻿using WebService.DataService.CustomTypes;
 
-namespace WebService.DataService.DTO
+namespace WebService.DataService.DMO
 {
     public class Bookmarks
     {

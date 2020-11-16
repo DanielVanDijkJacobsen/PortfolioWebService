@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using System.Security.Cryptography;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +7,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using WebService.DataService.BusinessLogic;
-using WebService.DataService.DTO;
+using WebService.DataService.DMO;
 using WebService.DTOs;
 using WebService.Utils;
 

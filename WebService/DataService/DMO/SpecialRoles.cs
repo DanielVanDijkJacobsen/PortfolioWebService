@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using WebService.DataService.CustomTypes;
+﻿using WebService.DataService.CustomTypes;
 
-namespace WebService.DataService.DTO
+namespace WebService.DataService.DMO
 {
     public class SpecialRoles
     {

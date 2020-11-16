@@ -1,4 +1,4 @@
-﻿using WebService.DataService.DTO;
+﻿using WebService.DataService.DMO;
 
 namespace WebService.DataService.Repositories
 {

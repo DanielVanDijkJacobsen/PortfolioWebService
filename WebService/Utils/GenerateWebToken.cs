@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using WebService.DataService.DTO;
+using WebService.DataService.DMO;
 
 namespace WebService.Utils
 {

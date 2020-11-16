@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebService.DataService.DTO
+namespace WebService.DataService.DMO
 {
     public class SearchHistory
     {
