@@ -78,16 +78,18 @@ namespace WebService
                 app.UseDeveloperExceptionPage();
             }
 
+            //Disabling swagger
+                /*
+                // Enable middleware to serve generated Swagger as a JSON endpoint
+                app.UseSwagger();
 
-            // Enable middleware to serve generated Swagger as a JSON endpoint
-            app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-                c.RoutePrefix = string.Empty;
-            });
+                // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+                    c.RoutePrefix = string.Empty;
+                });
+                */
 
             app.UseRouting();
             app.UseAuthentication();
@@ -95,6 +97,8 @@ namespace WebService
 
             app.UseRequestLogging();
             
+            //Serving Files
+            app.UseFileServer();
 
             app.UseEndpoints(endpoints =>
             {
