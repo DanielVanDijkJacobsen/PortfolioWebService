@@ -1,5 +1,22 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-  "libraries": []
+  "libraries": [
+    {
+      "library": "knockout@3.5.1",
+      "destination": "WWWroot/lib/knockout/"
+    },
+    {
+      "library": "twitter-bootstrap@4.5.3",
+      "destination": "WWWroot/lib/twitter-bootstrap/"
+    },
+    {
+      "library": "require.js@2.3.6",
+      "destination": "WWWroot/lib/require.js/"
+    },
+    {
+      "library": "require-text@2.0.12",
+      "destination": "WWWroot/lib/require-text/"
+    }
+  ]
 }
