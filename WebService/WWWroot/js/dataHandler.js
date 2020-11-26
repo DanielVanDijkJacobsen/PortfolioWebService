@@ -1,11 +1,30 @@
 ﻿
 //Function for getting list of popular titles
-let getPopular = function (callback) {
-    fetch("api/titles/popular")
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
-            callback(data);
-        });
-};
+
+
+define([], () => {
+
+    let getPopular = (callback) => {
+        fetch("api/titles/popular")
+            .then(response => response.json())
+            .then(callback);
+    };
+
+    let getTitles = (callback) => {
+        fetch("api/titles")
+            .then(response => response.json())
+            .then(callback);
+    }
+
+    let getTitle = (id, callback) => {
+        fetch("api/categories" + id)
+            .then(response => response.json)
+            .then(callback);
+    }
+
+    return {
+        getPopular,
+        getTitles,
+        getTitle
+    }
+});
