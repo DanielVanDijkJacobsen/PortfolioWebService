@@ -33,6 +33,12 @@
     }
 
     //Comments
+    let getComment;
+    let getComments;
+    let createComment;
+    let deleteComment;
+    let updateComment;
+
     //FlaggedComments
 
     //Title formats and genres
