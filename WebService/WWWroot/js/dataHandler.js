@@ -9,6 +9,16 @@
             .then(callback);
     }
 
+    let createBookmarkTitle = (userId, callback, titleId) => {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        fetch("api/bookmarks" + userId, { method: "POST", body: JSON.stringify(titleId), headers })
+            .then(response => response.json)
+            .then(data => callback(data));
+    }
+
+    let deleteBookmark = url => fetch(url, { method: "DELETE" });
+
     let getCastInfo = (id, callback) => {
         fetch("api/castinfo" + id)
             .then(response => response.json())
@@ -112,6 +122,8 @@
 
     return {
         getBookmarks,
+        createBookmarkTitle,
+        deleteBookmark,
         getCastInfo,
         getCastInfos,
         getCasts,
