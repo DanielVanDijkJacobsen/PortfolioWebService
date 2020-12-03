@@ -42,11 +42,59 @@
             .then(callback);
     }
 
+    let getGenre = (id, callback) => {
+        fetch("api/genre" + id)
+            .then(response => response.json())
+            .then(callback);
+    }
+
+    let getGenres = (callback) => {
+        fetch("api/genre")
+            .then(response => response.json())
+            .then(callback);
+    }
+
+    let getKnownFor = (id, callback) => {
+        fetch("api/knownfor" + id)
+            .then(response => response.json)
+            .then(callback);
+    }
+
+    let getNameRatings = (id, callback) => {
+        fetch("api/nameratings" + id)
+            .then(response => response.json)
+            .then(callback);
+    }
+
+    let getProfessions = (id, callback) => {
+        fetch("api/professions" + id)
+            .then(response => response.json)
+            .then(callback);
+    }
+
     let getPopular = (callback) => {
         fetch("api/titles/popular")
             .then(response => response.json())
             .then(callback);
     };
+
+    //Ratings
+
+    //Roles
+
+    //SearchHistory
+
+    let getTitleAlias = (id, callback) => {
+        fetch("api/titlealias" + id)
+            .then(response => response.json)
+            .then(callback);
+    }
+
+    let getTitleInfo = (id, callback) => {
+        fetch("api/titleinfo" + id)
+            .then(response => response.json)
+            .then(callback);
+    }
 
     let getTitle = (id, callback) => {
         fetch("api/categories" + id)
@@ -60,6 +108,7 @@
             .then(callback);
     }
 
+    //Users
 
     return {
         getBookmarks,
@@ -68,7 +117,14 @@
         getCasts,
         getFormat,
         getFormats,
+        getGenre,
+        getGenres,
+        getKnownFor,
+        getNameRatings,
         getPopular,
+        getProfessions,
+        getTitleAlias,
+        getTitleInfo,
         getTitle,
         getTitles
     }
