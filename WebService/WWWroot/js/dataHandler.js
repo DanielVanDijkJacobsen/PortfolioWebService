@@ -33,10 +33,20 @@
     }
 
     //Comments
-    let getComment;
-    let getComments;
-    let createComment;
-    let deleteComment;
+    let getComment = (id, callback) => {
+        fetch("api/comments" + id)
+            .then(response => response.json())
+            .then(callback);
+    };
+    let getComments; //Unsure of how to call.
+    let createComment = (comment, callback) => {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        fetch("api/comments", { method: "POST", body: JSON.stringify(comment), headers })
+            .then(response => response.json)
+            .then(data => callback(data));
+    };
+    let deleteComment = url => fetch(url, { method: "DELETE" });
     let updateComment;
 
     //FlaggedComments
