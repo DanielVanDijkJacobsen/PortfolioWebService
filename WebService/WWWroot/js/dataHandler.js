@@ -1,5 +1,10 @@
 ﻿define([], () => {
 
+    //
+    // Unsure of how to correctly interact with the Framework, will look through the class sessions and make modifications.
+    // -Daniel 07-12-2020
+    //
+
     //Bookmarks
     let getBookmarks = (userId, callback) => {
         fetch("api/bookmarks" + userId)
@@ -47,9 +52,17 @@
             .then(data => callback(data));
     };
     let deleteComment = url => fetch(url, { method: "DELETE" });
-    let updateComment;
+    let updateComment; //Unsure of how to call
 
     //FlaggedComments
+    let flagComment = (id, callback) => {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        fetch("api/flaggedComments", { method: "POST", body: JSON.stringify(id), headers })
+            .then(response => response.json)
+            .then(data => callback(data));
+    }
+    let deleteFlagOnComment = url => fetch(url, { method: "DELETE" });
 
     //Title formats and genres
     let getFormat = (id, callback) => {
@@ -91,10 +104,24 @@
     }
 
     //Ratings
+    //Unsure of how to resolve the url path, how do we url the combined key's?
 
     //Roles
+    let getRole = (id, callback) => {
+        fetch("api/roles" + id)
+            .then(response => response.json)
+            .then(callback);
+    }
+    let deleteRole = url => fetch(url, { method: "DELETE" });
+    let giveRole; //Unsure of how to resolve.
+    let modifyRole; //Unsure of how to resolve.
 
     //SearchHistory
+    let getSearchHistory = (id, callback) => {
+        fetch("api/searchhistory" + id)
+            .then(respone => respone.json)
+            .then(callback);
+    }
 
     //Title information
     let getTitleAlias = (id, callback) => {
@@ -124,6 +151,22 @@
     };
 
     //Users
+    let getUsers = (callback) => {
+        fetch("api/users")
+            .then(response => response.json)
+            .then(callback);
+    };
+    let getUser = (íd, callback) => {
+        fetch("api/users" + id)
+            .then(response => response.json)
+            .then(callback);
+    };
+    let createUser = (callback) => {
+
+    };//Unsure of how to handle.
+    let userLogin;//Unsure.
+    let updateUser;//Unsure.
+    let deleteUser = url => fetch(url, { method: "DELETE" });
 
     return {
         getBookmarks,
@@ -132,6 +175,13 @@
         getCastInfo,
         getCastInfos,
         getCasts,
+        getComment,
+        getComments,
+        createComment,
+        deleteComment,
+        updateComment,
+        flagComment,
+        deleteFlagOnComment,
         getFormat,
         getFormats,
         getGenre,
@@ -140,9 +190,20 @@
         getNameRatings,
         getPopular,
         getProfessions,
+        getRole,
+        deleteRole,
+        giveRole,
+        modifyRole,
+        getSearchHistory,
         getTitleAlias,
         getTitleInfo,
         getTitle,
-        getTitles
+        getTitles,
+        getUsers,
+        getUser,
+        createUser,
+        userLogin,
+        updateUser,
+        deleteUser
     }
 });
