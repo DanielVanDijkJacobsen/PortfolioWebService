@@ -14,24 +14,56 @@
     <title>Raw7 IMDb</title>
 </head>
 <body>
-    <div class="container-fluid ">
-        <div class="d-flex justify-content-evenly bg-success text-white">
-            <div class="p-2 bd-highlight grow-1">
-                <nav class="navbar navbar-expand-xl navbar-light">
-                    <a class="navbar-brand" href="#">Browse</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </nav>
+  
+    <div class="container-fluid bg-success">
+        <!--Josephine's Navbar-->
+        <div class="navbar navbar-expand-lg navbar-light">
+            <div class="col-md-1">
+                <a class="navbar-brand" href="#">RAW7 IMDb</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
-            <div class="p-2 bd-highlight grow-2">
-                <form class="form-inline">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                    <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
-                           aria-label="Search">
+            <div class="col-md-3">
+                <a class="nav-link active text-dark" aria-current="page" href="#">Browse</a>
+            </div>
+            <div class="col-md-4">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 </form>
             </div>
-                <div class="p-2 bd-highlight grow-1">
+            <div class="col-md-4">
+                <a class="position-absolute top-0 end-0 nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown link
+                </a>
+                <ul class="position-absolute top-0 end-0 dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- END -->
+
+            
+
+
+
+    <!--NavBar vi lavede sammen, der 'virker' (ish) -->
+            <div class="d-flex justify-content-evenly bg-success text-white d-none">
+                <div class="p-2 bd-highlight">
+                    <nav class="navbar navbar-expand-xl navbar-light">
+                        <a class="navbar-brand" href="#">Browse</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </nav>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                </div>
+                <div class="p-2 bd-highlight">
                     <nav class="navbar navbar-expand-sm navbar-light">
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2">
@@ -51,6 +83,9 @@
                     </nav>
                 </div>
             </div>
+    <!-- END -->
+
+    <!-- Smed's Originale NavBar-->
             <div class="row bg-success d-none">
                 <div class="col-md-1 align-content-center">
 
@@ -89,6 +124,7 @@
                     </nav>
                 </div>
             </div>
+    <!-- END -->
             <!-- Frontpage Body -->
             <div class="min-vh-100 container-fluid bg-dark text-white d-none">
                 <div class="row">
