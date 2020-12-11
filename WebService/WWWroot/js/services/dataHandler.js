@@ -145,7 +145,7 @@
             .then(callback);
     }
     let getPopular = (callback) => {
-        fetch("api/titles/popular")
+        fetch("api/titles/popular?type=movie")
             .then(response => response.json())
             .then(callback);
     };
