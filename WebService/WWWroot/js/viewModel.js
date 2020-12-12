@@ -1,5 +1,5 @@
 ﻿define(['knockout', 'store'], (ko, store) => {
-    let selectedComponent = ko.observable('popular-titles');
+    let selectedComponent = ko.observable('popular-shows');
     //let currentParams = ko.observable();
 
     //let changeContent = () => {

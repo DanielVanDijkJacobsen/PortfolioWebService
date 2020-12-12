@@ -26,10 +26,23 @@ require(['knockout', 'text'], (ko) => {
     //        template: { require: "text!components/categoryDetails/categoryDetails.html" }
     //    });
 
+
+
     ko.components.register("popular-titles",
         {
-            viewModel: { require: "components/popularMovies/popularMovies" },
-            template: { require: "text!components/popularMovies/popularMovies.html" }
+            viewModel: { require: "components/popularMovies/popularMovies"},
+            template: { require: "text!components/popularMovies/popularMovies.html"}
+        });
+
+
+});
+
+require(['knockout', 'text'], (ko) => {
+
+    ko.components.register("popular-shows",
+        {
+            viewModel: { require: "components/popularShows/popularShows" },
+            template: { require: "text!components/popularShows/popularShows.html" }
         });
 });
 

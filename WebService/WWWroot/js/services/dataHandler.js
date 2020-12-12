@@ -150,6 +150,12 @@
             .then(callback);
     };
 
+    let getPopularShows = (callback) => {
+        fetch("api/titles/popular?type=tvSeries")
+            .then(response => response.json())
+    .then(callback);
+    }
+
     //Users
     let getUsers = (callback) => {
         fetch("api/users")
@@ -189,6 +195,7 @@
         getKnownFor,
         getNameRatings,
         getPopular,
+        getPopularShows,
         getProfessions,
         getRole,
         deleteRole,
