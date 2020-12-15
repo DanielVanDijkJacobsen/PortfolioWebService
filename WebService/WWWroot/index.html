@@ -15,45 +15,34 @@
 </head>
 <body>
     <div class="container-fluid bg-success">
-        <!--Josephine's Navbar-->
-        <div class="navbar navbar-expand-lg navbar-light">
-            <div class="col-md-1">
-                <a class="navbar-brand" href="#">RAW7 IMDb</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <div class="col-md-3">
-                                <a class="nav-link active text-dark" aria-current="page" href="#">Browse</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="col-md-4">
-                                <form class="d-flex">
-                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                </form>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="col-md-4 dropleft">
-                                <a class="position-absolute top-0 end-0 nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Login
-                                </a>
-                                <ul class="dropdown-menu w-15 dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </div>
-                            </li>
+<!--NAVBAR-->
+        <div class="navbar navbar-expand-sm navbar-light">
+            <a class="navbar-brand" href="#">RAW7 IMDb</a>
+            <ul class="navbar-nav me-1 mb-0 mb-sm-0">
+                <li class="nav-item">
+                    <a class="nav-link active text-dark" aria-current="page" href="#">Browse</a>
+                </li>
+            </ul>
+            <form class="d-flex mx-auto">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+            </form>
+            <ul class="navbar-nav me-5 mb-2 mb-sm-0">
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Login</a>
+                    <ul class="dropdown-menu w-15 dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
-                </div>
-            </div>
+                </li>
+             </ul>
+
+        </div>
     </div>
-    <!-- END -->
-    <!-- Frontpage Body -->
+<!--NAVBAR END-->
+
+<!--FRONT PAGE-->
     <div class="min-vh-100 container-fluid bg-dark text-white">
         <div class="row">
             <div class="col-8">
@@ -63,6 +52,7 @@
                 <h1>Best TV Shows</h1>
                 <div class="d-flex justify-content-between" data-bind='component: "popular-shows"'></div>
             </div>
+            <!--SIGN UP FRONT PAGE-->
             <div class="col-4">
                 <div class="container-fluid">
                     <div class="d-flex bg-dark text-white">
@@ -160,6 +150,8 @@
                     </div>
                 </div>
             </div>
+            <!--END-->
+            <!--USER LOGGED-IN FRONT PAGE CONTENT-->
             <div class="col-4 d-none">
                 <div class="container-fluid">
                     <div class="row bg-dark">
@@ -251,9 +243,12 @@
                     </div>
                 </div>
             </div>
+            <!--END-->
         </div>
     </div>
-    <!-- Frontpage Body End -->
+<!-- FRONT PAGE END -->
+
+<!-- TITLE PAGE-->
     <div class="min-vh-100 container-fluid bg-dark text-white d-none">
         <div class="row bg-dark">
             <p class="text-dark"></p>
@@ -366,7 +361,7 @@
                     </div>
                 </div>
             </div>
-            <!-- COMMENT SECTION-->
+    <!--COMMENT SECTION-->
             <div class="col-md-3">
                 <h1>Recent Comments</h1>
                 <div class="row text-white border">
@@ -455,8 +450,10 @@
             <div class="col-md-1">
 
             </div>
+    <!--END-->
         </div>
     </div>
+<!-- TITLE PAGE END-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
