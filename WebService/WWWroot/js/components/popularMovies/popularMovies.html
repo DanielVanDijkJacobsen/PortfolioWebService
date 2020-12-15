@@ -1,5 +1,7 @@
-﻿<div class="d-flex justify-content-between" data-bind="foreach: popularTitles">
-    <div class="p-2 bd-highlight">
+﻿
+<h1>Best Movies</h1>
+<div class="d-flex justify-content-between" data-bind="foreach: popularTitles">
+    <div class="p-2 bd-highlight" data-bind="click: $parent.goToTitle">
         <img class="img-fluid" data-bind="attr:{src: poster}" />
     </div>
 </div>

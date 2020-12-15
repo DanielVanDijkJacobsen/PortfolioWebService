@@ -1,9 +1,9 @@
 ﻿define(['knockout', 'dataservice', 'store'], (ko, ds, store) => {
     return function (params) {
-        let popularShows = ko.observableArray([]);
-
-
-        ds.getPopularShows(function (data) { popularShows(data) });
+        let casts = ko.observableArray(store.getState().searchResult.casts.slice(0, 5));
+        let titles = ko.observableArray(store.getState().searchResult.titles.slice(0, 5));
+        store.subscribe(() => casts(store.getState().searchResult.casts.slice(0, 5)));
+        store.subscribe(() => titles(store.getState().searchResult.titles.slice(0, 5)));
 
         let goToTitle = function (title) {
 
@@ -15,8 +15,9 @@
         }
 
         return {
-            popularShows,
-            goToTitle
+            casts,
+            titles,
+            goToTitle,
         }
     }
 });

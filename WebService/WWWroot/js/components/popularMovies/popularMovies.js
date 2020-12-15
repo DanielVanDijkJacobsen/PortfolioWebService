@@ -10,8 +10,18 @@
 
         ds.getPopular(function (data) { popularTitles(data) });
 
+        let goToTitle = function (title) {
+
+            ds.getTitle(title.titleId, function (data) {
+                console.log('vutre', data);
+                store.dispatch(store.actions.populateTitle(data));
+                store.dispatch(store.actions.currentComponent('title'));
+            });
+        }
+
         return {
-            popularTitles
+            popularTitles,
+            goToTitle,
         }
     }
 });

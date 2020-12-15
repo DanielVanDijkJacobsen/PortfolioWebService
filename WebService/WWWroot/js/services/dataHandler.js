@@ -135,12 +135,17 @@
             .then(callback);
     }
     let getTitle = (id, callback) => {
-        fetch("api/categories" + id)
-            .then(response => response.json)
+        fetch("api/titles/" + id)
+            .then(response => response.json())
             .then(callback);
     }
     let getTitles = (callback) => {
         fetch("api/titles")
+            .then(response => response.json())
+            .then(callback);
+    }
+    let search = (query, callback) => {
+        fetch("api/titles?query=" + query)
             .then(response => response.json())
             .then(callback);
     }
@@ -167,8 +172,12 @@
             .then(response => response.json)
             .then(callback);
     };
-    let createUser = (callback) => {
-
+    let createUser = (user, callback) => {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        fetch("api/users", { method: "POST", body: JSON.stringify(user), headers })
+            .then(response => response.json())
+            .then(data => callback(data));
     };//Unsure of how to handle.
     let userLogin;//Unsure.
     let updateUser;//Unsure.
@@ -194,6 +203,7 @@
         getGenres,
         getKnownFor,
         getNameRatings,
+        search,
         getPopular,
         getPopularShows,
         getProfessions,

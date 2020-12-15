@@ -96,7 +96,7 @@ namespace WebService
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseRequestLogging();
+            //app.UseRequestLogging();
             
             //Serving Files
             app.UseFileServer();
