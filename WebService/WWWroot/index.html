@@ -14,8 +14,8 @@
     <title>Raw7 IMDb</title>
 </head>
 <body>
+    <!--NAVBAR-->
     <div class="container-fluid bg-success">
-<!--NAVBAR-->
         <div class="navbar navbar-expand-sm navbar-light">
             <a class="navbar-brand" href="#">RAW7 IMDb</a>
             <ul class="navbar-nav me-1 mb-0 mb-sm-0">
@@ -29,21 +29,21 @@
             <ul class="navbar-nav me-5 mb-2 mb-sm-0">
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Login</a>
+                        Login
+                    </a>
                     <ul class="dropdown-menu w-15 dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </li>
-             </ul>
+            </ul>
 
         </div>
     </div>
-<!--NAVBAR END-->
-
-<!--FRONT PAGE-->
-    <div class="min-vh-100 container-fluid bg-dark text-white">
+    <!--NAVBAR END-->
+    <!--FRONT PAGE-->
+    <div class="min-vh-100 container-fluid bg-dark text-white d-none">
         <div class="row">
             <div class="col-8">
                 <h1>Best Movies</h1>
@@ -246,9 +246,9 @@
             <!--END-->
         </div>
     </div>
-<!-- FRONT PAGE END -->
+    <!-- FRONT PAGE END -->
 
-<!-- TITLE PAGE-->
+    <!-- TITLE PAGE-->
     <div class="min-vh-100 container-fluid bg-dark text-white d-none">
         <div class="row bg-dark">
             <p class="text-dark"></p>
@@ -361,7 +361,7 @@
                     </div>
                 </div>
             </div>
-    <!--COMMENT SECTION-->
+            <!--COMMENT SECTION-->
             <div class="col-md-3">
                 <h1>Recent Comments</h1>
                 <div class="row text-white border">
@@ -450,13 +450,51 @@
             <div class="col-md-1">
 
             </div>
-    <!--END-->
+            <!--END-->
         </div>
     </div>
-<!-- TITLE PAGE END-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-            crossorigin="anonymous"></script>
-    <script data-main="js/main.js" src="js/lib/require.js/require.min.js"></script>
+    <!-- TITLE PAGE END-->
+
+    <!--USER PROFILE PAGE-->
+    <div class="min-vh-100 container-fluid bg-dark text-white">
+        <div class="row">
+            <div class="col-md-4 p-2">
+                <div class="card bg-success text-dark">
+                    <div class="card-header text-center">
+                        User Information
+                    </div>
+                    <div class="card-body">
+                        User info goes here
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 p-2">
+                <div class="card bg-success text-dark">
+                    <div class="card-header text-center">
+                        Bookmarks
+                    </div>
+                    <div class="card-body text-wrap">
+                        A collection of bookmarks
+                        mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-dark">
+                <div class="card-header text-center">
+                    Search History
+                </div>
+                <div class="card-body">
+                    User search history
+                </div>
+            </div>
+        </div>
+    </div>
+        <!--USER PROFILE PAGE END-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+                crossorigin="anonymous"></script>
+        <script data-main="js/main.js" src="js/lib/require.js/require.min.js"></script>
 </body>
 </html>
