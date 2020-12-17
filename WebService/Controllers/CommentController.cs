@@ -33,6 +33,8 @@ namespace WebService.Controllers
         [HttpPost]
         public IActionResult CreateComment(CommentForCreateOrUpdateDto commentForCreateOrUpdateDto)
         {
+            var userId = int.Parse(User.FindFirst("user_id")?.Value);
+            commentForCreateOrUpdateDto.UserId = userId;
             var newComment = _mapper.Map<Comments>(commentForCreateOrUpdateDto);
             return Created("", _userDataService.CreateComment(newComment).Result);
         }

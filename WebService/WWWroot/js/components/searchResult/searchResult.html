@@ -1,0 +1,12 @@
+﻿Cast
+<div class="d-flex justify-content-between" data-bind="foreach: casts">
+    <div class="p-2 bd-highlight">
+        <div data-bind="text: name"></div>
+    </div>
+</div>
+Titles
+<div class="d-flex justify-content-between" data-bind="foreach: titles">
+    <div class="p-2 bd-highlight" data-bind="click: $parent.goToTitle">
+        <div data-bind="text: primaryTitle"></div>
+    </div>
+</div>

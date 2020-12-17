@@ -27,10 +27,9 @@ namespace WebService.DataService
         public DbSet<FlaggedComment> FlaggedComments { get; set; }
         public DbSet<NameRating> NameRatings { get; set; }
 
-        //Don't change this
-        //public string connectionString = "host=imdb-do-user-673066-0.b.db.ondigitalocean.com;port = 25060;database = defaultdb;username = doadmin;password = jvciw0phpg56ch5q;sslmode = Prefer;Trust Server Certificate=true;";
 
         private readonly string connectionString = "host=rawdata.ruc.dk;port=5432;database=raw7;username=raw7;password=O-y.A+a(;";
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -349,11 +348,10 @@ namespace WebService.DataService
                 entity.ToTable("searchhistory");
 
                 //Sets Primary Key -> Composite
-                entity.HasKey(x => new { x.UserId, x.Ordering });
+                entity.HasKey(x => new { x.UserId });
 
                 //Sets properties
                 entity.Property(x => x.UserId).HasColumnName("user_id");
-                entity.Property(x => x.Ordering).HasColumnName("ordering");
                 entity.Property(x => x.SearchString).HasColumnName("query_string");
                 entity.Property(x => x.SearchTime).HasColumnName("search_time");
 

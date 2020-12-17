@@ -7,11 +7,12 @@ namespace WebService.DataService.BusinessLogic
 {
     public interface ITitlesDataService
     {
-        public Task<Titles> GetTitleById(object id);
+        public Task<Titles> GetTitleById(object id, bool loadAll = true);
         public Task<List<Titles>> GetAllTitles();
         public Task<List<Titles>> SearchForTitle(int? num, string searchString);
         public Task<UserRating> RateTitle(UserRating rating);
         public Task<List<Titles>> GetPopularTitles(int num, string type);
+        public Task<List<Titles>> GetSimilarTitles(string titleId);
         public Task<List<Comments>> GetCommentsByTitleId(string id, PaginationFilter filter = null);
         public Task<List<TitleInfo>> GetTitleInfoByTitleId(string id);
         public Task<List<TitleAlias>> GetTitleAliasByTitleId(string id);

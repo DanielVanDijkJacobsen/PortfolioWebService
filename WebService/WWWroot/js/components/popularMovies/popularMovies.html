@@ -1,0 +1,10 @@
+﻿<div class="row">
+    <h3>Best Movies</h3>
+    <div class="row">
+        <div class="d-flex justify-content-between" data-bind="foreach: popularTitles">
+            <div class="p-2 bd-highlight" data-bind="click: $parent.goToTitle">
+                <img class="img-fluid" data-bind="attr:{src: poster}" width="200" height="300" />
+            </div>
+        </div>
+    </div>
+</div>

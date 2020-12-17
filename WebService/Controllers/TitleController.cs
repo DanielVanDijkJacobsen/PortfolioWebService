@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using WebService.DataService;
 using WebService.DataService.BusinessLogic;
 using WebService.DataService.DMO;
 using WebService.DTOs;
@@ -30,6 +32,24 @@ namespace WebService.Controllers
             if (titles == null)
                 return NotFound();
             return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
+        }
+
+        [HttpGet("similar")]
+        public IActionResult GetSimilar(string titleId)
+        {
+            var titles = _dataService.GetSimilarTitles(titleId).Result;
+            if (titles == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
+        }
+
+        [HttpGet("info/{titleId}")]
+        public IActionResult GetInfo(string titleId)
+        {
+            var titles = _dataService.GetTitleById(titleId, false).Result;
+            if (titles == null)
+                return NotFound();
+            return Ok(_mapper.Map<TitlesForFrontPageDto>(titles));
         }
 
         [HttpGet]

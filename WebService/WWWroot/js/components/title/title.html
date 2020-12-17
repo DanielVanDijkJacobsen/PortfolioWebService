@@ -1,0 +1,216 @@
+﻿<div class="min-vh-100 container-fluid bg-dark text-white">
+    <div class="row bg-dark">
+        <p class="text-dark"></p>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-2">
+                    <img class="img-fluid" data-bind="attr:{src: title().poster}" />
+                </div>
+                <div class="col-md-8 ">
+                    <div class="row">
+                        <div class="d-flex bg-success">
+                            <div class="p-2 bd-highlight">
+                                <h1 data-bind="text: title().primaryTitle"></h1>
+                            </div>
+
+                            <!-- ko if: token() !== null -->
+                            <button data-bind="click: goToComment">Comment</button>
+                            <!-- /ko -->
+                            <!-- ko if: token() !== null -->
+                            <button data-bind="click: createBookmark">Bookmark</button>
+                            <!-- /ko -->
+                            <div class="p-2 bd-highlight" data-bind="text: title().primaryType">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex bg-success">
+                            <div class="p-2 bd-highlight">
+
+                                <div class="d-flex justify-content-between" data-bind="foreach:  title().casts.filter(cast => cast.category === 'actor' || cast.category === 'actress').slice(0, 4)">
+                                    <p data-bind="text: castInfo.name"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex bg-dark">
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="card bg-success">
+                                <div class="card-header bg-dark text-center">
+                                    Crew
+                                </div>
+                                <div class="card-body bg-success text-dark">
+                                    <div class="d-flex justify-content-between" data-bind="foreach:  title().casts.filter(cast => cast.category !== 'actor' && cast.category !== 'actress').slice(0, 4)">
+                                        <span data-bind="text: castInfo.name"></span>
+                                        <span data-bind="text: category"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-success">
+                                <div class="card-header bg-dark text-center ">
+                                    Awards
+                                </div>
+                                <div class="card-body bg-success text-dark">
+                                    <p class="card-text" data-bind="text: title().titleInfo.awards"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-success">
+                                <div class="card-header bg-dark text-center ">
+                                    Resume
+                                </div>
+                                <div class="card-body bg-success text-dark">
+                                    <p class="card-text" data-bind="text: title().titleInfo.plot"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card bg-success">
+                                <div class="card-header bg-dark text-center">
+                                    Cast
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p data-bind="text: castInfo.name"></p>
+                                </div>
+                                <div class="card-body bg-success text-dark">
+
+                                    <div class="d-flex justify-content-between" data-bind="foreach:  title().casts.filter(cast => cast.category === 'actor' || cast.category === 'actress')">
+                                        <p data-bind="text: castInfo.name"></p> as <span data-bind="text: charName"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 align-self-center">
+                            <h1>Similar Movies</h1>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSQWlf4bhvXiyUO9o9aS1wR6tRNYVBL52Pgg&usqp=CAU" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSQWlf4bhvXiyUO9o9aS1wR6tRNYVBL52Pgg&usqp=CAU" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSQWlf4bhvXiyUO9o9aS1wR6tRNYVBL52Pgg&usqp=CAU" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="w-100"><p></p></div>
+                                <div class="col-md-4">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSQWlf4bhvXiyUO9o9aS1wR6tRNYVBL52Pgg&usqp=CAU" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSQWlf4bhvXiyUO9o9aS1wR6tRNYVBL52Pgg&usqp=CAU" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSQWlf4bhvXiyUO9o9aS1wR6tRNYVBL52Pgg&usqp=CAU" class="img-thumbnail" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--COMMENT SECTION-->
+        <div class="col-md-3">
+            <h1>Recent Comments</h1>
+            <div class="row text-white border">
+                <div class="col-md-4 bg-dark">
+                    User: Smed
+                </div>
+                <div class="col-md-4 bg-dark">
+                    Timestamp: 04:46
+                </div>
+                <div class="col-md-4 bg-dark">
+                    Report
+                </div>
+                <div class="col-md-12 bg-success text-dark">
+                    This movie was the best movie of 2018, which is quite the remarkeble achievement considering this is a tv show
+                </div>
+            </div>
+            <div class="row bg-dark">
+                <p></p>
+            </div>
+            <div class="row text-white border">
+                <div class="col-md-4 bg-dark">
+                    User: Smed
+                </div>
+                <div class="col-md-4 bg-dark">
+                    Timestamp: 04:46
+                </div>
+                <div class="col-md-4 bg-dark">
+                    Report
+                </div>
+                <div class="col-md-12 bg-success text-dark">
+                    This movie was the best movie of 2018, which is quite the remarkeble achievement considering this is a tv show
+                </div>
+            </div>
+            <div class="row bg-dark">
+                <p></p>
+            </div>
+            <div class="row text-white border">
+                <div class="col-md-4 bg-dark">
+                    User: Smed
+                </div>
+                <div class="col-md-4 bg-dark">
+                    Timestamp: 04:46
+                </div>
+                <div class="col-md-4 bg-dark">
+                    Report
+                </div>
+                <div class="col-md-12 bg-success text-dark">
+                    This movie was the best movie of 2018, which is quite the remarkeble achievement considering this is a tv show
+                </div>
+            </div>
+            <div class="row bg-dark">
+                <p></p>
+            </div>
+            <div class="row text-white border">
+                <div class="col-md-4 bg-dark">
+                    User: Smed
+                </div>
+                <div class="col-md-4 bg-dark">
+                    Timestamp: 04:46
+                </div>
+                <div class="col-md-4 bg-dark">
+                    Report
+                </div>
+                <div class="col-md-12 bg-success text-dark">
+                    This movie was the best movie of 2018, which is quite the remarkeble achievement considering this is a tv show
+                </div>
+            </div>
+            <div class="row bg-dark">
+                <p></p>
+            </div>
+            <div class="row text-white border">
+                <div class="col-md-4 bg-dark">
+                    User: Smed
+                </div>
+                <div class="col-md-4 bg-dark">
+                    Timestamp: 04:46
+                </div>
+                <div class="col-md-4 bg-dark">
+                    Report
+                </div>
+                <div class="col-md-12 bg-success text-dark">
+                    This movie was the best movie of 2018, which is quite the remarkeble achievement considering this is a tv show
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <!--END-->
+    </div>
+</div>
+

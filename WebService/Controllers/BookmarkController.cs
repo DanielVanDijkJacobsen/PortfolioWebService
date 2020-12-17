@@ -33,6 +33,8 @@ namespace WebService.Controllers
         [HttpPost]
         public IActionResult BookmarkTitle(BookmarkForCreateDto bookmarkForCreateDto)
         {
+            var userId = int.Parse(User.FindFirst("user_id")?.Value);
+            bookmarkForCreateDto.UserId = userId;
             var newBookmark = _mapper.Map<Bookmarks>(bookmarkForCreateDto);
             var exist = _titleDataService.GetBookmark(newBookmark.TypeId, newBookmark.UserId).Result;
             if (exist.Count > 0)

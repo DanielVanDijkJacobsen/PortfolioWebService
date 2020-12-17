@@ -44,9 +44,19 @@ namespace WebService.DataService.BusinessLogic
             _flaggedComments = new FlaggedCommentsRepository(context);
         }
 
-        public async Task<Titles> GetTitleById(object id)
+        public async Task<Titles> GetTitleById(object id, bool loadAll)
         {
-            await _titleAlias.WhereByTitleId(id.ToString());
+            if (loadAll)
+            {
+                await _titleAlias.WhereByTitleId(id.ToString());
+                await _casts.WhereByTitleId(id.ToString());
+                await _castInfo.ReadAll();
+                await _userRating.WhereByTitleId(id.ToString());
+                await _titleGenre.WhereByTitleId(id.ToString());
+                await _genre.ReadAll();
+                await _titleInfo.WhereByTitleId(id.ToString());
+                await _comments.WhereByTitleId(id.ToString());
+            }
             return await _titles.ReadById(id);
         }
 
@@ -55,6 +65,10 @@ namespace WebService.DataService.BusinessLogic
             return await _titles.GetPopularTitles(num, type);
         }
 
+        public async Task<List<Titles>> GetSimilarTitles(string titleId)
+        {
+            return await _titles.GetSimilarTitles(titleId);
+        }
         public async Task<UserRating> RateTitle(UserRating rating)
         {
             return await _userRating.Create(rating); ;

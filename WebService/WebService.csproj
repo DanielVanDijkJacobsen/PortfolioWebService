@@ -33,7 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="WWWroot\lib\" />
+    <Folder Include="WWWroot\js\services\" />
+    <Folder Include="WWWroot\js\lib\" />
   </ItemGroup>
 
 </Project>

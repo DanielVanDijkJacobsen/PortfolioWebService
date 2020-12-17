@@ -8,11 +8,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using WebService.DataService;
 using WebService.DataService.BusinessLogic;
 using WebService.Middleware;
 using WebService.Services;
@@ -21,6 +23,7 @@ namespace WebService
 {
     public class Startup
     {
+
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -62,12 +65,10 @@ namespace WebService
                 var uri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
                 return new UriService(uri);
             });
-            services.AddSingleton<IUsersDataService, UserDataService>();
-            services.AddSingleton<ICastsDataService, CastsDataService>();
-            services.AddSingleton<ITitlesDataService, TitleDataService>();
+            services.AddTransient<IUsersDataService, UserDataService>();
+            services.AddScoped<ICastsDataService, CastsDataService>();
+            services.AddScoped<ITitlesDataService, TitleDataService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,7 +96,7 @@ namespace WebService
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseRequestLogging();
+            //app.UseRequestLogging();
             
             //Serving Files
             app.UseFileServer();
