@@ -29,7 +29,7 @@
 
     //Cast information
     let getCastInfo = (id, callback) => {
-        fetch("api/castinfo" + id)
+        fetch("api/castinfo/" + id)
             .then(response => response.json())
             .then(callback);
     }

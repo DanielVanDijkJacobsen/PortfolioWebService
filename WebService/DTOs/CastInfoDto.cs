@@ -8,6 +8,7 @@ namespace WebService.DTOs
         public string Name { get; set; }
         public string BirthYear { get; set; }
         public string DeathYear { get; set; }
+        public virtual ICollection<CastDto> Casts { get; set; }
         public virtual ICollection<CastProfessionDto> CastProfession { get; set; }
         public virtual ICollection<CastKnownForDto> CastKnownFor { get; set; }
     }

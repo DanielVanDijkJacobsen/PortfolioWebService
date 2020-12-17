@@ -45,6 +45,12 @@ require(['knockout', 'text'], (ko) => {
             template: { require: "text!components/title/title.html" }
         });
 
+    ko.components.register("castinfo",
+        {
+            viewModel: { require: "components/cast/castinfo" },
+            template: { require: "text!components/cast/castinfo.html" }
+        });
+
     ko.components.register("sign-up",
         {
             viewModel: { require: "components/signUp/signUp" },

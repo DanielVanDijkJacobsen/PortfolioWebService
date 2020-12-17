@@ -2,8 +2,10 @@
     return function (params) {
         let title = ko.observable(store.getState().title);
         let token = ko.observable(store.getState().token);
+        let similarTitles = ko.observableArray(store.getState().similarTitles);
         store.subscribe(() => title(store.getState().title));
         store.subscribe(() => token(store.getState().token));
+        store.subscribe(() => similarTitles(store.getState().similarTitles));
 
 
         let goToComment = function () {
@@ -22,6 +24,7 @@
         return {
             title,
             token,
+            similarTitles,
             createBookmark,
             goToComment
         }

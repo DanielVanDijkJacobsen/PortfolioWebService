@@ -26,6 +26,15 @@
             });
         }
 
+        let goToCast = function(castinfo) {
+            ds.getCastInfo(castinfo.castId,
+                function(data) {
+                    console.log("vitra", data);
+                    store.dispatch(store.actions.populateCastInfo(data));
+                    store.dispatch(store.actions.currentComponent('castinfo'));
+                });
+        }
+
         let nextPage = function (title) {
             console.log('stranica', title);
             titles(store.getState().searchResult.titles.slice((title - 1) * 5, (title -1) * 5 + 5));
@@ -40,6 +49,7 @@
             casts,
             titles,
             goToTitle,
+            goToCast,
             totalPages,
             totalPagesCast,
             currentPage,

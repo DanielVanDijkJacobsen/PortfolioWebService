@@ -4,9 +4,10 @@
     const getPopularShows = "GET_POPULAR_SHOWS";
     const populateSearchResult = "populateSearchResult";
     const populateTitle = "populateTitle";
+    const populateCastInfo = "populateCastInfo";
     const populateToken = "populateToken";
     const populateUser= "populateUser";
-    const populateSimilarTItles = "populateSimilarTItles";
+    const populateSimilarTitles = "populateSimilarTitles";
     const currentComponent = "CURRENT_COMPONENT";
 
     let currentState = {};
@@ -20,7 +21,6 @@
         return () => {
             subscribers = subscribers.filter(x => x !== callback);
         }
-
     };
 
     let reducer = (state, action) => {
@@ -33,9 +33,11 @@
                 return Object.assign({}, state, { searchResult: action.searchResult });
             case populateTitle:
                 return Object.assign({}, state, { title: action.title });
+            case populateCastInfo:
+                return Object.assign({}, state, { castinfo: action.castinfo });
             case populateToken:
                 return Object.assign({}, state, { token: action.token });
-            case populateSimilarTItles:
+            case populateSimilarTitles:
                 return Object.assign({}, state, { similarTitles: action.titles });
             case populateUser:
                 return Object.assign({}, state, { user: action.user});
@@ -57,9 +59,10 @@
         getPopularShows: shows => ({ type: getPopularShows, popularShows: shows }),
         populateSearchResult: searchResult => ({ type: populateSearchResult, searchResult }),
         populateTitle: title => ({ type: populateTitle, title }),
+        populateCastInfo: castinfo => ({ type: populateCastInfo, castinfo }),
         populateToken: token => ({ type: populateToken, token }),
         populateUser: user => ({ type: populateUser, user }),
-        populateSimilarTItles: titles => ({ type: populateSimilarTItles, titles }),
+        populateSimilarTitles: titles => ({ type: populateSimilarTitles, titles }),
         currentComponent: name => ({ type: currentComponent, currentComponent: name })
     };
 

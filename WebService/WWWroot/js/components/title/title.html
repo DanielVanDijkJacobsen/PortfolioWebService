@@ -7,10 +7,10 @@
         </div>
         <div class="col-md-6">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <img class="img-fluid" data-bind="attr:{src: title().poster}" />
                 </div>
-                <div class="col-md-8 ">
+                <div class="col-md-8">
                     <div class="row">
                         <div class="d-flex bg-success">
                             <div class="p-2 bd-highlight">
@@ -43,8 +43,20 @@
                         </div>
                     </div>
                     <div class="row">
-
-                        <div class="col-md-4">
+                        <div class="col-md-12">
+                            <div class="card bg-success">
+                                <div class="card-header bg-dark text-center ">
+                                    Resume
+                                </div>
+                                <div class="card-body bg-success text-dark">
+                                    <p class="card-text" data-bind="text: title().titleInfo.plot"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex bg-dark">
+                            <p></p>
+                        </div>
+                        <div class="col-md-6">
                             <div class="card bg-success">
                                 <div class="card-header bg-dark text-center">
                                     Crew
@@ -57,7 +69,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="card bg-success">
                                 <div class="card-header bg-dark text-center ">
                                     Awards
@@ -67,17 +79,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card bg-success">
-                                <div class="card-header bg-dark text-center ">
-                                    Resume
-                                </div>
-                                <div class="card-body bg-success text-dark">
-                                    <p class="card-text" data-bind="text: title().titleInfo.plot"></p>
-                                </div>
-                            </div>
+                        <div class="d-flex bg-dark">
+                            <p></p>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div class="card bg-success">
                                 <div class="card-header bg-dark text-center">
                                     Cast
@@ -93,7 +98,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 align-self-center">
+                        <div class="d-flex bg-dark">
+                            <p></p>
+                        </div>
+                        <div class="col-md-12 align-self-center">
                             <h1>Similar Movies</h1>
                             <div class="row">
                                 <div class="col-md-4">
@@ -105,7 +113,9 @@
                                 <div class="col-md-4">
                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSQWlf4bhvXiyUO9o9aS1wR6tRNYVBL52Pgg&usqp=CAU" class="img-thumbnail" alt="...">
                                 </div>
-                                <div class="w-100"><p></p></div>
+                                <div class="w-100">
+                                    <p></p>
+                                </div>
                                 <div class="col-md-4">
                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSQWlf4bhvXiyUO9o9aS1wR6tRNYVBL52Pgg&usqp=CAU" class="img-thumbnail" alt="...">
                                 </div>
@@ -122,88 +132,108 @@
             </div>
         </div>
         <!--COMMENT SECTION-->
-        <div class="col-md-3">
+        <div class="col-md-5">
             <h1>Recent Comments</h1>
-            <div class="row text-white border">
-                <div class="col-md-4 bg-dark">
-                    User: Smed
-                </div>
-                <div class="col-md-4 bg-dark">
-                    Timestamp: 04:46
-                </div>
-                <div class="col-md-4 bg-dark">
-                    Report
+            <div class="card bg-success">
+                <div class="card-header bg-dark">
+                    <div class="row">
+                        <div class="col-md-4 bg-dark">
+                            User: Smed
+                        </div>
+                        <div class="col-md-4 bg-dark">
+                            Timestamp: 04:46
+                        </div>
+                        <div class="col-md-4 bg-dark">
+                            Report
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-12 bg-success text-dark">
-                    This movie was the best movie of 2018, which is quite the remarkeble achievement considering this is a tv show
+                    This movie was the best movie of 2018, which is quite the remarkable achievement considering this is a tv show
                 </div>
             </div>
             <div class="row bg-dark">
                 <p></p>
             </div>
-            <div class="row text-white border">
-                <div class="col-md-4 bg-dark">
-                    User: Smed
-                </div>
-                <div class="col-md-4 bg-dark">
-                    Timestamp: 04:46
-                </div>
-                <div class="col-md-4 bg-dark">
-                    Report
+            <div class="card bg-success">
+                <div class="card-header bg-dark">
+                    <div class="row">
+                        <div class="col-md-4 bg-dark">
+                            User: Smed
+                        </div>
+                        <div class="col-md-4 bg-dark">
+                            Timestamp: 04:46
+                        </div>
+                        <div class="col-md-4 bg-dark">
+                            Report
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-12 bg-success text-dark">
-                    This movie was the best movie of 2018, which is quite the remarkeble achievement considering this is a tv show
+                    This movie was the best movie of 2018, which is quite the remarkable achievement considering this is a tv show
                 </div>
             </div>
             <div class="row bg-dark">
                 <p></p>
             </div>
-            <div class="row text-white border">
-                <div class="col-md-4 bg-dark">
-                    User: Smed
-                </div>
-                <div class="col-md-4 bg-dark">
-                    Timestamp: 04:46
-                </div>
-                <div class="col-md-4 bg-dark">
-                    Report
+            <div class="card bg-success">
+                <div class="card-header bg-dark">
+                    <div class="row">
+                        <div class="col-md-4 bg-dark">
+                            User: Smed
+                        </div>
+                        <div class="col-md-4 bg-dark">
+                            Timestamp: 04:46
+                        </div>
+                        <div class="col-md-4 bg-dark">
+                            Report
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-12 bg-success text-dark">
-                    This movie was the best movie of 2018, which is quite the remarkeble achievement considering this is a tv show
+                    This movie was the best movie of 2018, which is quite the remarkable achievement considering this is a tv show
                 </div>
             </div>
             <div class="row bg-dark">
                 <p></p>
             </div>
-            <div class="row text-white border">
-                <div class="col-md-4 bg-dark">
-                    User: Smed
-                </div>
-                <div class="col-md-4 bg-dark">
-                    Timestamp: 04:46
-                </div>
-                <div class="col-md-4 bg-dark">
-                    Report
+            <div class="card bg-success">
+                <div class="card-header bg-dark">
+                    <div class="row">
+                        <div class="col-md-4 bg-dark">
+                            User: Smed
+                        </div>
+                        <div class="col-md-4 bg-dark">
+                            Timestamp: 04:46
+                        </div>
+                        <div class="col-md-4 bg-dark">
+                            Report
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-12 bg-success text-dark">
-                    This movie was the best movie of 2018, which is quite the remarkeble achievement considering this is a tv show
+                    This movie was the best movie of 2018, which is quite the remarkable achievement considering this is a tv show
                 </div>
             </div>
             <div class="row bg-dark">
                 <p></p>
             </div>
-            <div class="row text-white border">
-                <div class="col-md-4 bg-dark">
-                    User: Smed
-                </div>
-                <div class="col-md-4 bg-dark">
-                    Timestamp: 04:46
-                </div>
-                <div class="col-md-4 bg-dark">
-                    Report
+            <div class="card bg-success">
+                <div class="card-header bg-dark">
+                    <div class="row">
+                        <div class="col-md-4 bg-dark">
+                            User: Smed
+                        </div>
+                        <div class="col-md-4 bg-dark">
+                            Timestamp: 04:46
+                        </div>
+                        <div class="col-md-4 bg-dark">
+                            Report
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-12 bg-success text-dark">
-                    This movie was the best movie of 2018, which is quite the remarkeble achievement considering this is a tv show
+                    This movie was the best movie of 2018, which is quite the remarkable achievement considering this is a tv show
                 </div>
             </div>
         </div>
