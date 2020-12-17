@@ -1,12 +1,40 @@
-﻿Cast
-<div class="d-flex justify-content-between" data-bind="foreach: casts">
-    <div class="p-2 bd-highlight">
-        <div data-bind="text: name"></div>
+﻿
+<div class="row">
+    <div class="row">
+        Cast
+    </div>
+    <div class="row">
+        <div class="d-flex justify-content-between" data-bind="foreach: casts">
+            <div class="p-2 bd-highlight">
+                <div data-bind="text: name"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination" data-bind="foreach: new Array(totalPagesCast())">
+                <li class="page-item"><a class="page-link" href="#" data-bind='text: $index()+1, click: () => $parent.nextPageCast($index() + 1)'>Previous</a></li>
+            </ul>
+        </nav>
+
     </div>
 </div>
-Titles
-<div class="d-flex justify-content-between" data-bind="foreach: titles">
-    <div class="p-2 bd-highlight" data-bind="click: $parent.goToTitle">
-        <div data-bind="text: primaryTitle"></div>
+<div class="row">
+    <div class="row">
+        Titles
+    </div>
+    <div class="row">
+        <div class="d-flex justify-content-between" data-bind="foreach: titles">
+            <div class="p-2 bd-highlight" data-bind="click: $parent.goToTitle">
+                <img class="img-fluid" data-bind="attr:{src: poster}" width="200" height="300" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination" data-bind="foreach: new Array(totalPages())">
+                <li class="page-item"><a class="page-link" href="#" data-bind='text: $index()+1, click: () => $parent.nextPage($index() + 1)'>Previous</a></li>
+            </ul>
+        </nav>
     </div>
 </div>

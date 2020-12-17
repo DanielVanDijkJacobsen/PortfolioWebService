@@ -94,6 +94,13 @@
                     <img class="img-fluid" data-bind="attr:{src: poster}" width="200" height="300" />
                 </div>
             </div>
+            <div class="row">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination" data-bind="foreach: new Array(totalPages())">
+                        <li class="page-item"><a class="page-link" href="#" data-bind='text: $index()+1, click: () => $parent.nextPage($index() + 1)'>Previous</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div> <div class="col-md-8 p-2">
             <div class="card bg-success text-dark">
                 <div class="card-header text-center">

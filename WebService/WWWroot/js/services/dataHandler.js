@@ -6,10 +6,16 @@
     //
 
     //Bookmarks
-    let getBookmarks = (userId, callback) => {
-        fetch("api/bookmarks" + userId)
-            .then(response => response.json())
-            .then(callback);
+    let getBookmarks = (userId, page, callback) => {
+        if (page === null) {
+            fetch("api/bookmarks/" + userId + "?pageNumber=1&pageSize=5")
+                .then(response => response.json())
+                .then(callback);
+        } else {
+            fetch("api/bookmarks/" + userId + "?pageNumber=" + page + "&pageSize=5")
+                .then(response => response.json())
+                .then(callback);
+        }
     }
     let createBookmarkTitle = (title, token, callback) => {
         let headers = new Headers();

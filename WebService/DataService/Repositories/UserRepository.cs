@@ -17,7 +17,7 @@ namespace WebService.DataService.Repositories
         }
         public async Task<Users> ValidatePassword(string email, string password)
         {
-            return await Context.Set<Users>().FirstAsync(user => user.Email == email && user.Password == password);
+            return await Context.Set<Users>().FirstOrDefaultAsync(user => user.Email == email && user.Password == password);
         }
     }
 }
