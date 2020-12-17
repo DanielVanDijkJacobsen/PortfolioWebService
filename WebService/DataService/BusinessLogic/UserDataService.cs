@@ -30,8 +30,11 @@ namespace WebService.DataService.BusinessLogic
             _flaggedComments = new FlaggedCommentsRepository(context);
         }
 
-        public async Task<Users> GetUserById(object id)
+        public async Task<Users> GetUserById(int? id)
         {
+            await _bookmarks.WhereByUserId(id);
+            await _comments.WhereByUserId(id);
+            await _searchHistory.WhereByUserId(id);
             return await _users.ReadById(id);
         }
 

@@ -51,6 +51,29 @@ require(['knockout', 'text'], (ko) => {
             template: { require: "text!components/signUp/signUp.html" }
         });
 
+    ko.components.register("log-in",
+        {
+            viewModel: { require: "components/logIn/logIn" },
+            template: { require: "text!components/logIn/logIn.html" }
+        });
+
+    ko.components.register("menu",
+        {
+            viewModel: { require: "components/menu/menu" },
+            template: { require: "text!components/menu/menu.html" }
+        });
+
+    ko.components.register("profile",
+        {
+            viewModel: { require: "components/profile/profile" },
+            template: { require: "text!components/profile/profile.html" }
+        });
+
+    ko.components.register("comment",
+        {
+            viewModel: { require: "components/comment/comment" },
+            template: { require: "text!components/comment/comment.html" }
+        });
     ko.components.register("initial-component",
         {
             viewModel: { require: "components/initialComponent/initialComponent" },

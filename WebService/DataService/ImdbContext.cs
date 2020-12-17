@@ -348,11 +348,10 @@ namespace WebService.DataService
                 entity.ToTable("searchhistory");
 
                 //Sets Primary Key -> Composite
-                entity.HasKey(x => new { x.UserId, x.Ordering });
+                entity.HasKey(x => new { x.UserId });
 
                 //Sets properties
                 entity.Property(x => x.UserId).HasColumnName("user_id");
-                entity.Property(x => x.Ordering).HasColumnName("ordering");
                 entity.Property(x => x.SearchString).HasColumnName("query_string");
                 entity.Property(x => x.SearchTime).HasColumnName("search_time");
 

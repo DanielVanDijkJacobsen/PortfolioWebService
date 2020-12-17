@@ -7,7 +7,7 @@ namespace WebService.DataService.BusinessLogic
 {
     public interface IUsersDataService
     {
-        public Task<Users> GetUserById(object id);
+        public Task<Users> GetUserById(int? id);
         public Task<List<Users>> GetAllUsers();
         public Task<Users> CreateUser(Users entity);
         public Task<Users> UpdateUser(object id, Users entity);

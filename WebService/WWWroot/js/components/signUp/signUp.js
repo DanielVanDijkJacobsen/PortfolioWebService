@@ -9,6 +9,7 @@
             ds.createUser({ name: name(), email: email(), nickname: username(), password: password() }, function (data) {
                 console.log('usera ', data);
                 store.dispatch(store.actions.populateToken(data.token));
+                store.dispatch(store.actions.populateUser(data));
                 //store.dispatch(store.actions.currentComponent('search-result'));
             });
         }

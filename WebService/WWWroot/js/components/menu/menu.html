@@ -1,0 +1,18 @@
+﻿<ul class="navbar-nav me-5 mb-2 mb-sm-0">
+    <li class="nav-item">
+        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Menu
+        </a>
+        <ul class="dropdown-menu w-15 dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <!-- ko if: token() === null -->
+                <li><a class="dropdown-item" href="#" data-bind="click: goToLogin">Login</a></li>
+            <!-- /ko -->
+            <!-- ko if: token() !== null -->
+            <li><a class="dropdown-item" href="#" data-bind="click: goToProfile">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Bookmarks</a></li>
+            <li><a class="dropdown-item" href="#">Search History</a></li>
+            <li><a class="dropdown-item" href="#" data-bind="click: logOut">Log out</a></li>
+            <!-- /ko -->
+        </ul>
+    </li>
+</ul>

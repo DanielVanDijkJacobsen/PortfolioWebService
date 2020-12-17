@@ -1,0 +1,109 @@
+﻿<div class="min-vh-100 container-fluid bg-dark text-white">
+    <div class="row">
+        <div class="col-md-4 p-2">
+            <div class="card bg-success text-dark gap-2">
+                <div class="card-header text-center">
+                    User Information
+                </div>
+                <div class="card-body">
+                    <form class="row g-3 needs-validation" novalidate>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-1">
+                                    <label for="validationCustom02" class="form-label"></label>
+                                </div>
+                                <div class="col-3">
+                                    <label for="validationCustom01" class="form-label">Name</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" id="validationCustom01" data-bind="textInput: userInfoName" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-1">
+                                    <label for="validationCustom02" class="form-label"></label>
+                                </div>
+                                <div class="col-3">
+                                    <label for="validationCustom02" class="form-label">Username</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" id="validationCustom02" data-bind="textInput: userInfoNickName" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-1">
+                                    <label for="validationCustom02" class="form-label"></label>
+                                </div>
+                                <div class="col-3">
+                                    <label for="validationCustom02" class="form-label">Email</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="email" class="form-control" id="validationCustom02" data-bind="textInput: userInfoEmail" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-success">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="validationCustom02" class="form-label"></label>
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-primary align-content-center" data-bind="click: update">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="row text-success">
+                                .
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card bg-success text-dark gap-2">
+                <div class="card-header text-center">
+                    Search History
+                </div>
+                <div class="card-body">
+                    <div class="card-body text-wrap" data-bind="foreach: searchHistory">
+                        <span data-bind="text: searchTime"></span>
+                        <span data-bind="text: searchString"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 p-2">
+            <div class="card bg-success text-dark">
+                <div class="card-header text-center">
+                    Bookmarks
+                </div>
+                <div class="card-body text-wrap" data-bind="foreach: bookmarks">
+                    <img class="img-fluid" data-bind="attr:{src: poster}" width="200" height="300" />
+                </div>
+            </div>
+        </div> <div class="col-md-8 p-2">
+            <div class="card bg-success text-dark">
+                <div class="card-header text-center">
+                    Comments
+                </div>
+                <div class="card-body text-wrap" data-bind="foreach: comments">
+                    <span data-bind="text: title"></span>
+                    <span data-bind="text: comment"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

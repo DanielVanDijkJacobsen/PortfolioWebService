@@ -1,6 +1,6 @@
 ﻿define(['knockout', 'store'], (ko, store) => {
     let selectedComponent = ko.observable("initial-component");
-    let token = ko.observable(store.getState().token);
+    let token = ko.observable(null);
     //let currentParams = ko.observable();
 
     //let changeContent = () => {
@@ -12,6 +12,7 @@
     //}
 
     store.dispatch(store.actions.currentComponent("initial-component"));
+    store.dispatch(store.actions.populateToken(null));
     store.subscribe(() => selectedComponent(store.getState().currentComponent));
     store.subscribe(() => token(store.getState().token));
 

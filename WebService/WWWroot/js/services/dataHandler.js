@@ -11,10 +11,11 @@
             .then(response => response.json())
             .then(callback);
     }
-    let createBookmarkTitle = (userId, callback, titleId) => {
+    let createBookmarkTitle = (title, token, callback) => {
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
-        fetch("api/bookmarks" + userId, { method: "POST", body: JSON.stringify(titleId), headers })
+        headers.append("Authorization", "Bearer " + token);
+        fetch("api/bookmarks", { method: "POST", body: JSON.stringify(title), headers })
             .then(response => response.json)
             .then(data => callback(data));
     }
@@ -44,9 +45,10 @@
             .then(callback);
     };
     let getComments; //Unsure of how to call.
-    let createComment = (comment, callback) => {
+    let createComment = (comment, token, callback) => {
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
+        headers.append("Authorization", "Bearer " + token);
         fetch("api/comments", { method: "POST", body: JSON.stringify(comment), headers })
             .then(response => response.json)
             .then(data => callback(data));
@@ -130,8 +132,8 @@
             .then(callback);
     }
     let getTitleInfo = (id, callback) => {
-        fetch("api/titleinfo" + id)
-            .then(response => response.json)
+        fetch("api/titles/info/" + id)
+            .then(response => response.json())
             .then(callback);
     }
     let getTitle = (id, callback) => {
@@ -144,8 +146,12 @@
             .then(response => response.json())
             .then(callback);
     }
-    let search = (query, callback) => {
-        fetch("api/titles?query=" + query)
+    let search = (query, token, callback) => {
+        let headers = new Headers();
+        if (token !== null) {
+            headers.append("Authorization", "Bearer " + token);
+        }
+        fetch("api/titles?query=" + query, { headers })
             .then(response => response.json())
             .then(callback);
     }
@@ -161,15 +167,23 @@
     .then(callback);
     }
 
+    let getSimilarTitles = (titleId, callback) => {
+        fetch("api/titles/similar?titleId=" + titleId)
+            .then(response => response.json())
+            .then(callback);
+    }
+
     //Users
     let getUsers = (callback) => {
         fetch("api/users")
             .then(response => response.json)
             .then(callback);
     };
-    let getUser = (íd, callback) => {
-        fetch("api/users" + id)
-            .then(response => response.json)
+    let getUser = (id, token, callback) => {
+        let headers = new Headers();
+        headers.append("Authorization", "Bearer " + token);
+        fetch("api/users/" + id, { headers })
+            .then(response => response.json())
             .then(callback);
     };
     let createUser = (user, callback) => {
@@ -179,8 +193,21 @@
             .then(response => response.json())
             .then(data => callback(data));
     };//Unsure of how to handle.
-    let userLogin;//Unsure.
-    let updateUser;//Unsure.
+    let userLogin = (user, callback) => {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        fetch("api/users/login", { method: "POST", body: JSON.stringify(user), headers })
+            .then(response => response.json())
+            .then(data => callback(data));
+    };
+    let updateUser = (id, user, token, callback) => {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Authorization", "Bearer " + token);
+        fetch("api/users/" + id, { method: "PUT", body: JSON.stringify(user), headers })
+            .then(response => response.json())
+            .then(data => callback(data));
+    };
     let deleteUser = url => fetch(url, { method: "DELETE" });
 
     return {
@@ -206,6 +233,7 @@
         search,
         getPopular,
         getPopularShows,
+        getSimilarTitles,
         getProfessions,
         getRole,
         deleteRole,

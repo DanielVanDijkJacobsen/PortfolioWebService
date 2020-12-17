@@ -34,6 +34,24 @@ namespace WebService.Controllers
             return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
         }
 
+        [HttpGet("similar")]
+        public IActionResult GetSimilar(string titleId)
+        {
+            var titles = _dataService.GetSimilarTitles(titleId).Result;
+            if (titles == null)
+                return NotFound();
+            return Ok(_mapper.Map<IEnumerable<TitlesForFrontPageDto>>(titles));
+        }
+
+        [HttpGet("info/{titleId}")]
+        public IActionResult GetInfo(string titleId)
+        {
+            var titles = _dataService.GetTitleById(titleId, false).Result;
+            if (titles == null)
+                return NotFound();
+            return Ok(_mapper.Map<TitlesForFrontPageDto>(titles));
+        }
+
         [HttpGet]
         public IActionResult GetTitles(string query)
         {

@@ -21,5 +21,9 @@ namespace WebService.DataService.Repositories
         {
             return await Context.Titles.FromSqlRaw("SELECT * FROM popular_titles({0}, {1})", num, type).ToListAsync();
         }
+        public async Task<List<Titles>> GetSimilarTitles(string titleId)
+        {
+            return await Context.Titles.FromSqlRaw("SELECT * FROM get_similar_titles({0})", titleId).ToListAsync();
+        }
     }
 }

@@ -5,6 +5,8 @@
     const populateSearchResult = "populateSearchResult";
     const populateTitle = "populateTitle";
     const populateToken = "populateToken";
+    const populateUser= "populateUser";
+    const populateSimilarTItles = "populateSimilarTItles";
     const currentComponent = "CURRENT_COMPONENT";
 
     let currentState = {};
@@ -33,6 +35,10 @@
                 return Object.assign({}, state, { title: action.title });
             case populateToken:
                 return Object.assign({}, state, { token: action.token });
+            case populateSimilarTItles:
+                return Object.assign({}, state, { similarTitles: action.titles });
+            case populateUser:
+                return Object.assign({}, state, { user: action.user});
             case currentComponent:
                 return Object.assign({}, state, { currentComponent: action.currentComponent });
             default:
@@ -52,6 +58,8 @@
         populateSearchResult: searchResult => ({ type: populateSearchResult, searchResult }),
         populateTitle: title => ({ type: populateTitle, title }),
         populateToken: token => ({ type: populateToken, token }),
+        populateUser: user => ({ type: populateUser, user }),
+        populateSimilarTItles: titles => ({ type: populateSimilarTItles, titles }),
         currentComponent: name => ({ type: currentComponent, currentComponent: name })
     };
 
