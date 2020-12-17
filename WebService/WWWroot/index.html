@@ -33,18 +33,18 @@
     <!--FRONT PAGE-->
     <div class="min-vh-100 container-fluid bg-dark text-white">
         <div class="row">
-            <!-- ko if: selectedComponent() !== 'title' -->
-            <div class="col-sm-8">
-                <div class="d-flex justify-content-between" data-bind='component: {name: selectedComponent}'></div>
-            </div>
-            <!-- /ko -->
-            <!-- ko if: selectedComponent() === 'title' -->
+            <!-- ko if: selectedComponent() !== 'initial-component' -->
             <div class="col-sm-12">
                 <div class="d-flex justify-content-between" data-bind='component: {name: selectedComponent}'></div>
             </div>
             <!-- /ko -->
+            <!-- ko if: selectedComponent() === 'initial-component' -->
+            <div class="col-sm-8">
+                <div class="d-flex justify-content-between" data-bind='component: {name: selectedComponent}'></div>
+            </div>
+            <!-- /ko -->
             <!--SIGN UP FRONT PAGE-->
-            <!-- ko if: (selectedComponent() !== 'log-in' && selectedComponent() !== 'title') && token() === null  -->
+            <!-- ko if: selectedComponent() === 'initial-component' && token() === null  -->
             <div class="col-md-4" data-bind='component: "sign-up"'></div>
             <!-- /ko -->
             <!--END-->
