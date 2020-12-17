@@ -3,13 +3,9 @@
     let token = ko.observable(null);
     //let currentParams = ko.observable();
 
-    //let changeContent = () => {
-    //    if (selectedComponent() === "search-result") {
-    //        store.dispatch(store.actions.currentComponent('search-result'));
-    //    } else {
-    //        store.dispatch(store.actions.currentComponent('popular-titles'));
-    //    }
-    //}
+    let goToHome = () => {
+        store.dispatch(store.actions.currentComponent('initial-component'));
+    }
 
     store.dispatch(store.actions.currentComponent("initial-component"));
     store.dispatch(store.actions.populateToken(null));
@@ -19,7 +15,8 @@
 
     return {
         selectedComponent,
-        token
+        token,
+        goToHome
         //currentParams,
         //changeContent
     };

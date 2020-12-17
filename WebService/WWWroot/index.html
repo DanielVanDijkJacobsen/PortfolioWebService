@@ -20,7 +20,7 @@
             <a class="navbar-brand" href="#">RAW7 IMDb</a>
             <ul class="navbar-nav me-1 mb-0 mb-sm-0">
                 <li class="nav-item">
-                    <a class="nav-link active text-dark" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active text-dark" aria-current="page" href="#" data-bind="click: goToHome">Home</a>
                 </li>
             </ul>
             <form class="d-flex mx-auto">
@@ -33,16 +33,22 @@
     <!--FRONT PAGE-->
     <div class="min-vh-100 container-fluid bg-dark text-white">
         <div class="row">
+            <!-- ko if: selectedComponent() !== 'title' -->
             <div class="col-sm-8">
                 <div class="d-flex justify-content-between" data-bind='component: {name: selectedComponent}'></div>
             </div>
+            <!-- /ko -->
+            <!-- ko if: selectedComponent() === 'title' -->
+            <div class="col-sm-12">
+                <div class="d-flex justify-content-between" data-bind='component: {name: selectedComponent}'></div>
+            </div>
+            <!-- /ko -->
             <!--SIGN UP FRONT PAGE-->
-            <!-- ko if: selectedComponent() !== 'log-in' && token() === null -->
-                <div class="col-md-4" data-bind='component: "sign-up"'></div>
+            <!-- ko if: (selectedComponent() !== 'log-in' && selectedComponent() !== 'title') && token() === null  -->
+            <div class="col-md-4" data-bind='component: "sign-up"'></div>
             <!-- /ko -->
             <!--END-->
             <!--USER LOGGED-IN FRONT PAGE CONTENT-->
-          
             <!--END-->
         </div>
     </div>
