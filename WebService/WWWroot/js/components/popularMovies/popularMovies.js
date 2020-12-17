@@ -21,7 +21,6 @@
                 store.dispatch(store.actions.populateTitle(data));
                 store.dispatch(store.actions.currentComponent('title'));
             });
-
         }
 
         return {

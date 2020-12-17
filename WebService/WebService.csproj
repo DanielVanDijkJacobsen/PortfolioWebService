@@ -37,4 +37,8 @@
     <Folder Include="WWWroot\js\lib\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="WWWroot\index.html" />
+  </ItemGroup>
+
 </Project>

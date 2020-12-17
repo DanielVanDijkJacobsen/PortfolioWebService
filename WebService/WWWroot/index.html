@@ -27,7 +27,6 @@
                 <div data-bind='component: "search"'></div>
             </form>
             <div data-bind='component: "menu"'></div>
-
         </div>
     </div>
     <!--NAVBAR END-->
@@ -39,7 +38,7 @@
             </div>
             <!--SIGN UP FRONT PAGE-->
             <!-- ko if: selectedComponent() !== 'log-in' && token() === null -->
-                <div class="d-flex " data-bind='component: "sign-up"'></div>
+                <div class="col-sm-4" data-bind='component: "sign-up"'></div>
             <!-- /ko -->
             <!--END-->
             <!--USER LOGGED-IN FRONT PAGE CONTENT-->
